@@ -1,5 +1,6 @@
 package com.evoltech.library.controller;
 
+import com.evoltech.library.model.Contacto;
 import com.evoltech.library.model.jpa.Coleccion;
 import com.evoltech.library.model.jpa.Documento;
 import com.evoltech.library.model.jpa.Escuela;
@@ -102,5 +103,19 @@ public class EscuelaController {
         return "Documento";
     }
 
+
+    @RequestMapping(value = "/contacto", method = RequestMethod.GET)
+    public String contactoForm(Model model){
+        Contacto contacto = new Contacto();
+        model.addAttribute("contacto", contacto);
+        return "Contacto";
+    }
+
+    @RequestMapping(value = "/contacto", method = RequestMethod.POST)
+    public String contactoFormPost(@ModelAttribute Contacto contacto, Model model){
+        log.warn("Nombre de la forma: " + contacto.getNombre());
+        model.addAttribute("nombre", contacto.getNombre());
+        return "ContactoPost";
+    }
 
 }

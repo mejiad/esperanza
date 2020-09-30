@@ -14,6 +14,10 @@
     <link href="/appcss/bootstrap.min.css" rel="stylesheet">
 
     <style>
+   body {
+  height: 100%;
+  background-color: #0099FF;
+}
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -54,9 +58,8 @@
     </div>
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container d-flex justify-content-between">
-            <a href="#" class="navbar-brand d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewbox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                <strong>Colecciones</strong>
+            <a href="/home" class="navbar-brand d-flex align-items-center">
+                <strong>Home</strong>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -67,103 +70,118 @@
 
 <main role="main">
 
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1>Colecciones</h1>
-            <p class="lead text-muted">Applica2</p>
+    <section class="jumbotron text-center bg-info">
+        <div class="container text-white rounded">
+            <h1>Colegio Asunción</h1>
+            <p class="lead text-white">Colecciones de Apprendiendo+</p>
         </div>
     </section>
 
-    <div class="album py-5 bg-light">
+    <div class="album py-5 bg-info">
         <div class="container">
 
-            <div class="row">
-                <div class="col-md-4"> <div class="card mb-4 shadow-sm">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
                     <a href="/adocumentos/1" >
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">El ABC</text></svg>
+                        <img src="/images/sistema_abc.png" height="225" width="99%">
                     </a>
-                        <div class="card-body">
-                            <p class="card-text">Libros, multimedia y recursos de la colección de El ABC.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
+                    <div class="card-body rounded">
+                        <p class="card-text">Libros, multimedia y recursos de la colección de El ABC.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                             </div>
+                            <small class="text-muted">9 mins</small>
                         </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">El 123</text></svg>
-                        <div class="card-body">
-                            <p class="card-text">Libros, multimedia y recursos de la colección de El 123.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">El 123</text></svg>
-                        <div class="card-body">
-                            <p class="card-text">Libros, multimedia y recursos de la colección de .</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <a href="/adocumentos/1" >
+                        <img src="/images/sistema_123.png" height="225" width="99%">
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text">Libros, multimedia y recursos de la colección de El ABC.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                             </div>
+                            <small class="text-muted">9 mins</small>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <a href="/adocumentos/1" >
+                        <img src="/images/sistema_cm.png" height="225" width="99%">
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text">Libros, multimedia y recursos de la colección de El ABC.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                             </div>
+                            <small class="text-muted">9 mins</small>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <a href="/adocumentos/1" >
+                        <img src="/images/sistema_Cursiva.png" height="225" width="99%">
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text">Libros, multimedia y recursos de la colección de El ABC.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                             </div>
+                            <small class="text-muted">9 mins</small>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-smi bg-info">
+                    <a href="/adocumentos/1" >
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text"></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <a href="/adocumentos/1" >
+                        <img src="/images/sistema_Ido.png" height="225" width="99%">
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text">Libros, multimedia y recursos de la colección de El ABC.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                            </div>
+                            <small class="text-muted">9 mins</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
             </div>
         </div>
@@ -176,8 +194,7 @@
         <p class="float-right">
             <a href="#">Back to top</a>
         </p>
-        <p>Album example is © Bootstrap, but please download and customize it for yourself!</p>
-        <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+        <p>Powered by Evolution Technologies <a href="https://www.evol-tech.com/">Visit the homepage</a> .</p>
     </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
