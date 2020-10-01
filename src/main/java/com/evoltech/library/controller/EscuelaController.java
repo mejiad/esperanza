@@ -118,4 +118,10 @@ public class EscuelaController {
         return "ContactoPost";
     }
 
+    @RequestMapping(value = "/flipbook", method = RequestMethod.GET)
+    public String flipbook(Model model){
+
+        return "Flipbook";
+    }
+
 }
