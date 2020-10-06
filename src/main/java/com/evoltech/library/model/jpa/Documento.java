@@ -27,15 +27,22 @@ import java.time.format.DateTimeFormatter;
 @Data
 public class Documento extends BaseJpaEntity<Long> implements Serializable {
 
-    public Documento(String nombre, String categoria, String descripcion, String uri, String mimeType, String fechaStr, String[] archivos){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public Documento(String nombre, String categoria, String descripcion, String uri, String mimeType, String icono){
         this.nombre = nombre;
+        if (descripcion.length() > 200) {
+            this.descripcion = descripcion.substring(0, 200);
+        } else {
+            this.descripcion = descripcion;
+        }
         this.categoria = categoria;
-        this.descripcion = descripcion;
-
         this.uri = uri;
         this.mimeType = mimeType;
-        this.fecha= LocalDate.parse(fechaStr, formatter);
+        this.icono = icono;
+        this.archivos = null;
+    }
+
+    public Documento(String nombre, String categoria, String descripcion, String uri, String mimeType, String icono, String[] archivos){
+        this(nombre, categoria, descripcion, uri, mimeType, icono);
         this.archivos = archivos;
     }
 
@@ -50,7 +57,7 @@ public class Documento extends BaseJpaEntity<Long> implements Serializable {
     @NotEmpty
     private String categoria;
     @NonNull private LocalDate fecha;
-    private String content;
+    private String icono;
 
     @Type(type = "string-array")
     @Column(
