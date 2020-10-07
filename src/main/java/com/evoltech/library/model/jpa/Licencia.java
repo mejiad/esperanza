@@ -1,7 +1,10 @@
 package com.evoltech.library.model.jpa;
 
 import com.evoltech.library.model.base.BaseJpaEntity;
+import com.evoltech.library.repository.ColeccionRepository;
+import com.evoltech.library.repository.EscuelaRepository;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,10 +20,14 @@ import java.time.LocalDateTime;
 @Data
 public class Licencia extends BaseJpaEntity<Long> implements Serializable {
 
-    public Licencia(String nombre, Coleccion coleccion){
+    public Licencia(String nombre, String escuelaNombre, String coleccionNombre, String nivel, String edicion){
         this.nombre = nombre;
         this.isEnable = true;
-        this.setColeccion(coleccion);
+        this.escuelaNombre = escuelaNombre;
+        this.coleccionNombre = coleccionNombre;
+        this.nivel = nivel;
+        this.edicion = edicion;
+
     }
 
     public Licencia(String nombre, Coleccion coleccion, boolean isEnable){
@@ -34,6 +41,11 @@ public class Licencia extends BaseJpaEntity<Long> implements Serializable {
 
     @NotEmpty @NotBlank
     private String nombre;
+    private String coleccionNombre;
+    private String nivel;
+    private String edicion;
+    private String escuelaNombre;
+
     private int asientos;
 
     private boolean isEnable;
@@ -41,11 +53,11 @@ public class Licencia extends BaseJpaEntity<Long> implements Serializable {
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "escuela_id")
     private Escuela escuela;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "coleccion_id")
     private Coleccion coleccion;
 

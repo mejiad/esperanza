@@ -10,6 +10,6 @@ public interface ColeccionRepository extends JpaRepository<Coleccion, Long> {
 
     List<Coleccion> findByNombre(String nombre);
     List<Coleccion> findByNombreAndEdicion(String nombre, String edicion);
-    List<Coleccion> findByNombreAndNivelAndEdicion(String nombre, String nivel, String edicion);
+    Coleccion findByNombreAndNivelAndEdicion(String nombre, String nivel, String edicion);
     List<Coleccion> findByGuid(String guid);
 }

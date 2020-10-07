@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface EscuelaRepository extends JpaRepository<Escuela, Long> {
 
-    List<Escuela> findByNombre(String nombre);
+    Escuela findByNombre(String nombre);
 
 }

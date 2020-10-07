@@ -35,7 +35,7 @@ public class Escuela extends BaseJpaEntity<Long> implements Serializable {
     private List<Usuario> usuarios = new ArrayList<>();
 
     // @OneToMany(cascade = CascadeType.ALL, mappedBy= "escuela", orphanRemoval = false)
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Licencia> licencias = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)

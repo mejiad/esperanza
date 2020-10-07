@@ -83,12 +83,7 @@ public class RegisterApplicationTests {
 	void findEscuelaGrupo() {
 		log.info("<<<<<<<<<<<<<<<<<<<<<  6   >>>>>>>>>>>>>>>>>>>>>>>>");
 
-		List<Escuela> escuelaList = escuelaRepository.findByNombre("Uno");
-		Escuela escuela = null;
-		if (escuelaList.size() > 0){
-		    escuela = escuelaList.get(0);
-			log.info("Valor de escuela nombre: " + escuela.getNombre());
-        }
+		Escuela escuela = escuelaRepository.findByNombre("Uno");
 
 		List<Grupo> listGrupos = escuela.getGrupos();
 		log.info("Lista grupos size: " + listGrupos.size());

@@ -2,30 +2,18 @@ package com.evoltech.library.config;
 
 import com.evoltech.library.model.jpa.*;
 import com.evoltech.library.repository.*;
+import com.evoltech.library.util.TupleGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 import static java.util.stream.Collectors.groupingBy;
-
-class TupleGroup {
-    public TupleGroup( String coleccion, String nivel, String edicion) {
-        this.coleccion = coleccion;
-        this.nivel = nivel;
-        this.edicion = edicion;
-    }
-
-    String coleccion;
-    String nivel;
-    String edicion;
-}
 
 @Component
 public class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent> {
@@ -43,6 +31,9 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
     @Autowired
     DocumentoRepository documentoRepository;
+
+    @Autowired
+    LicenciaRepository licenciaRepository;
 
     private int ESCUELAS = 10;
     private int MAX_USUARIOS = 5;
@@ -157,7 +148,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         { "21", "OROZCO GALLO JUAN", "2o B Pre", "Nivel 2"},
         { "22", "PARES ESPINOSA LUCÍA", "2o B Pre", "Nivel 2"},
         { "23", "PÉREZ GAY VÁZQUEZ AINHOA", "2o B Pre", "Nivel 2"},
-        { "24", "PRUD 'HOMME COTERA JOSÉ MARÍA	2o B Pre"},
+        { "24", "PRUD HOMME COTERA JOSÉ MARÍA",	"2o B Pre", "Nivel 2"},
         { "25", "QUINTANA PAYRÓ MARÍA CAMILA", "2o B Pre", "Nivel 2"},
         { "26", "RODRÍGUEZ URRUCHUA SEBASTIÁN", "2o B Pre", "Nivel 2"},
         { "27", "SAN ROMÁN ESCALANTE FRANCO", "2o B Pre", "Nivel 2"},
@@ -170,7 +161,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         { "7", "DÁVALOS ÁLVAREZ ISABEL", "2o C Pre", "Nivel 2"},
         { "8", "ECHENIQUE MARTÍNEZ OLIVIA", "2o C Pre", "Nivel 2"},
         { "9", "EDELBERG VILLA LEA", "2o C Pre", "Nivel 2"},
-        { "10", "FABRIS CANO JORGE", "2o C Pre", "Nivel 2"},
+        // { "10", "FABRIS CANO JORGE", "2o C Pre", "Nivel 2"},
         { "11", "GALEANA CAMACHO IKER", "2o C Pre", "Nivel 2"},
         { "12", "GARZA ESTRADA JOSÉ ANDRÉS", "2o C Pre", "Nivel 2"},
         { "13", "GOROSTIZA GOROSTIETA AINHOA", "2o C Pre", "Nivel 2"},
@@ -297,47 +288,51 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     };
 
     String[][] licencias_csv = new String[][] {
-            {"asuncion-001", "CURSIVA"},
-            {"asuncion-002", "CURSIVA"},
-            {"asuncion-003", "CURSIVA"}
+            {"asuncion-001", "Instituto Asunción Aguilas", "CURSIVA", "Nivel 1", "2019"},
+            {"asuncion-002", "Instituto Asunción Aguilas", "CURSIVA", "Nivel 2", "2019"},
+            {"asuncion-003", "Instituto Asunción Aguilas", "CURSIVA", "Nivel 3", "2019"}
+    };
+
+    String[][] escuelas_csv = new String[][] {
+            {"Instituto Asunción Aguilas" }
     };
 
     // { "Colección","Nivel","Edición","Tipo de Documento","Nombre del documento","Descripción del documento","path_y_nombre_del_archivo_donde_se_encuentra_en_su_repositorio","Tipo de documento","icono_del_documento" },
     String[][] colecciones_csv = new String[][] {
             { "ABC","1","2017","LIBRO","ABC NIVEL 1","Esta colección se conforma de libros, aplicaciones e innovadores recursos didácticos para el aprendizaje de la lectura y la escritura que se adapta a las diferentes metodologías alfabetizadoras. Los alumnos aprenderán de forma fácil, divertida y efectiva, desarrollando su autonomía y gusto por la lectura al lado de Robbi Galaxias y sus amigos: Ana, Alan, Elsa, Erik, Isa, Igor, Olivia, Omar, Úrsula y Ur","abc/libros/abc_n1","PDF","abc/libros/libros_png/abc_n1" },
-    { "ABC","1","All","IMPRIMIBLE","VOCABULARIO NIVEL 1","VOCABULARIO NIVEL 1","abc/palabras/vocbulario_n1","PDF","abc/palabras/vocbulario_n1" },
-    { "ABC","1","All","IMPRIMIBLE","FICHERO SILÁBICO NIVEL 1","FICHERO SILÁBICO NIVEL 1","abc/ficheros/fichero_n1","PDF","abc/ficheros/ficheros_png/fichero_n1" },
-    { "ABC","2","2017","LIBRO","ABC NIVEL 2 LIBRO 1","ABC NIVEL 2 LIBRO 1","abc/libros/abc_n2_l1","PDF","abc/libros/libros_png/abc_n2_l1" },
-    { "ABC","2","2017","LIBRO","ABC NIVEL 2 LIBRO 2","ABC NIVEL 2 LIBRO 2","abc/libros/abc_n2_l2","PDF","abc/libros/libros_png/abc_n2_l2" },
-    { "ABC","2","All","IMPRIMIBLE","VOCABULARIO NIVEL 2","VOCABULARIO NIVEL 2","abc/palabras/vocbulario_n2","PDF","abc/palabras/vocabulario_png/vocabulario_n2" },
-    { "ABC","2","All","IMPRIMIBLE","FICHERO SILÁBICO NIVEL 2","FICHERO SILÁBICO NIVEL 2","abc/ficheros/fichero_n2","PDF","abc/ficheros/ficheros_png/fichero_n2" },
-    { "ABC","3","2017","LIBRO","ABC NIVEL 3 LIBRO 1","ABC NIVEL 3 LIBRO 1","abc/libros/abc_n3_l1","PDF","abc/libros/libros_png/abc_n3_l1" },
-    { "ABC","3","2017","LIBRO","ABC NIVEL 3 LIBRO 2","ABC NIVEL 3 LIBRO 2","abc/libros/abc_n3_l2","PDF","abc/libros/libros_png/abc_n3_l2" },
-    { "ABC","3","2017","LIBRO","ABC NIVEL 3 LIBRO 3","ABC NIVEL 3 LIBRO 3","abc/libros/abc_n3_l3","PDF","abc/libros/libros_png/abc_n3_l3" },
-    { "ABC","3","2017","LIBRO","ABC NIVEL 3 LIBRO 4","ABC NIVEL 3 LIBRO 4","abc/libros/abc_n3_l4","PDF","abc/libros/libros_png/abc_n3_l4" },
-    { "ABC","3","2017","LIBRO","ABC NIVEL 3 LIBRO 5","ABC NIVEL 3 LIBRO 5","abc/libros/abc_n3_l5","PDF","abc/libros/libros_png/abc_n3_l5" },
-    { "ABC","3","2019","LIBRO","TAREAS Y LECTURAS","TAREAS Y LECTURAS","abc/libros/tareas_y_lecturas","PDF","abc/libros/libros_png/tareas_y_lecturas" },
-    { "ABC","3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 2","TAREAS Y LECTURAS LIBRO 2","abc/libros/tareas_y_lecturas_l2","PDF","abc/libros/libros_png/tareas_y_lecturas_l2" },
-    { "ABC","3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 3","TAREAS Y LECTURAS LIBRO 3","abc/libros/tareas_y_lecturas_l3","PDF","abc/libros/libros_png/tareas_y_lecturas_l3" },
-    { "ABC","3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 4","TAREAS Y LECTURAS LIBRO 4","abc/libros/tareas_y_lecturas_l4","PDF","abc/libros/libros_png/tareas_y_lecturas_l4" },
-    { "ABC","3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 5","TAREAS Y LECTURAS LIBRO 5","abc/libros/tareas_y_lecturas_l5","PDF","abc/libros/libros_png/tareas_y_lecturas_l5" },
-    { "ABC","3","All","IMPRIMIBLE","VOCABULARIO NIVEL 3","VOCABULARIO NIVEL 3","abc/palabras/vocbulario_n3","PDF","abc/palabras/vocabulario_png/vocabulario_n3" },
-    { "ABC","3","All","IMPRIMIBLE","FICHERO SILÁBICO NIVEL 3","FICHERO SILÁBICO NIVEL 3","abc/ficheros/fichero_n3","PDF","abc/ficheros/ficheros_png/fichero_n3" },
+    { "ABC","Nivel 1","All","IMPRIMIBLE","VOCABULARIO NIVEL 1","VOCABULARIO NIVEL 1","abc/palabras/vocbulario_n1","PDF","abc/palabras/vocbulario_n1" },
+    { "ABC","Nivel 1","All","IMPRIMIBLE","FICHERO SILÁBICO NIVEL 1","FICHERO SILÁBICO NIVEL 1","abc/ficheros/fichero_n1","PDF","abc/ficheros/ficheros_png/fichero_n1" },
+    { "ABC","Nivel 2","2017","LIBRO","ABC NIVEL 2 LIBRO 1","ABC NIVEL 2 LIBRO 1","abc/libros/abc_n2_l1","PDF","abc/libros/libros_png/abc_n2_l1" },
+    { "ABC","Nivel 2","2017","LIBRO","ABC NIVEL 2 LIBRO 2","ABC NIVEL 2 LIBRO 2","abc/libros/abc_n2_l2","PDF","abc/libros/libros_png/abc_n2_l2" },
+    { "ABC","Nivel 2","All","IMPRIMIBLE","VOCABULARIO NIVEL 2","VOCABULARIO NIVEL 2","abc/palabras/vocbulario_n2","PDF","abc/palabras/vocabulario_png/vocabulario_n2" },
+    { "ABC","Nivel 2","All","IMPRIMIBLE","FICHERO SILÁBICO NIVEL 2","FICHERO SILÁBICO NIVEL 2","abc/ficheros/fichero_n2","PDF","abc/ficheros/ficheros_png/fichero_n2" },
+    { "ABC","Nivel 3","2017","LIBRO","ABC NIVEL 3 LIBRO 1","ABC NIVEL 3 LIBRO 1","abc/libros/abc_n3_l1","PDF","abc/libros/libros_png/abc_n3_l1" },
+    { "ABC","Nivel 3","2017","LIBRO","ABC NIVEL 3 LIBRO 2","ABC NIVEL 3 LIBRO 2","abc/libros/abc_n3_l2","PDF","abc/libros/libros_png/abc_n3_l2" },
+    { "ABC","Nivel 3","2017","LIBRO","ABC NIVEL 3 LIBRO 3","ABC NIVEL 3 LIBRO 3","abc/libros/abc_n3_l3","PDF","abc/libros/libros_png/abc_n3_l3" },
+    { "ABC","Nivel 3","2017","LIBRO","ABC NIVEL 3 LIBRO 4","ABC NIVEL 3 LIBRO 4","abc/libros/abc_n3_l4","PDF","abc/libros/libros_png/abc_n3_l4" },
+    { "ABC","Nivel 3","2017","LIBRO","ABC NIVEL 3 LIBRO 5","ABC NIVEL 3 LIBRO 5","abc/libros/abc_n3_l5","PDF","abc/libros/libros_png/abc_n3_l5" },
+    { "ABC","Nivel 3","2019","LIBRO","TAREAS Y LECTURAS","TAREAS Y LECTURAS","abc/libros/tareas_y_lecturas","PDF","abc/libros/libros_png/tareas_y_lecturas" },
+    { "ABC","Nivel 3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 2","TAREAS Y LECTURAS LIBRO 2","abc/libros/tareas_y_lecturas_l2","PDF","abc/libros/libros_png/tareas_y_lecturas_l2" },
+    { "ABC","Nivel 3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 3","TAREAS Y LECTURAS LIBRO 3","abc/libros/tareas_y_lecturas_l3","PDF","abc/libros/libros_png/tareas_y_lecturas_l3" },
+    { "ABC","Nivel 3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 4","TAREAS Y LECTURAS LIBRO 4","abc/libros/tareas_y_lecturas_l4","PDF","abc/libros/libros_png/tareas_y_lecturas_l4" },
+    { "ABC","Nivel 3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 5","TAREAS Y LECTURAS LIBRO 5","abc/libros/tareas_y_lecturas_l5","PDF","abc/libros/libros_png/tareas_y_lecturas_l5" },
+    { "ABC","Nivel 3","All","IMPRIMIBLE","VOCABULARIO NIVEL 3","VOCABULARIO NIVEL 3","abc/palabras/vocbulario_n3","PDF","abc/palabras/vocabulario_png/vocabulario_n3" },
+    { "ABC","Nivel 3","All","IMPRIMIBLE","FICHERO SILÁBICO NIVEL 3","FICHERO SILÁBICO NIVEL 3","abc/ficheros/fichero_n3","PDF","abc/ficheros/ficheros_png/fichero_n3" },
     { "ABC","All","All","IMPRIMIBLE","PERSONAJES ABC","PERSONAJES ABC","abc/personajes/personajes_abc","PDF","abc/personajes/personajes_png/personajes_abc" },
     { "ABC","All","All","GUIA","Guía metodológica para la enseñanza de la lecto-escritura.","Guía metodológica para la enseñanza de la lecto-escritura.","abc/metodologia/guía_metodológica_para_la_enseñanza_de_la_lecto-escritura","PDF","abc/metodologia/metodologia_png/guía_metodológica_para_la_enseñanza_de_la_lecto-escritura" },
     { "ABC","All","All","IMPRIMIBLE","Vocales y abecedario Script","Vocales y abecedario Script","abc/metodologia/vocales_y_abecedario_script","PDF","abc/metodologia/metodologia_png/vocales_y_abecedario_script" },
     { "ABC","All","All","VIDEOS","TRAZO DE LETRAS EN SCRIPT","TRAZO DE LETRAS EN SCRIPT","https://www.youtube.com/playlist?list=pl_qraptzsvk9ldk-diijdqczigtfwvuzt","VIDEOS","abc/videos/videos_png/trazo_de_letra_script" },
     { "ABC","All","All","VIDEOS","TRAZO Y SONIDO DE LAS SILABAS","TRAZO Y SONIDO DE LAS SILABAS","https://www.youtube.com/playlist?list=pl_qraptzsvk9edq6kuavxsrbsakaqohux","VIDEOS","abc/videos/videos_png/trazo_y_sonido" },
-    { "1,2,3","1","2019","LIBRO","1,2,3 NIVEL 1","Esta colección promueve la construcción de las matemáticas mediante el planteamiento de situaciones didácticas y problemas matemáticos cercanos a los pequeños. Con ayuda de las regletas Cuisenaire y otros recursos, los alumnos desarrollarán el pensamiento lógico y matemático, y consolidarán los conceptos de número, figura, forma, medida y ubicación espacial. Además, Robbi Galaxias los impulsará a cuestionarse su propio proceso de aprendizaje con preguntas metacognitivas.","123/libros/123_n1_2019","PDF","123/libros/portadas_png/123_n1_2019" },
-    { "1,2,3","2","2017","LIBRO","1,2,3 NIVEL 2","1,2,3 NIVEL 2","123/libros/123_n2_2017","PDF","123/libros/portadas_png/123_n2_2017" },
-    { "1,2,3","2","2020","LIBRO","1,2,3 NIVEL 2","1,2,3 NIVEL 2","123/libros/123_n2_2020","PDF","123/libros/portadas_png/123_n2_2020" },
-    { "1,2,3","3","2017","LIBRO","1,2,3 NIVEL 3","1,2,3 NIVEL 3","123/libros/123_n3_2017","PDF","123/libros/portadas_png/123_n3_2017" },
-    { "1,2,3","3","2020","LIBRO","1,2,3 NIVEL 3","1,2,3 NIVEL 3","123/libros/123_n3_2020","PDF","123/libros/portadas_png/123_n3_2020" },
-    { "1,2,3","1","2019","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 1","PLANEACIONES 1,2,3 NIVEL 1","123/planeaciones/2019/planeacion_n1_2019","PDF","123/planeaciones/2019/2019/planeacion_n1_2019" },
-    { "1,2,3","2","2017","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 2","PLANEACIONES 1,2,3 NIVEL 2","123/planeaciones/2017/planeaciones_123_nivel_2","PDF","123/planeaciones/2017/2017/planeaciones_123_nivel_2" },
-    { "1,2,3","2","2020","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 2 UNIDAD 1","PLANEACIONES 1,2,3 NIVEL 2 UNIDAD 1","123/planeaciones/2020/planeacion_1_nivel_2_20","PDF","123/planeaciones/2020/2020/planeacion_1_nivel_2_20" },
-    { "1,2,3","3","2017","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 3","PLANEACIONES 1,2,3 NIVEL 3","123/planeaciones/2017/planeaciones_123_nivel_3","PDF","123/planeaciones/2017/2017/planeaciones_123_nivel_3" },
-    { "1,2,3","3","2020","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 3 UNIDAD 1","PLANEACIONES 1,2,3 NIVEL 3 UNIDAD 1","123/planeaciones/2020/planeacion_1_nivel_3_20","PDF","123/planeaciones/2020/2020/planeacion_1_nivel_3_20" },
+    { "1,2,3","Nivel 1","2019","LIBRO","1,2,3 NIVEL 1","Esta colección promueve la construcción de las matemáticas mediante el planteamiento de situaciones didácticas y problemas matemáticos cercanos a los pequeños. Con ayuda de las regletas Cuisenaire y otros recursos, los alumnos desarrollarán el pensamiento lógico y matemático, y consolidarán los conceptos de número, figura, forma, medida y ubicación espacial. Además, Robbi Galaxias los impulsará a cuestionarse su propio proceso de aprendizaje con preguntas metacognitivas.","123/libros/123_n1_2019","PDF","123/libros/portadas_png/123_n1_2019" },
+    { "1,2,3","Nivel 2","2017","LIBRO","1,2,3 NIVEL 2","1,2,3 NIVEL 2","123/libros/123_n2_2017","PDF","123/libros/portadas_png/123_n2_2017" },
+    { "1,2,3","Nivel 2","2020","LIBRO","1,2,3 NIVEL 2","1,2,3 NIVEL 2","123/libros/123_n2_2020","PDF","123/libros/portadas_png/123_n2_2020" },
+    { "1,2,3","Nivel 3","2017","LIBRO","1,2,3 NIVEL 3","1,2,3 NIVEL 3","123/libros/123_n3_2017","PDF","123/libros/portadas_png/123_n3_2017" },
+    { "1,2,3","Nivel 3","2020","LIBRO","1,2,3 NIVEL 3","1,2,3 NIVEL 3","123/libros/123_n3_2020","PDF","123/libros/portadas_png/123_n3_2020" },
+    { "1,2,3","Nivel 1","2019","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 1","PLANEACIONES 1,2,3 NIVEL 1","123/planeaciones/2019/planeacion_n1_2019","PDF","123/planeaciones/2019/2019/planeacion_n1_2019" },
+    { "1,2,3","Nivel 2","2017","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 2","PLANEACIONES 1,2,3 NIVEL 2","123/planeaciones/2017/planeaciones_123_nivel_2","PDF","123/planeaciones/2017/2017/planeaciones_123_nivel_2" },
+    { "1,2,3","Nivel 2","2020","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 2 UNIDAD 1","PLANEACIONES 1,2,3 NIVEL 2 UNIDAD 1","123/planeaciones/2020/planeacion_1_nivel_2_20","PDF","123/planeaciones/2020/2020/planeacion_1_nivel_2_20" },
+    { "1,2,3","Nivel 3","2017","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 3","PLANEACIONES 1,2,3 NIVEL 3","123/planeaciones/2017/planeaciones_123_nivel_3","PDF","123/planeaciones/2017/2017/planeaciones_123_nivel_3" },
+    { "1,2,3","Nivel 3","2020","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 3 UNIDAD 1","PLANEACIONES 1,2,3 NIVEL 3 UNIDAD 1","123/planeaciones/2020/planeacion_1_nivel_3_20","PDF","123/planeaciones/2020/2020/planeacion_1_nivel_3_20" },
     { "1,2,3","All","All","IMPRIMIBLE","RECTA NUMERICA","RECTA NUMERICA","123/recta_numerica/rectas_doble_carta","PDF","123/recta_numerica/png/rectas_doble_carta" },
     { "1,2,3","All","All","IMPRIMIBLE","REGLETAS","REGLETAS","123/regletas/regletas_recortables","PDF","123/regletas/png/regletas_recortables" },
     { "1,2,3","All","All","IMPRIMIBLE","SERIE NUMERICA","SERIE NUMERICA","123/serie_numerica/serie_numerica_copia","PDF","123/serie_numerica/png/serie_numerica_copia" },
@@ -345,43 +340,44 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     { "1,2,3","All","All","IMPRIMIBLE","TANGRAM","TANGRAM","123/tangram/tangram","PDF","123/tangram/png/tangram" },
     { "1,2,3","All","All","PROYECTO","CAJA MAGICA","CAJA MAGICA","123/proyecto_mate/presentacion_1","PDF","123/proyecto_mate/portada_png/portada_presentacion_123" },
     { "1,2,3","All","All","VIDEOS","TRAZOS NUMEROS","TRAZOS NUMEROS","https://www.youtube.com/playlist?list=pl_qraptzsvk9rnro_kvcp3p9p9thphjed","VIDEOS","123/videos_campos_formativos/capturas_png" },
-    { "CARPETA CLAVE","1","2018","LIBRO","CARPETA CLAVE NIVEL 1","Esta colección integra los contenidos de los componentes curriculares o aprendizajes clave de la educación preescolar. Parte de las necesidades de los niños y apoya el desarrollo de las competencias, facilitando el aprendizaje individual y cooperativo.","carpeta_clave/libros/carpeta_n1","PDF","carpeta_clave/libros/portdas_png/carpeta_n1" },
-    { "CARPETA CLAVE","2","2018","LIBRO","CARPETA CLAVE NIVEL 2","CARPETA CLAVE NIVEL 2","carpeta_clave/libros/carpeta_n2","PDF","carpeta_clave/libros/portadas_png/carpeta_n2" },
-    { "CARPETA CLAVE","3","2018","LIBRO","CARPETA CLAVE NIVEL 3","CARPETA CLAVE NIVEL 3","carpeta_clave/libros/carpeta_n3","PDF","carpeta_clave/libros/portadas_png/carpeta_n3" },
-    { "CARPETA CLAVE","1","2018","GUIA CLAVE","GUIA CLAVE NIVEL 1","GUIA CLAVE NIVEL 1","carpeta_clave/guias/guia_clave_n1","PDF","carpeta_clave/guias/guias_png/guia_clave_n1" },
-    { "CARPETA CLAVE","2","2018","GUIA CLAVE","GUIA CLAVE NIVEL 2","GUIA CLAVE NIVEL 2","carpeta_clave/guias/guia_clave_n2","PDF","carpeta_clave/guias/guias_png/guia_clave_n2" },
-    { "CARPETA CLAVE","3","2018","GUIA CLAVE","GUIA CLAVE NIVEL 3","GUIA CLAVE NIVEL 3","carpeta_clave/guias/guia_clave_n3","PDF","carpeta_clave/guias/guias_png/guia_clave_n3" },
+    { "CARPETA CLAVE","Nivel 1","2018","LIBRO","CARPETA CLAVE NIVEL 1","Esta colección integra los contenidos de los componentes curriculares o aprendizajes clave de la educación preescolar. Parte de las necesidades de los niños y apoya el desarrollo de las competencias, facilitando el aprendizaje individual y cooperativo.","carpeta_clave/libros/carpeta_n1","PDF","carpeta_clave/libros/portdas_png/carpeta_n1" },
+    { "CARPETA CLAVE","Nivel 2","2018","LIBRO","CARPETA CLAVE NIVEL 2","CARPETA CLAVE NIVEL 2","carpeta_clave/libros/carpeta_n2","PDF","carpeta_clave/libros/portadas_png/carpeta_n2" },
+    { "CARPETA CLAVE","Nivel 3","2018","LIBRO","CARPETA CLAVE NIVEL 3","CARPETA CLAVE NIVEL 3","carpeta_clave/libros/carpeta_n3","PDF","carpeta_clave/libros/portadas_png/carpeta_n3" },
+    { "CARPETA CLAVE","Nivel 1","2018","GUIA CLAVE","GUIA CLAVE NIVEL 1","GUIA CLAVE NIVEL 1","carpeta_clave/guias/guia_clave_n1","PDF","carpeta_clave/guias/guias_png/guia_clave_n1" },
+    { "CARPETA CLAVE","Nivel 2","2018","GUIA CLAVE","GUIA CLAVE NIVEL 2","GUIA CLAVE NIVEL 2","carpeta_clave/guias/guia_clave_n2","PDF","carpeta_clave/guias/guias_png/guia_clave_n2" },
+    { "CARPETA CLAVE","Nivel 3","2018","GUIA CLAVE","GUIA CLAVE NIVEL 3","GUIA CLAVE NIVEL 3","carpeta_clave/guias/guia_clave_n3","PDF","carpeta_clave/guias/guias_png/guia_clave_n3" },
     { "CARPETA CLAVE","All","All","VIDEOS","CUIDADO DEL AGUA","CUIDADO DEL AGUA","https://www.youtube.com/watch?v=b8x1gnr0b68","VIDEOS","carpeta/videos_ecosistemas/videos_png/cuidado_del_agua" },
     { "CARPETA CLAVE","All","All","VIDEOS","¡CUIDEMOS EL AGUA!","¡CUIDEMOS EL AGUA!","https://www.youtube.com/watch?v=2q4i_odwthu","VIDEOS","carpeta/videos_ecosistemas/videos_png/cuidemos_el_agua" },
-    { "CURSIVA","1","2015","LIBRO","CURSIVA NIVEL 1","Esta colección favorece la motricidad fina, la caligrafía y el desarrollo de conexiones neuronales mediante el trazo de letra cursiva. Los libros y la aplicación educativa son el complemento ideal en el proceso de aprendizaje de la lectura y la escritura de los niños en preescolar o primaria baja.","cursiva/libros/cur_n1_2015","PDF","cursiva/libros/portadas_png/cur_n1_2015" },
-    { "CURSIVA","1","2019","LIBRO","CURSIVA NIVEL 1","CURSIVA NIVEL 1","cursiva/libros/cursiva_n1_2019","PDF","cursiva/libros/portadas_png/cursiva_n1_2019" },
-    { "CURSIVA","2","2015","LIBRO","CURSIVA NIVEL 2","CURSIVA NIVEL 2","cursiva/libros/cur_n2_2015","PDF","cursiva/libros/portadas_png/cur_n2_2015" },
-    { "CURSIVA","2","2019","LIBRO","CURSIVA NIVEL 2","CURSIVA NIVEL 2","cursiva/libros/cursiva_n2_2019","PDF","cursiva/libros/portadas_png/cursiva_n2_2019" },
-    { "CURSIVA","3","2015","LIBRO","CURSIVA NIVEL 3","CURSIVA NIVEL 3","cursiva/libros/cur_n3_2015","PDF","cursiva/libros/portadas_png/cur_n3_2015" },
-    { "CURSIVA","3","2019","LIBRO","CURSIVA NIVEL 3","CURSIVA NIVEL 3","cursiva/libros/cursiva_n3_2019","PDF","cursiva/libros/portadas_png/cursiva_n3_2019" },
-    { "CURSIVA","3","2020","LIBRO","CURSIVA NIVEL 3","CURSIVA NIVEL 3","cursiva/libros/cur_n3_2020","PDF","cursiva/libros/portadas_png/cur_n3_2020" },
+    { "CURSIVA","Nivel 1","2015","LIBRO","CURSIVA NIVEL 1","Esta colección favorece la motricidad fina, la caligrafía y el desarrollo de conexiones neuronales mediante el trazo de letra cursiva. Los libros y la aplicación educativa son el complemento ideal en el proceso de aprendizaje de la lectura y la escritura de los niños en preescolar o primaria baja.","cursiva/libros/cur_n1_2015","PDF","cursiva/libros/portadas_png/cur_n1_2015" },
+    { "CURSIVA","Nivel 1","2019","LIBRO","CURSIVA NIVEL 1","CURSIVA NIVEL 1","cursiva/libros/cursiva_n1_2019","PDF","cursiva/libros/portadas_png/cursiva_n1_2019" },
+    { "CURSIVA","Nivel 2","2015","LIBRO","CURSIVA NIVEL 2","CURSIVA NIVEL 2","cursiva/libros/cur_n2_2015","PDF","cursiva/libros/portadas_png/cur_n2_2015" },
+    { "CURSIVA","Nivel 2","2019","LIBRO","CURSIVA NIVEL 2","CURSIVA NIVEL 2","cursiva/libros/cursiva_n2_2019","PDF","cursiva/libros/portadas_png/cursiva_n2_2019" },
+    { "CURSIVA","Nivel 3","2015","LIBRO","CURSIVA NIVEL 3","CURSIVA NIVEL 3","cursiva/libros/cur_n3_2015","PDF","cursiva/libros/portadas_png/cur_n3_2015" },
+    { "CURSIVA","Nivel 3","2019","LIBRO","CURSIVA NIVEL 3","CURSIVA NIVEL 3","cursiva/libros/cursiva_n3_2019","PDF","cursiva/libros/portadas_png/cursiva_n3_2019" },
+    { "CURSIVA","Nivel 3","2020","LIBRO","CURSIVA NIVEL 3","CURSIVA NIVEL 3","cursiva/libros/cur_n3_2020","PDF","cursiva/libros/portadas_png/cur_n3_2020" },
     { "CURSIVA","All","All","IMPRIMIBLE","TRAZO DE ABECEDARIO","TRAZO DE ABECEDARIO","cursiva/alfabeto/abecedario_cursiva","PDF","cursiva/alfabeto/png/abecedario_cursiva" },
     { "CURSIVA","All","All","IMPRIMIBLE","ABECEDARIO","ABECEDARIO","cursiva/posters/abecedario","PDF","cursiva/posters/png/abecedario" },
     { "CURSIVA","All","All","IMPRIMIBLE","CARRETILLAS M Y L","CARRETILLAS M Y L","cursiva/carretillas/fichas_m_y_l","PDF","cursiva/carretillas/png/fichas_m_y_l" },
     { "CURSIVA","All","All","IMPRIMIBLE","CARRETILLAS P Y S","CARRETILLAS P Y S","cursiva/carretillas/fichas_p_y_s","PDF","cursiva/carretillas/png/fichas_p_y_s" },
     { "CURSIVA","All","All","IMPRIMIBLE","PERSONAJES CURSIVA","PERSONAJES CURSIVA","cursiva/niños/niños_cursiva","PDF","cursiva/niños/png/niños" },
     { "CURSIVA","All","All","IMPRIMIBLE","VOCALES","VOCALES","cursiva/vocales/vocales","PDF","cursiva/vocales/png/vocales" },
-    { "CURSIVA","1","2019","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 1","PLANEACIONES CURSIVA NIVEL 1","cursiva/planeaciones/cursiva_n1","PDF","cursiva/planeaciones/planeaciones_png/planeacion_cursiva_n1" },
-    { "CURSIVA","2","2019","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 2","PLANEACIONES CURSIVA NIVEL 2","cursiva/planeaciones/cursiva_n2","PDF","cursiva/planeaciones/planeaciones_cursiva_png/planeacion_cursiva_n2" },
-    { "CURSIVA","3","2019","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 3","PLANEACIONES CURSIVA NIVEL 3","cursiva/planeaciones/cursiva_n3","PDF","cursiva/planeaciones/planeaciones_png/planeacion_cursiva_n3" },
-    { "CURSIVA","3","2020","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 3","PLANEACIONES CURSIVA NIVEL 3","cursiva/planeaciones/cursiva_n3_2020","PDF","cursiva/planeaciones/plneaciones_png/planeacion_cursiva_n3_2020" },
+    { "CURSIVA","Nivel 1","2019","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 1","PLANEACIONES CURSIVA NIVEL 1","cursiva/planeaciones/cursiva_n1","PDF","cursiva/planeaciones/planeaciones_png/planeacion_cursiva_n1" },
+    { "CURSIVA","Nivel 2","2019","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 2","PLANEACIONES CURSIVA NIVEL 2","cursiva/planeaciones/cursiva_n2","PDF","cursiva/planeaciones/planeaciones_cursiva_png/planeacion_cursiva_n2" },
+    { "CURSIVA","Nivel 3","2019","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 3","PLANEACIONES CURSIVA NIVEL 3","cursiva/planeaciones/cursiva_n3","PDF","cursiva/planeaciones/planeaciones_png/planeacion_cursiva_n3" },
+    { "CURSIVA","Nivel 3","2020","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 3","PLANEACIONES CURSIVA NIVEL 3","cursiva/planeaciones/cursiva_n3_2020","PDF","cursiva/planeaciones/plneaciones_png/planeacion_cursiva_n3_2020" },
     { "CURSIVA","All","All","VIDEOS","TRAZO DE LAS CONSONANTES","TRAZO DE LAS CONSONANTES","https://www.youtube.com/playlist?list=pl_qraptzsvk-mspendqi6gmx353yoexrg","VIDEOS","cursiva/videos/videos_consonantes_png" },
     { "CURSIVA","All","All","VIDEOS","TRAZOS CURSIVA VOCALES","TRAZOS CURSIVA VOCALES","https://www.youtube.com/playlist?list=pl_qraptzsvk_y2_vwql2avl2h6m69g130","VIDEOS","cursiva/videos/videos_vocales_png" },
-    { "I DO SPEAK","3","2015","LIBRO","I DO SPEAK","Está diseñado para que los pequeños logren escribir y leer de una froma divertida  en inglés; del mismo modo el material promueve que el niño amplíe su vocabulario y desarrolle su conciencia lingüística.","idospeak/libro/idospeak","PDF","idospeak/libro/portada_png/idospeak" },
-    { "I DO SPEAK","3","All","IMPRIMIBLE","FLASH CARDS","FLASH CARDS","idospeak/flashcards/flash_cards","PDF","idospeak/flashcards/portada_png/flash_cards" },
+    { "I DO SPEAK","Nivel 3","2015","LIBRO","I DO SPEAK","Está diseñado para que los pequeños logren escribir y leer de una froma divertida  en inglés; del mismo modo el material promueve que el niño amplíe su vocabulario y desarrolle su conciencia lingüística.","idospeak/libro/idospeak","PDF","idospeak/libro/portada_png/idospeak" },
+    { "I DO SPEAK","Nivel 3","All","IMPRIMIBLE","FLASH CARDS","FLASH CARDS","idospeak/flashcards/flash_cards","PDF","idospeak/flashcards/portada_png/flash_cards" },
     { "PARA LA EDUCADORA","All","All","IMPRIMIBLE","PROTOCOLO ESCUCHA ACTIVA","PROTOCOLO ESCUCHA ACTIVA","para_la_educadora/escucha_activa/escucha_activa","PDF","para_la_educadora/escucha_activa/escucha_activa_png/escucha_activa" },
     { "PARA LA EDUCADORA","All","All","IMPRIMIBLE","ROBIS","ROBIS","para_la_educadora/robis/robbis","PDF","para_la_educadora/robis/robis_png/robbis" },
     { "PARA LA EDUCADORA","All","All","IMPRIMIBLE","RUBRICAS","RUBRICAS","para_la_educadora/rubricas/rubricas","PDF","para_la_educadora/rubricas/rubricas_png/rubricas" }
     };
 
+    @Transactional
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event){
-        log.warn("<<<<<<<<<<<<<<<<<<<<<<<<   o  Application ready   >>>>>>>>>>>>>>>>>>>>>>>>>>");
+        log.warn("<<<<<<<<<<<<<<<<<<<<<<<<   Application ready   >>>>>>>>>>>>>>>>>>>>>>>>>>");
         log.warn("<<<<<<<<<<<<<<<<<<<<<<<<    Init database     >>>>>>>>>>>>>>>>>>>>>>>>>>");
 
         ArrayList<DatosColecciones> datosArray = new ArrayList<>();
@@ -391,18 +387,27 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
                 groupingBy( DatosColecciones::getColeccion,
                 groupingBy(DatosColecciones::getNivel)));
 
-
         Map<TupleGroup, List<DatosColecciones>> datosByTuple = datosArray.stream()
                 .collect(groupingBy(col -> new TupleGroup(col.getColeccion(), col.getNivel(), col.getEdicion() )));
 
+        Object[] arrKeys = datosByTuple.keySet().stream().distinct().toArray();
+
+        /*
+        Iterator<TupleGroup> keys = datosByTuple.keySet().stream().distinct().iterator();
+        while (keys.hasNext()) {
+            TupleGroup key = keys.next();
+            Coleccion coleccion = new Coleccion(key.getColeccion(), key.getNivel(), key.getEdicion());
+            log.warn("Coleccion: " + coleccion.getNombre() + " nivel: " + coleccion.getNivel() + " edicion: " + coleccion.getEdicion());
+            coleccionRepository.save(coleccion);
+        }
+         */
+
+        log.warn("+=============================== segunda version  =====================================");
         datosByTuple.forEach( (key, listDocs) -> {
-            log.warn("Coleccion: " + key.coleccion + " edicion: " + key.edicion + " nivel: " + key.nivel);
-
-            Coleccion coleccion = new Coleccion(key.coleccion, key.nivel, key.edicion);
-
+            Coleccion coleccion = new Coleccion(key.getColeccion(), key.getNivel(), key.getEdicion());
+            log.warn("Coleccion: " + key.getColeccion() + " Nivel: " +  key.getNivel() + " Edicion: " + key.getEdicion());
             for (DatosColecciones value : listDocs) {
                 log.warn("      Documento: " + value.getDocumento() + " Mime: " +  value.getMime() + " Tipo: " + value.getTipo());
-                log.warn("      Path: " + value.getPath() + " Icono: " +  value.getIcono());
                   // Documento(String nombre, String categoria, String descripcion, String uri, String mimeType, String icono, String[] archivos){
                 Documento documento = new Documento(value.getDocumento(), value.getTipo(), value.getDescripcion(), value.getPath(), value.getMime(), value.getIcono(), null);
                 documentoRepository.save(documento);
@@ -411,12 +416,76 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
             coleccionRepository.save(coleccion);
         });
 
-        // createEscuelas(ESCUELAS);
+        createEscuela_csv();
+        escuelaRepository.flush();
+        usuarioRepository.flush();
+        createLicencias_csv();
 
         log.warn("<<<<<<<<<<<<<<<<<<<    Inicializacion terminada database  >>>>>>>>>>>>>>>>");
     }
 
+    @Transactional
+    public void createEscuela_csv(){
+        for(int i = 0; i < escuelas_csv.length; i++){
+            String[] escuelaArr = escuelas_csv[i];
+            Escuela escuela = new Escuela(escuelaArr[0]);
+            escuelaRepository.save(escuela);
+            createUsuario_csv(escuela, alumnos_csv);
+        }
+        escuelaRepository.flush();
+    }
 
+    @Transactional
+    public void createLicencias_csv(){
+        // {"asuncion-001", "Instituto Asunción Aguilas", "CURSIVA", "Nivel 1", "2019"},
+        for(int i = 0; i < licencias_csv.length; i++){
+            String[] licStr = licencias_csv[i];
+            String licenciaNombre = licStr[0];
+            String escuelaNombre = licStr[1];
+            String coleccionNombre = licStr[2];
+            String nivel = licStr[3];
+            String edicion = licStr[4];
+
+            Licencia licencia = new Licencia(licenciaNombre, escuelaNombre, coleccionNombre, nivel, edicion);
+            licencia = licenciaRepository.save(licencia);
+
+            log.warn("Licencia id: " + licencia.getId());
+
+            Escuela escuela = escuelaRepository.findByNombre(escuelaNombre);
+            log.warn("Escuela id: " + escuela.getId());
+            escuela.addLicencia(licencia);
+            escuelaRepository.save(escuela);
+
+            log.warn("Licencia: " + licencia.getNombre());
+
+            //+=======================  colecciones por escuela ====================
+
+            log.warn("Coleccion de la base: " + coleccionNombre);
+            log.warn("Coleccion nivel: " + nivel);
+            log.warn("Coleccion edicion: " + edicion);
+            Coleccion coleccion = coleccionRepository.findByNombreAndNivelAndEdicion(coleccionNombre, nivel, edicion);
+            log.warn("Coleccion de la base: " + coleccion.getNombre());
+
+            licencia.setColeccion(coleccion);
+            licenciaRepository.save(licencia);
+        }
+    }
+
+    @Transactional
+    public void createUsuario_csv(Escuela escuela, String[][] alumnos_arr) {
+        for (int i = 0; i < alumnos_arr.length; i++ ){
+            String[] datos = alumnos_arr[i];
+            // log.warn("Len: " + datos.length + " nombre: " + datos[1]);
+            // Usuario(String email, String nombre, String password, String role, String tipo, String nivel, String grupo){
+            // { "3", "BRASSEL SOSA JAVIER", "3o C Pre", "Nivel 3"},
+            Usuario usuario = new Usuario("no-email", datos[1], "password", "USER", "ALUMNO", datos[3], datos[2]);
+            usuarioRepository.save(usuario);
+            escuela.addUsuario(usuario);
+        }
+    }
+
+
+    @Transactional
     private ArrayList<DatosColecciones> createColecciones_csv(){
         ArrayList<DatosColecciones> datosColecciones = new ArrayList<>();
         for (int i = 0; i < colecciones_csv.length; i++){
@@ -427,223 +496,6 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
             datosColecciones.add(datosColeccion);
         }
         return datosColecciones;
-    }
-
-    private void createColecciones(){
-        // El ABC
-        Documento documento;
-        Coleccion coleccion;
-        //+<<<<<<<<<<<<<<<<<<<<<<<<<<<   anc nivel 1 ed 2017 >>>>>>>>>>>>>>>>>>>>>>>>>>>+
-        coleccion = new Coleccion("El ABC", "Nivel 1", "Ed. 2015");
-
-        documento = new Documento("Nombre del documento 01",
-                "Libro",
-                "Descripción del documento 01",
-                "/pdf/pdf02.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        Documento documento02 = new Documento("Nombre del documento 01.1",
-                "Libro",
-                "Descripción del documento 01.1",
-                "/pdf/pdf02.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        documentoRepository.save(documento02);
-        coleccion.addDocumento(documento02);
-
-        // documento
-        documento = new Documento("Nombre del documento 02",
-                "Guía Pedagógica",
-                "Descripción del documento 02",
-                "/pdf/PREE-1-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        //  primera coleccion
-
-        //+<<<<<<<<<<<<<<<<<<<<<<<<<<<   anc nivel 1 ed 2017 >>>>>>>>>>>>>>>>>>>>>>>>>>>+
-        coleccion = new Coleccion("El ABC", "Nivel 1", "Ed. 2017");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        //+<<<<<<<<<<<<<<<<<<<<<<<<<<<   anc nivel 1 ed 2017 >>>>>>>>>>>>>>>>>>>>>>>>>>>+
-        coleccion = new Coleccion("El ABC", "Nivel 1", "Ed. 2017");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        coleccion = new Coleccion("El ABC", "Nivel 2", "Ed. 2015");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        coleccion = new Coleccion("El ABC", "Nivel 2", "Ed. 2017");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        coleccion = new Coleccion("El ABC", "Nivel 3", "Ed. 2015");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        coleccion = new Coleccion("El ABC", "Nivel 3", "Ed. 2017");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        // EL 123
-        coleccion = new Coleccion("El 123", "Nivel 1", "Ed. 2015");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        coleccion = new Coleccion("El 123", "Nivel 1", "Ed. 2017");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        coleccion = new Coleccion("El 123", "Nivel 2", "Ed. 2015");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        coleccion = new Coleccion("El 123", "Nivel 2", "Ed. 2017");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        coleccion = new Coleccion("El 123", "Nivel 3", "Ed. 2015");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-
-        coleccion = new Coleccion("El 123", "Nivel 3", "Ed. 2017");
-        documento = new Documento("Nombre del documento 03",
-                "Libro",
-                "Descripción del documento 02",
-                "/pdf/PREE-2-MIALBUM-BAJA.pdf",
-                "pdf",
-                "01-01-2020",
-                null);
-        documentoRepository.save(documento);
-        coleccion.addDocumento(documento);
-        coleccionRepository.save(coleccion);
-    }
-
-    private void createEscuelas(int num){
-        for(int i = 0; i < num; i++){
-            String name = "Escuela Demo " + i;
-            Escuela escuela = new Escuela(name);
-            List<Coleccion> listColeccion = coleccionRepository.findByNombreAndNivelAndEdicion("El ABC",
-                    "Nivel 1", "Ed. 2015" );
-            Coleccion coleccion;
-            /*
-            if (listColeccion.size() > 0) {
-                coleccion = listColeccion.get(0);
-                Licencia licencia = new Licencia("001", coleccion, true);
-                escuela.addLicencia(licencia);
-            }
-             */
-            addLicenciasRandom(escuela);
-            if (i == 0) {
-                Usuario user01 = new Usuario("user01@mail.com", "usuario 01", "alal", "USER", "ALUMNO", "Nivel 1", "Grupo 1");
-                escuela.addUsuario(user01);
-            }
-            for (int k = 0; k < MAX_USUARIOS; k++){
-                Usuario usuario = createUsuario();
-                escuela.addUsuario(usuario);
-            }
-            escuelaRepository.save(escuela);
-        }
     }
 
     private void addLicenciasRandom(Escuela escuela){
