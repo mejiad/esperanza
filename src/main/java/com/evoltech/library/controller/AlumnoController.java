@@ -8,7 +8,9 @@ import com.evoltech.library.repository.ColeccionRepository;
 import com.evoltech.library.repository.DocumentoRepository;
 import com.evoltech.library.repository.EscuelaRepository;
 import com.evoltech.library.repository.UsuarioRepository;
+import com.evoltech.library.service.ColeccionService;
 import com.evoltech.library.service.EscuelaService;
+import com.evoltech.library.util.ColeccionDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +47,9 @@ public class AlumnoController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @Autowired
+    ColeccionService coleccionService;
+
     @RequestMapping(value = "/acolecciones", method= RequestMethod.GET)
     public String colecciones(HttpServletRequest request, Model model){
         Principal principal = request.getUserPrincipal();
@@ -54,18 +61,30 @@ public class AlumnoController {
         // colecciones por alumno
         List<Coleccion> colecciones = escuelaService.getColeccionesByLicenciasForUser(usuario.getId());
 
-        model.addAttribute("colecciones", colecciones);
+        ArrayList<ColeccionDisplay> coleccionesDisplay = coleccionService.coleccionesDisplay(colecciones);
+
+        model.addAttribute("colecciones", coleccionesDisplay);
+
         return "AColecciones";
     }
 
     @RequestMapping(value = "/adocumentos/{guid}", method= RequestMethod.GET)
     public String documentos(@PathVariable String guid, Model model){
-        // esperamos un map con la categoria el documento
+        // esperamos el guid de la categoria
         /*
         Map<String, List<Documento>> documentosByCategoria = escuelaService.getDocumentosByColeccion(guid);
         model.addAttribute("documentos", documentosByCategoria );
          */
 
+        return "ADocumentos";
+    }
+
+    @RequestMapping(value = "/adocumento/{guid}", method= RequestMethod.GET)
+    public String documento(@PathVariable String guid, Model model){
+        // esperamos un map con la categoria el documento
+        List<Documento> documentos = coleccionService.getDocumentoByColeccionGuid(guid);
+
+        model.addAttribute("documentos", documentos);
         return "ADocumentos";
     }
 

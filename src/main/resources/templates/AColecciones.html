@@ -87,11 +87,36 @@
                 <h1>Colegio Asunción</h1>
                 <p class="lead text-white">Colecciones de Apprendiendo+</p>
             </div>
+
+            <!--
+            <div th:each="col : ${colecciones}">
+                <p th:text="${col.nombre}">nombre</p>
+                <p th:text="${col.caratula}">nombre</p>
+            </div>
+            <ul>
+                <li th:each="col : ${colecciones}" th:text="${col.nombre}">nombre</li>
+            </ul>
+
+            <table>
+                <tr>
+                    <th>NAME</th>
+                    <th>PRICE</th>
+                    <th>IN STOCK</th>
+                </tr>
+                <tr th:each="col : ${colecciones}">
+                    <td th:text="${col.nombre}">Onions</td>
+                    <td th:text="${col.guid}">2.41</td>
+                    <td th:text="${col.caratula}">yes</td>
+                </tr>
+            </table>
+            </ul>
+            -->
+
         <div class="row">
-            <div class="col-md-4">
+            <div th:each="col : ${colecciones}" class="col-md-4">
                 <div class="mb-4 card-transparent text-center">
-                    <a href="/adocumentos/1" >
-                        <img src="/images/colecciones-abc-on.png" height="225" >
+                    <a th:href="@{/adocumentos/{guid}(guid=${col.guid})}" >
+                        <img th:attr="src=${col.caratula}" height="225" >
                     </a>
                     <div class="card-body rounded">
                         <p class="card-text">Libros, multimedia y recursos de la colección de El ABC.</p>
@@ -99,6 +124,7 @@
                 </div>
             </div>
 
+            <!--
             <div class="col-md-4">
                     <div class="mb-4 card-transparent text-center">
                     <a href="/adocumentos/1" >
@@ -157,11 +183,12 @@
                     </div>
                 </div>
             </div>
+            -->
 
 
 
             </div>
-        </div>
+        </ul>
     </div>
 
 </main>

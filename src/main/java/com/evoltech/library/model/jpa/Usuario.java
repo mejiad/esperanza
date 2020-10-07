@@ -35,7 +35,6 @@ public class Usuario extends BaseJpaEntity<Long> implements Serializable {
                 .replaceAll("[^\\p{ASCII}]", "")
                         .toLowerCase() + ".3579";
 
-        System.out.println(password);
 
         this.email= sinAcentos;
         this.nombre= nombre;

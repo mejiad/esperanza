@@ -2,7 +2,7 @@ package com.evoltech.library.config;
 
 import com.evoltech.library.model.jpa.*;
 import com.evoltech.library.repository.*;
-import com.evoltech.library.util.TupleGroup;
+import com.evoltech.library.util.NombreNivelEdicionColeccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.slf4j.Logger;
@@ -387,8 +387,8 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
                 groupingBy( DatosColecciones::getColeccion,
                 groupingBy(DatosColecciones::getNivel)));
 
-        Map<TupleGroup, List<DatosColecciones>> datosByTuple = datosArray.stream()
-                .collect(groupingBy(col -> new TupleGroup(col.getColeccion(), col.getNivel(), col.getEdicion() )));
+        Map<NombreNivelEdicionColeccion, List<DatosColecciones>> datosByTuple = datosArray.stream()
+                .collect(groupingBy(col -> new NombreNivelEdicionColeccion(col.getColeccion(), col.getNivel(), col.getEdicion() )));
 
         Object[] arrKeys = datosByTuple.keySet().stream().distinct().toArray();
 

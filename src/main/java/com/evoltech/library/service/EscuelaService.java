@@ -34,10 +34,8 @@ public class EscuelaService {
     }
 
     public Map<String, List<Documento>> getDocumentosByColeccion(String guid){
-        Coleccion col = coleccionRepository.findByGuid(guid).stream().findFirst()
-               .orElseThrow();
+        Coleccion col = coleccionRepository.findByGuid(guid);
         List<Documento> listDocumentos = col.getDocumentos();
-
         return listDocumentos.stream().collect(groupingBy(Documento::getCategoria));
     }
 
@@ -50,12 +48,12 @@ public class EscuelaService {
             Coleccion coleccion = licencia.getColeccion();
             if (usuario.getTipo().equals("ALUMNO") && usuario.getNivel().equals(coleccion.getNivel())){
                 colecciones.add(licencia.getColeccion());
+                log.warn(" Coleccion by user: " + licencia.getColeccion().getNombre());
             } else {
                 if (usuario.getTipo().equals("MAESTRA") ) {
                     colecciones.add(licencia.getColeccion());
                 }
             }
-            log.warn(" Coleccion by user: " + licencia.getColeccion().getNombre());
         }
        return colecciones;
     }
