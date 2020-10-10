@@ -90,17 +90,12 @@
                     </object>
                 </p>
                 <p th:case="'VIDEO'">
-                    <iframe width="420" height="315"
-                            th:attr="src=${documento.getUri()}">
-                    </iframe>
-                    <!--
                     <iframe width="560" height="315"
-                            th:attr="src=${documento.getUri()}"
-                            frameborder="0"
+                            th:attr="src=@{/ARCHIVOS/{uri}(uri=${documento.getUri()})}"
+                            frameborder="2"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen>
                     </iframe>
-                    -->
                 </p>
                 <p th:case="'AUDIO'">
                     <audio
@@ -110,7 +105,6 @@
                     </audio>
                 </p>
             </div>
-            <p th:text="${documento.getUri()}">value</p>
         </main>
     </div>
 </div>

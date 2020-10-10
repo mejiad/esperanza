@@ -444,8 +444,11 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
             { "CURSIVA", "Nivel 2", "2019", "PLANEACIONES", "PLANEACIONES CURSIVA NIVEL 2", "PLANEACIONES CURSIVA NIVEL 2", "CURSIVA/PLANEACIONES/Cursiva_N2.pdf", "PDF", "CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N2.png" },
             { "CURSIVA", "Nivel 3", "2019", "PLANEACIONES", "PLANEACIONES CURSIVA NIVEL 3", "PLANEACIONES CURSIVA NIVEL 3", "CURSIVA/PLANEACIONES/Cursiva_N3.pdf", "PDF", "CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N3.png" },
             { "CURSIVA", "Nivel 3", "2020", "PLANEACIONES", "PLANEACIONES CURSIVA NIVEL 3", "PLANEACIONES CURSIVA NIVEL 3", "CURSIVA/PLANEACIONES/Cursiva_n3_2020.pdf", "PDF", "CURSIVA/PLANEACIONES/Planeaciones_PNG/Planeacion_cursiva_N3_2020.png" },
-            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES", "https://www.youtube.com/playlist?list=PL_QRaPtZsvK-MSpendqI6gmX353YOeXrG", "VIDEO", "CURSIVA/VIDEOS/Videos_Consonantes_PNG/Cursiva_consonantes_D.png" },
-            { "CURSIVA", "All", "All", "VIDEOS", "TRAZOS CURSIVA VOCALES", "TRAZOS CURSIVA VOCALES", "https://www.youtube.com/playlist?list=PL_QRaPtZsvK_Y2_VWQL2avL2H6m69g130", "VIDEO", "CURSIVA/VIDEOS/Videos_Vocales_PNG/Letra_A.png" },
+
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES D", "VIDEOS/CURSIVA/CONSONANTES/D.mp4", "VIDEO", "VIDEOS/CURSIVA/CONSONANTES/PNG/D.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES L", "VIDEOS/CURSIVA/CONSONANTES/L.mp4", "VIDEO", "VIDEOS/CURSIVA/CONSONANTES/PNG/D.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZOS CURSIVA VOCALES", "TRAZOS CURSIVA VOCALES A", "VIDEOS/CURSIVA/VOCALES/A_480p.mov", "VIDEO", "VIDEOS/CURSIVA/VOCALES/PNG/A.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZOS CURSIVA VOCALES", "TRAZOS CURSIVA VOCALES E", "VIDEOS/CURSIVA/VOCALES/E_480p.mov", "VIDEO", "VIDEOS/CURSIVA/VOCALES/PNG/A.png" },
 
         { "I DO SPEAK", "Nivel 3", "2015", "LIBRO", "I DO SPEAK", "Está diseñado para que los pequeños logren escribir y leer de una froma divertida  en inglés; del mismo modo el material promueve que el niño amplíe su vocabulario y desarrolle su conciencia lingüística.", "IDOSPEAK/LIBRO/IDOSPEAK", "PDF", "IDOSPEAK/LIBRO/Portada_PNG/IDO" },
         { "I DO SPEAK", "Nivel 3", "All", "IMPRIMIBLE", "FLASH CARDS", "FLASH CARDS", "IDOSPEAK/FLASHCARDS/FLASH_CARDS", "PDF", "IDOSPEAK/FLASHCARDS/FLASH_CARDS/FLASH_CARDS" },

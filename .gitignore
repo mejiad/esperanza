@@ -4,6 +4,7 @@
 *.mp4
 *.jpg
 *.png
+*.mov
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
