@@ -71,10 +71,8 @@ public class AlumnoController {
     @RequestMapping(value = "/adocumentos/{guid}", method= RequestMethod.GET)
     public String documentos(@PathVariable String guid, Model model){
         // esperamos el guid de la categoria
-        /*
-        Map<String, List<Documento>> documentosByCategoria = escuelaService.getDocumentosByColeccion(guid);
-        model.addAttribute("documentos", documentosByCategoria );
-         */
+        Map<String, List<Documento>> categorias = coleccionService.getCategoriasDocumentosByColeccionGuid(guid);
+        model.addAttribute("categorias", categorias);
 
         return "ADocumentos";
     }
@@ -82,10 +80,10 @@ public class AlumnoController {
     @RequestMapping(value = "/adocumento/{guid}", method= RequestMethod.GET)
     public String documento(@PathVariable String guid, Model model){
         // esperamos un map con la categoria el documento
-        List<Documento> documentos = coleccionService.getDocumentoByColeccionGuid(guid);
+        Documento documento = coleccionService.getDocumentoByGuid(guid);
 
-        model.addAttribute("documentos", documentos);
-        return "ADocumentos";
+        model.addAttribute("documento", documento);
+        return "ADocumento";
     }
 
 }

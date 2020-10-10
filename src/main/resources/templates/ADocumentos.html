@@ -28,6 +28,7 @@
           font-size: 3.5rem;
         }
       }
+
     </style>
     <!-- Custom styles for this template -->
     <link href="/css/carousel.css" rel="stylesheet">
@@ -56,13 +57,28 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <div class="container marketing">
-        <div class="container">
-            <br>
-            <br>
-            <br>
-            <br>
+
+        <div th:each="entry, stats : ${categorias}" th:with="docs=${entry.value}" class="col-md-12 ">
+            <h1 class="featurette-heading text-white bg-primary" >
+            <p th:text="${entry.key}">Nombre del archivo</p>
+            </h1>
+            <div th:each="doc, stats : ${docs}" class="col-md-12 ">
+                <div class="row featurette ">
+                    <div class="col-md-7 ">
+                        <h1  class="featurette-heading display-6" >
+                            <p th:text="${doc.nombre}">Nombre del archivo</p>
+                        </h1>
+                    </div>
+                    <div class="col-md-5">
+                        <a th:href="@{/adocumento/{guid}(guid=${doc.guid})}">
+                            <img th:attr="src=@{/ARCHIVOS/{icono}(icono=${doc.icono})}" width="360">
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <!--
         <div class="row featurette">
             <div class="col-md-7">
                 <h2 class="featurette-heading">Libro de Ejercicios. <span class="text-muted">Tareas para hacer en casa.</span></h2>
@@ -98,6 +114,7 @@
                 <img src="/images/ABC_trabajo_1_N3.png" width="500">
             </div>
         </div>
+        -->
 
         <hr class="featurette-divider">
 

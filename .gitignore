@@ -1,6 +1,7 @@
 *.class
 *.pdf
 *.mp3
+*.mp4
 *.jpg
 *.png
 
@@ -14,6 +15,8 @@
 
 #Gradle temporary files
 target/
+#src/main/resources/static/ARCHIVOS
+#src/main/resources/static/images
 
 #Eclipse files
 **/.project

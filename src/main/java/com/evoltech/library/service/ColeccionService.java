@@ -3,6 +3,7 @@ package com.evoltech.library.service;
 import com.evoltech.library.model.jpa.Coleccion;
 import com.evoltech.library.model.jpa.Documento;
 import com.evoltech.library.repository.ColeccionRepository;
+import com.evoltech.library.repository.DocumentoRepository;
 import com.evoltech.library.repository.UsuarioRepository;
 import com.evoltech.library.util.ColeccionDisplay;
 import com.evoltech.library.util.NombreNivelColeccion;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -26,6 +29,9 @@ public class ColeccionService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    DocumentoRepository documentoRepository;
 
     public List<String> getNombres() {
         Map<String, List<Coleccion>> nombres = coleccionRepository.findAll().stream()
@@ -105,5 +111,49 @@ public class ColeccionService {
         Coleccion coleccion = coleccionRepository.findByGuid(guid);
         List<Documento> documentos = coleccion.getDocumentos();
         return documentos;
+    }
+
+    public Map<String, List<Documento>> getCategoriasDocumentosByColeccionGuid(String guid){
+        Coleccion coleccion = coleccionRepository.findByGuid(guid);
+        Map<String, List<Documento>> result = coleccion.getDocumentos().stream().collect(groupingBy(Documento::getCategoria));
+
+        // Map<String, List<Documento>> result = new HashMap<>();
+        Coleccion allAll = coleccionRepository.findByNombreAndNivelAndEdicion(coleccion.getNombre(), "All", "All");
+        if (allAll != null) {
+            Map<String, List<Documento>> documentosAllAll = allAll.getDocumentos().stream().collect(groupingBy(Documento::getCategoria));
+
+            result = Stream
+                    .concat(result.entrySet()
+                            .stream(), documentosAllAll.entrySet().stream())
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        }
+
+        Coleccion nivelAll = coleccionRepository.findByNombreAndNivelAndEdicion(coleccion.getNombre(), coleccion.getNivel(), "All");
+        if (nivelAll != null) {
+            Map<String, List<Documento>> documentosNivelAll = nivelAll.getDocumentos().stream().collect(groupingBy(Documento::getCategoria));
+
+            result = Stream
+                    .concat(result.entrySet()
+                            .stream(), documentosNivelAll.entrySet().stream())
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        }
+
+
+        Coleccion allEdicion = coleccionRepository.findByNombreAndNivelAndEdicion(coleccion.getNombre(), "All", coleccion.getEdicion());
+        if (allEdicion != null) {
+            Map<String, List<Documento>> documentosAllEdicion = allEdicion.getDocumentos().stream().collect(groupingBy(Documento::getCategoria));
+
+            result = Stream
+                    .concat(result.entrySet()
+                            .stream(), documentosAllEdicion.entrySet().stream())
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        }
+
+        return result;
+    }
+
+    public Documento getDocumentoByGuid(String guid){
+        Documento documento = documentoRepository.findByGuid(guid);
+        return documento;
     }
 }
