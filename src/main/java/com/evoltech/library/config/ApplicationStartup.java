@@ -8,6 +8,9 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -456,10 +459,31 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         { "PARA LA EDUCADORA", "All", "All", "IMPRIMIBLE", "ROBIS", "ROBIS", "PARA_LA_EDUCADORA/ROBIS/ROBBIS", "PDF", "PARA_LA_EDUCADORA/ROBIS/Robbis_PNG/ROBBI" },
         { "PARA LA EDUCADORA", "All", "All", "IMPRIMIBLE", "RUBRICAS", "RUBRICAS", "PARA_LA_EDUCADORA/RUBRICAS/RUBRICAS", "PDF", "PARA_LA_EDUCADORA/RUBRICAS/Rubricas_PNG/RUBRICAS" }
     };
+
+    @Autowired
+    Environment env;
+
     @Transactional
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event){
         log.warn("<<<<<<<<<<<<<<<<<<<<<<<<   Application ready   >>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+        String[] profiles = env.getActiveProfiles();
+        String profile;
+        if (profiles != null && profiles.length > 0){
+            profile = profiles[0];
+            log.warn("<<<<<<<<<<<<<<<<<<<<<  profile activo: " + profile);
+            if (profile.equals("dev")) {
+                initDB();
+            }
+        }
+
+    }
+
+    @Profile("dev")
+    @Bean
+    @Transactional
+    void initDB() {
         log.warn("<<<<<<<<<<<<<<<<<<<<<<<<    Init database     >>>>>>>>>>>>>>>>>>>>>>>>>>");
 
         ArrayList<DatosColecciones> datosArray = new ArrayList<>();
@@ -467,7 +491,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
         Map<String, Map<String, List<DatosColecciones>>> map = datosArray.stream().collect(
                 groupingBy( DatosColecciones::getColeccion,
-                groupingBy(DatosColecciones::getNivel)));
+                        groupingBy(DatosColecciones::getNivel)));
 
         Map<NombreNivelEdicionColeccion, List<DatosColecciones>> datosByTuple = datosArray.stream()
                 .collect(groupingBy(col -> new NombreNivelEdicionColeccion(col.getColeccion(), col.getNivel(), col.getEdicion() )));
@@ -490,7 +514,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
             log.warn("Coleccion: " + key.getColeccion() + " Nivel: " +  key.getNivel() + " Edicion: " + key.getEdicion());
             for (DatosColecciones value : listDocs) {
                 log.warn("      Documento: " + value.getDocumento() + " Mime: " +  value.getMime() + " Tipo: " + value.getTipo());
-                  // Documento(String nombre, String categoria, String descripcion, String uri, String mimeType, String icono, String[] archivos){
+                // Documento(String nombre, String categoria, String descripcion, String uri, String mimeType, String icono, String[] archivos){
                 Documento documento = new Documento(value.getDocumento(), value.getTipo(), value.getDescripcion(), value.getPath(), value.getMime(), value.getIcono(), null);
                 documentoRepository.save(documento);
                 coleccion.addDocumento(documento);
@@ -506,6 +530,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         log.warn("<<<<<<<<<<<<<<<<<<<    Inicializacion terminada database  >>>>>>>>>>>>>>>>");
     }
 
+    @Profile("dev")
     @Transactional
     public void createEscuela_csv(){
         for(int i = 0; i < escuelas_csv.length; i++){
@@ -517,6 +542,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         escuelaRepository.flush();
     }
 
+    @Profile("dev")
     @Transactional
     public void createLicencias_csv(){
         // {"asuncion-001", "Instituto Asunción Aguilas", "CURSIVA", "Nivel 1", "2019"},
@@ -553,6 +579,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         }
     }
 
+    @Profile("dev")
     @Transactional
     public void createUsuario_csv(Escuela escuela, String[][] alumnos_arr) {
         for (int i = 0; i < alumnos_arr.length; i++ ){
@@ -568,6 +595,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
 
     @Transactional
+    @Profile("dev")
     private ArrayList<DatosColecciones> createColecciones_csv(){
         ArrayList<DatosColecciones> datosColecciones = new ArrayList<>();
         for (int i = 0; i < colecciones_csv.length; i++){
