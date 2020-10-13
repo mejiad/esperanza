@@ -85,6 +85,8 @@ public class ColeccionService {
 
     public ArrayList<ColeccionDisplay> coleccionesDisplay(List<Coleccion> colecciones){
         List<String> nombres = getNombres();
+        nombres.remove("CARPETA CLAVE");
+        nombres.remove("PARA LA EDUCADORA");
         HashMap<String, String> imagenesOn = getListaImagenesOn();
         HashMap<String, String> imagenesOff = getListaImagenesOff();
         ArrayList<ColeccionDisplay> coleccionDisplays = new ArrayList<>();
@@ -95,12 +97,12 @@ public class ColeccionService {
                 Coleccion coleccion = (Coleccion) colecciones.stream().filter(c -> c.getNombre().equals(nombre)).toArray()[0];
                 String imagen = imagenesOn.get(nombre);
                 String guid = coleccion.getGuid();
-                ColeccionDisplay coleccionDisplay = new ColeccionDisplay(nombre, imagen, guid);
+                ColeccionDisplay coleccionDisplay = new ColeccionDisplay(nombre, imagen, guid, "true");
                 activas.add(coleccionDisplay);
             } else {
                 String imagen = imagenesOff.get(nombre);
-                String guid = "nula";
-                ColeccionDisplay coleccionDisplay = new ColeccionDisplay(nombre, imagen, guid);
+                String guid = "http://www.applica2.com.mx";
+                ColeccionDisplay coleccionDisplay = new ColeccionDisplay(nombre, imagen, guid, "false");
                 activas.add(coleccionDisplay);
             }
         }

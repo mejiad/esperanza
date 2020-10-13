@@ -13,4 +13,5 @@ public class ColeccionDisplay {
     private String nombre;
     private String caratula;
     private String guid;
+    private String activa;
 }

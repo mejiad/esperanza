@@ -300,85 +300,6 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
             {"Instituto Asunción Aguilas" }
     };
 
-    /*
-    // { "Colección","Nivel","Edición","Tipo de Documento","Nombre del documento","Descripción del documento","path_y_nombre_del_archivo_donde_se_encuentra_en_su_repositorio","Tipo de documento","icono_del_documento" },
-    String[][] colecciones_csv = new String[][] {
-            { "ABC","1","2017","LIBRO","ABC NIVEL 1","Esta colección se conforma de libros, aplicaciones e innovadores recursos didácticos para el aprendizaje de la lectura y la escritura que se adapta a las diferentes metodologías alfabetizadoras. Los alumnos aprenderán de forma fácil, divertida y efectiva, desarrollando su autonomía y gusto por la lectura al lado de Robbi Galaxias y sus amigos: Ana, Alan, Elsa, Erik, Isa, Igor, Olivia, Omar, Úrsula y Ur","abc/libros/abc_n1","PDF","abc/libros/libros_png/abc_n1" },
-    { "ABC","Nivel 1","All","IMPRIMIBLE","VOCABULARIO NIVEL 1","VOCABULARIO NIVEL 1","abc/palabras/vocbulario_n1","PDF","abc/palabras/vocbulario_n1" },
-    { "ABC","Nivel 1","All","IMPRIMIBLE","FICHERO SILÁBICO NIVEL 1","FICHERO SILÁBICO NIVEL 1","abc/ficheros/fichero_n1","PDF","abc/ficheros/ficheros_png/fichero_n1" },
-    { "ABC","Nivel 2","2017","LIBRO","ABC NIVEL 2 LIBRO 1","ABC NIVEL 2 LIBRO 1","abc/libros/abc_n2_l1","PDF","abc/libros/libros_png/abc_n2_l1" },
-    { "ABC","Nivel 2","2017","LIBRO","ABC NIVEL 2 LIBRO 2","ABC NIVEL 2 LIBRO 2","abc/libros/abc_n2_l2","PDF","abc/libros/libros_png/abc_n2_l2" },
-    { "ABC","Nivel 2","All","IMPRIMIBLE","VOCABULARIO NIVEL 2","VOCABULARIO NIVEL 2","abc/palabras/vocbulario_n2","PDF","abc/palabras/vocabulario_png/vocabulario_n2" },
-    { "ABC","Nivel 2","All","IMPRIMIBLE","FICHERO SILÁBICO NIVEL 2","FICHERO SILÁBICO NIVEL 2","abc/ficheros/fichero_n2","PDF","abc/ficheros/ficheros_png/fichero_n2" },
-    { "ABC","Nivel 3","2017","LIBRO","ABC NIVEL 3 LIBRO 1","ABC NIVEL 3 LIBRO 1","abc/libros/abc_n3_l1","PDF","abc/libros/libros_png/abc_n3_l1" },
-    { "ABC","Nivel 3","2017","LIBRO","ABC NIVEL 3 LIBRO 2","ABC NIVEL 3 LIBRO 2","abc/libros/abc_n3_l2","PDF","abc/libros/libros_png/abc_n3_l2" },
-    { "ABC","Nivel 3","2017","LIBRO","ABC NIVEL 3 LIBRO 3","ABC NIVEL 3 LIBRO 3","abc/libros/abc_n3_l3","PDF","abc/libros/libros_png/abc_n3_l3" },
-    { "ABC","Nivel 3","2017","LIBRO","ABC NIVEL 3 LIBRO 4","ABC NIVEL 3 LIBRO 4","abc/libros/abc_n3_l4","PDF","abc/libros/libros_png/abc_n3_l4" },
-    { "ABC","Nivel 3","2017","LIBRO","ABC NIVEL 3 LIBRO 5","ABC NIVEL 3 LIBRO 5","abc/libros/abc_n3_l5","PDF","abc/libros/libros_png/abc_n3_l5" },
-    { "ABC","Nivel 3","2019","LIBRO","TAREAS Y LECTURAS","TAREAS Y LECTURAS","abc/libros/tareas_y_lecturas","PDF","abc/libros/libros_png/tareas_y_lecturas" },
-    { "ABC","Nivel 3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 2","TAREAS Y LECTURAS LIBRO 2","abc/libros/tareas_y_lecturas_l2","PDF","abc/libros/libros_png/tareas_y_lecturas_l2" },
-    { "ABC","Nivel 3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 3","TAREAS Y LECTURAS LIBRO 3","abc/libros/tareas_y_lecturas_l3","PDF","abc/libros/libros_png/tareas_y_lecturas_l3" },
-    { "ABC","Nivel 3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 4","TAREAS Y LECTURAS LIBRO 4","abc/libros/tareas_y_lecturas_l4","PDF","abc/libros/libros_png/tareas_y_lecturas_l4" },
-    { "ABC","Nivel 3","2015","LIBRO","TAREAS Y LECTURAS LIBRO 5","TAREAS Y LECTURAS LIBRO 5","abc/libros/tareas_y_lecturas_l5","PDF","abc/libros/libros_png/tareas_y_lecturas_l5" },
-    { "ABC","Nivel 3","All","IMPRIMIBLE","VOCABULARIO NIVEL 3","VOCABULARIO NIVEL 3","abc/palabras/vocbulario_n3","PDF","abc/palabras/vocabulario_png/vocabulario_n3" },
-    { "ABC","Nivel 3","All","IMPRIMIBLE","FICHERO SILÁBICO NIVEL 3","FICHERO SILÁBICO NIVEL 3","abc/ficheros/fichero_n3","PDF","abc/ficheros/ficheros_png/fichero_n3" },
-    { "ABC","All","All","IMPRIMIBLE","PERSONAJES ABC","PERSONAJES ABC","abc/personajes/personajes_abc","PDF","abc/personajes/personajes_png/personajes_abc" },
-    { "ABC","All","All","GUIA","Guía metodológica para la enseñanza de la lecto-escritura.","Guía metodológica para la enseñanza de la lecto-escritura.","abc/metodologia/guía_metodológica_para_la_enseñanza_de_la_lecto-escritura","PDF","abc/metodologia/metodologia_png/guía_metodológica_para_la_enseñanza_de_la_lecto-escritura" },
-    { "ABC","All","All","IMPRIMIBLE","Vocales y abecedario Script","Vocales y abecedario Script","abc/metodologia/vocales_y_abecedario_script","PDF","abc/metodologia/metodologia_png/vocales_y_abecedario_script" },
-    { "ABC","All","All","VIDEOS","TRAZO DE LETRAS EN SCRIPT","TRAZO DE LETRAS EN SCRIPT","https://www.youtube.com/playlist?list=pl_qraptzsvk9ldk-diijdqczigtfwvuzt","VIDEOS","abc/videos/videos_png/trazo_de_letra_script" },
-    { "ABC","All","All","VIDEOS","TRAZO Y SONIDO DE LAS SILABAS","TRAZO Y SONIDO DE LAS SILABAS","https://www.youtube.com/playlist?list=pl_qraptzsvk9edq6kuavxsrbsakaqohux","VIDEOS","abc/videos/videos_png/trazo_y_sonido" },
-    { "1,2,3","Nivel 1","2019","LIBRO","1,2,3 NIVEL 1","Esta colección promueve la construcción de las matemáticas mediante el planteamiento de situaciones didácticas y problemas matemáticos cercanos a los pequeños. Con ayuda de las regletas Cuisenaire y otros recursos, los alumnos desarrollarán el pensamiento lógico y matemático, y consolidarán los conceptos de número, figura, forma, medida y ubicación espacial. Además, Robbi Galaxias los impulsará a cuestionarse su propio proceso de aprendizaje con preguntas metacognitivas.","123/libros/123_n1_2019","PDF","123/libros/portadas_png/123_n1_2019" },
-    { "1,2,3","Nivel 2","2017","LIBRO","1,2,3 NIVEL 2","1,2,3 NIVEL 2","123/libros/123_n2_2017","PDF","123/libros/portadas_png/123_n2_2017" },
-    { "1,2,3","Nivel 2","2020","LIBRO","1,2,3 NIVEL 2","1,2,3 NIVEL 2","123/libros/123_n2_2020","PDF","123/libros/portadas_png/123_n2_2020" },
-    { "1,2,3","Nivel 3","2017","LIBRO","1,2,3 NIVEL 3","1,2,3 NIVEL 3","123/libros/123_n3_2017","PDF","123/libros/portadas_png/123_n3_2017" },
-    { "1,2,3","Nivel 3","2020","LIBRO","1,2,3 NIVEL 3","1,2,3 NIVEL 3","123/libros/123_n3_2020","PDF","123/libros/portadas_png/123_n3_2020" },
-    { "1,2,3","Nivel 1","2019","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 1","PLANEACIONES 1,2,3 NIVEL 1","123/planeaciones/2019/planeacion_n1_2019","PDF","123/planeaciones/2019/2019/planeacion_n1_2019" },
-    { "1,2,3","Nivel 2","2017","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 2","PLANEACIONES 1,2,3 NIVEL 2","123/planeaciones/2017/planeaciones_123_nivel_2","PDF","123/planeaciones/2017/2017/planeaciones_123_nivel_2" },
-    { "1,2,3","Nivel 2","2020","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 2 UNIDAD 1","PLANEACIONES 1,2,3 NIVEL 2 UNIDAD 1","123/planeaciones/2020/planeacion_1_nivel_2_20","PDF","123/planeaciones/2020/2020/planeacion_1_nivel_2_20" },
-    { "1,2,3","Nivel 3","2017","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 3","PLANEACIONES 1,2,3 NIVEL 3","123/planeaciones/2017/planeaciones_123_nivel_3","PDF","123/planeaciones/2017/2017/planeaciones_123_nivel_3" },
-    { "1,2,3","Nivel 3","2020","PLANEACIONES","PLANEACIONES 1,2,3 NIVEL 3 UNIDAD 1","PLANEACIONES 1,2,3 NIVEL 3 UNIDAD 1","123/planeaciones/2020/planeacion_1_nivel_3_20","PDF","123/planeaciones/2020/2020/planeacion_1_nivel_3_20" },
-    { "1,2,3","All","All","IMPRIMIBLE","RECTA NUMERICA","RECTA NUMERICA","123/recta_numerica/rectas_doble_carta","PDF","123/recta_numerica/png/rectas_doble_carta" },
-    { "1,2,3","All","All","IMPRIMIBLE","REGLETAS","REGLETAS","123/regletas/regletas_recortables","PDF","123/regletas/png/regletas_recortables" },
-    { "1,2,3","All","All","IMPRIMIBLE","SERIE NUMERICA","SERIE NUMERICA","123/serie_numerica/serie_numerica_copia","PDF","123/serie_numerica/png/serie_numerica_copia" },
-    { "1,2,3","All","All","IMPRIMIBLE","TABLA DE EQUIVALENCIA","TABLA DE EQUIVALENCIA","123/tabla_de_equivalencia/tabla_de_equivalencia_de_regletas","PDF","123/tabla_de_equivalencia/png/equivalencias" },
-    { "1,2,3","All","All","IMPRIMIBLE","TANGRAM","TANGRAM","123/tangram/tangram","PDF","123/tangram/png/tangram" },
-    { "1,2,3","All","All","PROYECTO","CAJA MAGICA","CAJA MAGICA","123/proyecto_mate/presentacion_1","PDF","123/proyecto_mate/portada_png/portada_presentacion_123" },
-    { "1,2,3","All","All","VIDEOS","TRAZOS NUMEROS","TRAZOS NUMEROS","https://www.youtube.com/playlist?list=pl_qraptzsvk9rnro_kvcp3p9p9thphjed","VIDEOS","123/videos_campos_formativos/capturas_png" },
-    { "CARPETA CLAVE","Nivel 1","2018","LIBRO","CARPETA CLAVE NIVEL 1","Esta colección integra los contenidos de los componentes curriculares o aprendizajes clave de la educación preescolar. Parte de las necesidades de los niños y apoya el desarrollo de las competencias, facilitando el aprendizaje individual y cooperativo.","carpeta_clave/libros/carpeta_n1","PDF","carpeta_clave/libros/portdas_png/carpeta_n1" },
-    { "CARPETA CLAVE","Nivel 2","2018","LIBRO","CARPETA CLAVE NIVEL 2","CARPETA CLAVE NIVEL 2","carpeta_clave/libros/carpeta_n2","PDF","carpeta_clave/libros/portadas_png/carpeta_n2" },
-    { "CARPETA CLAVE","Nivel 3","2018","LIBRO","CARPETA CLAVE NIVEL 3","CARPETA CLAVE NIVEL 3","carpeta_clave/libros/carpeta_n3","PDF","carpeta_clave/libros/portadas_png/carpeta_n3" },
-    { "CARPETA CLAVE","Nivel 1","2018","GUIA CLAVE","GUIA CLAVE NIVEL 1","GUIA CLAVE NIVEL 1","carpeta_clave/guias/guia_clave_n1","PDF","carpeta_clave/guias/guias_png/guia_clave_n1" },
-    { "CARPETA CLAVE","Nivel 2","2018","GUIA CLAVE","GUIA CLAVE NIVEL 2","GUIA CLAVE NIVEL 2","carpeta_clave/guias/guia_clave_n2","PDF","carpeta_clave/guias/guias_png/guia_clave_n2" },
-    { "CARPETA CLAVE","Nivel 3","2018","GUIA CLAVE","GUIA CLAVE NIVEL 3","GUIA CLAVE NIVEL 3","carpeta_clave/guias/guia_clave_n3","PDF","carpeta_clave/guias/guias_png/guia_clave_n3" },
-    { "CARPETA CLAVE","All","All","VIDEOS","CUIDADO DEL AGUA","CUIDADO DEL AGUA","https://www.youtube.com/watch?v=b8x1gnr0b68","VIDEOS","carpeta/videos_ecosistemas/videos_png/cuidado_del_agua" },
-    { "CARPETA CLAVE","All","All","VIDEOS","¡CUIDEMOS EL AGUA!","¡CUIDEMOS EL AGUA!","https://www.youtube.com/watch?v=2q4i_odwthu","VIDEOS","carpeta/videos_ecosistemas/videos_png/cuidemos_el_agua" },
-    { "CURSIVA","Nivel 1","2015","LIBRO","CURSIVA NIVEL 1","Esta colección favorece la motricidad fina, la caligrafía y el desarrollo de conexiones neuronales mediante el trazo de letra cursiva. Los libros y la aplicación educativa son el complemento ideal en el proceso de aprendizaje de la lectura y la escritura de los niños en preescolar o primaria baja.","cursiva/libros/cur_n1_2015","PDF","cursiva/libros/portadas_png/cur_n1_2015" },
-    { "CURSIVA","Nivel 1","2019","LIBRO","CURSIVA NIVEL 1","CURSIVA NIVEL 1","cursiva/libros/cursiva_n1_2019","PDF","cursiva/libros/portadas_png/cursiva_n1_2019" },
-    { "CURSIVA","Nivel 2","2015","LIBRO","CURSIVA NIVEL 2","CURSIVA NIVEL 2","cursiva/libros/cur_n2_2015","PDF","cursiva/libros/portadas_png/cur_n2_2015" },
-    { "CURSIVA","Nivel 2","2019","LIBRO","CURSIVA NIVEL 2","CURSIVA NIVEL 2","cursiva/libros/cursiva_n2_2019","PDF","cursiva/libros/portadas_png/cursiva_n2_2019" },
-    { "CURSIVA","Nivel 3","2015","LIBRO","CURSIVA NIVEL 3","CURSIVA NIVEL 3","cursiva/libros/cur_n3_2015","PDF","cursiva/libros/portadas_png/cur_n3_2015" },
-    { "CURSIVA","Nivel 3","2019","LIBRO","CURSIVA NIVEL 3","CURSIVA NIVEL 3","cursiva/libros/cursiva_n3_2019","PDF","cursiva/libros/portadas_png/cursiva_n3_2019" },
-    { "CURSIVA","Nivel 3","2020","LIBRO","CURSIVA NIVEL 3","CURSIVA NIVEL 3","cursiva/libros/cur_n3_2020","PDF","cursiva/libros/portadas_png/cur_n3_2020" },
-    { "CURSIVA","All","All","IMPRIMIBLE","TRAZO DE ABECEDARIO","TRAZO DE ABECEDARIO","cursiva/alfabeto/abecedario_cursiva","PDF","cursiva/alfabeto/png/abecedario_cursiva" },
-    { "CURSIVA","All","All","IMPRIMIBLE","ABECEDARIO","ABECEDARIO","cursiva/posters/abecedario","PDF","cursiva/posters/png/abecedario" },
-    { "CURSIVA","All","All","IMPRIMIBLE","CARRETILLAS M Y L","CARRETILLAS M Y L","cursiva/carretillas/fichas_m_y_l","PDF","cursiva/carretillas/png/fichas_m_y_l" },
-    { "CURSIVA","All","All","IMPRIMIBLE","CARRETILLAS P Y S","CARRETILLAS P Y S","cursiva/carretillas/fichas_p_y_s","PDF","cursiva/carretillas/png/fichas_p_y_s" },
-    { "CURSIVA","All","All","IMPRIMIBLE","PERSONAJES CURSIVA","PERSONAJES CURSIVA","cursiva/niños/niños_cursiva","PDF","cursiva/niños/png/niños" },
-    { "CURSIVA","All","All","IMPRIMIBLE","VOCALES","VOCALES","cursiva/vocales/vocales","PDF","cursiva/vocales/png/vocales" },
-    { "CURSIVA","Nivel 1","2019","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 1","PLANEACIONES CURSIVA NIVEL 1","cursiva/planeaciones/cursiva_n1","PDF","cursiva/planeaciones/planeaciones_png/planeacion_cursiva_n1" },
-    { "CURSIVA","Nivel 2","2019","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 2","PLANEACIONES CURSIVA NIVEL 2","cursiva/planeaciones/cursiva_n2","PDF","cursiva/planeaciones/planeaciones_cursiva_png/planeacion_cursiva_n2" },
-    { "CURSIVA","Nivel 3","2019","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 3","PLANEACIONES CURSIVA NIVEL 3","cursiva/planeaciones/cursiva_n3","PDF","cursiva/planeaciones/planeaciones_png/planeacion_cursiva_n3" },
-    { "CURSIVA","Nivel 3","2020","PLANEACIONES","PLANEACIONES CURSIVA NIVEL 3","PLANEACIONES CURSIVA NIVEL 3","cursiva/planeaciones/cursiva_n3_2020","PDF","cursiva/planeaciones/plneaciones_png/planeacion_cursiva_n3_2020" },
-    { "CURSIVA","All","All","VIDEOS","TRAZO DE LAS CONSONANTES","TRAZO DE LAS CONSONANTES","https://www.youtube.com/playlist?list=pl_qraptzsvk-mspendqi6gmx353yoexrg","VIDEOS","cursiva/videos/videos_consonantes_png" },
-    { "CURSIVA","All","All","VIDEOS","TRAZOS CURSIVA VOCALES","TRAZOS CURSIVA VOCALES","https://www.youtube.com/playlist?list=pl_qraptzsvk_y2_vwql2avl2h6m69g130","VIDEOS","cursiva/videos/videos_vocales_png" },
-    { "I DO SPEAK","Nivel 3","2015","LIBRO","I DO SPEAK","Está diseñado para que los pequeños logren escribir y leer de una froma divertida  en inglés; del mismo modo el material promueve que el niño amplíe su vocabulario y desarrolle su conciencia lingüística.","idospeak/libro/idospeak","PDF","idospeak/libro/portada_png/idospeak" },
-    { "I DO SPEAK","Nivel 3","All","IMPRIMIBLE","FLASH CARDS","FLASH CARDS","idospeak/flashcards/flash_cards","PDF","idospeak/flashcards/portada_png/flash_cards" },
-    { "PARA LA EDUCADORA","All","All","IMPRIMIBLE","PROTOCOLO ESCUCHA ACTIVA","PROTOCOLO ESCUCHA ACTIVA","para_la_educadora/escucha_activa/escucha_activa","PDF","para_la_educadora/escucha_activa/escucha_activa_png/escucha_activa" },
-    { "PARA LA EDUCADORA","All","All","IMPRIMIBLE","ROBIS","ROBIS","para_la_educadora/robis/robbis","PDF","para_la_educadora/robis/robis_png/robbis" },
-    { "PARA LA EDUCADORA","All","All","IMPRIMIBLE","RUBRICAS","RUBRICAS","para_la_educadora/rubricas/rubricas","PDF","para_la_educadora/rubricas/rubricas_png/rubricas" }
-    };
-     */
-
     String[][] colecciones_csv = new String[][] {
                     {"ABC", "Nivel 1", "2017", "LIBRO", "ABC NIVEL 1", "Esta colección se conforma de libros, aplicaciones e innovadores recursos didácticos para el aprendizaje de la lectura y la escritura que se adapta a las diferentes metodologías alfabetizadoras. Los alumnos aprenderán de forma fácil, divertida y efectiva, desarrollando su autonomía y gusto por la lectura al lado de Robbi Galaxias y sus amigos: Ana, Alan, Elsa, Erik, Isa, Igor, Olivia, Omar, Úrsula y Ur", "ABC/LIBROS/ABC_N1", "PDF", "ABC/LIBROS/Libros_PNG/ABC_N1"},
     { "ABC","Nivel 1","All","IMPRIMIBLE","VOCABULARIO NIVEL 1","VOCABULARIO NIVEL 1","ABC/PALABRAS/VOCBULARIO_N1","PDF","ABC/PALABRAS/VOCBULARIO_PNG/VOCABULARIO_N1" },
@@ -446,12 +367,22 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
             { "CURSIVA", "Nivel 1", "2019", "PLANEACIONES", "PLANEACIONES CURSIVA NIVEL 1", "PLANEACIONES CURSIVA NIVEL 1", "CURSIVA/PLANEACIONES/Cursiva_N1.pdf", "PDF", "CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N1.png" },
             { "CURSIVA", "Nivel 2", "2019", "PLANEACIONES", "PLANEACIONES CURSIVA NIVEL 2", "PLANEACIONES CURSIVA NIVEL 2", "CURSIVA/PLANEACIONES/Cursiva_N2.pdf", "PDF", "CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N2.png" },
             { "CURSIVA", "Nivel 3", "2019", "PLANEACIONES", "PLANEACIONES CURSIVA NIVEL 3", "PLANEACIONES CURSIVA NIVEL 3", "CURSIVA/PLANEACIONES/Cursiva_N3.pdf", "PDF", "CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N3.png" },
-            { "CURSIVA", "Nivel 3", "2020", "PLANEACIONES", "PLANEACIONES CURSIVA NIVEL 3", "PLANEACIONES CURSIVA NIVEL 3", "CURSIVA/PLANEACIONES/Cursiva_n3_2020.pdf", "PDF", "CURSIVA/PLANEACIONES/Planeaciones_PNG/Planeacion_cursiva_N3_2020.png" },
+            { "CURSIVA", "Nivel 3", "2020", "PLANEACIONES", "PLANEACIONES CURSIVA NIVEL 3", "PLANEACIONES CURSIVA NIVEL 3", "CURSIVA/PLANEACIONES/Cursiva_n3_2020.pdf", "PDF", "CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N3_2020.png" },
 
-            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES D", "VIDEOS/CURSIVA/CONSONANTES/D.mp4", "VIDEO", "VIDEOS/CURSIVA/CONSONANTES/PNG/D.png" },
-            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES L", "VIDEOS/CURSIVA/CONSONANTES/L.mp4", "VIDEO", "VIDEOS/CURSIVA/CONSONANTES/PNG/D.png" },
-            { "CURSIVA", "All", "All", "VIDEOS", "TRAZOS CURSIVA VOCALES", "TRAZOS CURSIVA VOCALES A", "VIDEOS/CURSIVA/VOCALES/A_480p.mov", "VIDEO", "VIDEOS/CURSIVA/VOCALES/PNG/A.png" },
-            { "CURSIVA", "All", "All", "VIDEOS", "TRAZOS CURSIVA VOCALES", "TRAZOS CURSIVA VOCALES E", "VIDEOS/CURSIVA/VOCALES/E_480p.mov", "VIDEO", "VIDEOS/CURSIVA/VOCALES/PNG/A.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZOS CURSIVA VOCALES", "TRAZOS CURSIVA VOCALES A", "VIDEOS/CURSIVA/VOCALES/A.mp4", "VIDEO", "PNG/CURSIVA/VOCALES/A.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZOS CURSIVA VOCALES", "TRAZOS CURSIVA VOCALES E", "VIDEOS/CURSIVA/VOCALES/E.mp4", "VIDEO", "PNG/CURSIVA/VOCALES/E.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZOS CURSIVA VOCALES", "TRAZOS CURSIVA VOCALES I", "VIDEOS/CURSIVA/VOCALES/I.mp4", "VIDEO", "PNG/CURSIVA/VOCALES/I.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZOS CURSIVA VOCALES", "TRAZOS CURSIVA VOCALES O", "VIDEOS/CURSIVA/VOCALES/O.mp4", "VIDEO", "PNG/CURSIVA/VOCALES/O.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZOS CURSIVA VOCALES", "TRAZOS CURSIVA VOCALES U", "VIDEOS/CURSIVA/VOCALES/U.mp4", "VIDEO", "PNG/CURSIVA/VOCALES/U.png" },
+
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES D", "VIDEOS/CURSIVA/CONSONANTES/D.mp4", "VIDEO", "PNG/CURSIVA/CONSONANTES/D.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES L", "VIDEOS/CURSIVA/CONSONANTES/L.mp4", "VIDEO", "PNG/CURSIVA/CONSONANTES/L.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES M", "VIDEOS/CURSIVA/CONSONANTES/M.mp4", "VIDEO", "PNG/CURSIVA/CONSONANTES/M.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES N", "VIDEOS/CURSIVA/CONSONANTES/N.mp4", "VIDEO", "PNG/CURSIVA/CONSONANTES/N.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES P", "VIDEOS/CURSIVA/CONSONANTES/P.mp4", "VIDEO", "PNG/CURSIVA/CONSONANTES/P.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES S", "VIDEOS/CURSIVA/CONSONANTES/S.mp4", "VIDEO", "PNG/CURSIVA/CONSONANTES/S.png" },
+            { "CURSIVA", "All", "All", "VIDEOS", "TRAZO DE LAS CONSONANTES", "TRAZO DE LAS CONSONANTES T", "VIDEOS/CURSIVA/CONSONANTES/T.mp4", "VIDEO", "PNG/CURSIVA/CONSONANTES/T.png" },
+
 
         { "I DO SPEAK", "Nivel 3", "2015", "LIBRO", "I DO SPEAK", "Está diseñado para que los pequeños logren escribir y leer de una froma divertida  en inglés; del mismo modo el material promueve que el niño amplíe su vocabulario y desarrolle su conciencia lingüística.", "IDOSPEAK/LIBRO/IDOSPEAK", "PDF", "IDOSPEAK/LIBRO/Portada_PNG/IDO" },
         { "I DO SPEAK", "Nivel 3", "All", "IMPRIMIBLE", "FLASH CARDS", "FLASH CARDS", "IDOSPEAK/FLASHCARDS/FLASH_CARDS", "PDF", "IDOSPEAK/FLASHCARDS/FLASH_CARDS/FLASH_CARDS" },
@@ -477,7 +408,6 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
                 initDB();
             }
         }
-
     }
 
     @Transactional
@@ -495,16 +425,6 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
                 .collect(groupingBy(col -> new NombreNivelEdicionColeccion(col.getColeccion(), col.getNivel(), col.getEdicion() )));
 
         Object[] arrKeys = datosByTuple.keySet().stream().distinct().toArray();
-
-        /*
-        Iterator<TupleGroup> keys = datosByTuple.keySet().stream().distinct().iterator();
-        while (keys.hasNext()) {
-            TupleGroup key = keys.next();
-            Coleccion coleccion = new Coleccion(key.getColeccion(), key.getNivel(), key.getEdicion());
-            log.warn("Coleccion: " + coleccion.getNombre() + " nivel: " + coleccion.getNivel() + " edicion: " + coleccion.getEdicion());
-            coleccionRepository.save(coleccion);
-        }
-         */
 
         log.warn("+=============================== segunda version  =====================================");
         datosByTuple.forEach( (key, listDocs) -> {
@@ -591,7 +511,6 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         }
     }
 
-
     @Transactional
     @Profile("dev")
     private ArrayList<DatosColecciones> createColecciones_csv(){
@@ -621,103 +540,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
     }
 
-    private String[] lastName = {"García", "González", "Rodríguez", "Fernández", "López",
-            "Martinez", "Sánchez", "Pérez", "Gómez", "Jiménez",
-            "Ruiz", "Hernández", "Díaz", "Moreno", "Romero"};
-
-    private String[] names = {"Juan", "Luis", "José", "Maria", "Valeria",
-            "Elba", "Gretel", "Ilsa", "Olivia", "Lara",
-            "Pablo", "Diego", "Gabriel", "Angel", "Julián"};
-
-    private int MAX_MAESTRAS = 15;
-
-    private Usuario createUsuario() {
-        Random rand = new Random();
-        int idxName = rand.nextInt(names.length);
-        int idxLastname = rand.nextInt(lastName.length);
-        int unico = rand.nextInt(1000);
-        String email = names[idxName] + "." + lastName[idxLastname] + "." + unico + "@gmail.com";
-        String name = names[idxName] + " " + lastName[idxLastname];
-        Usuario usuario = new Usuario(email, name, "2244");
-        return usuario;
-    }
-
-    private void createMaestras() {
-        Usuario[] usuarios = new Usuario[MAX_MAESTRAS];
-        Random rand = new Random();
-        for(int i = 0; i < MAX_MAESTRAS; i++) {
-            int idxName = rand.nextInt(15);
-            int idxLastname = rand.nextInt(15);
-            int randName = rand.nextInt(30);
-            String email = names[idxName] + "." + lastName[idxLastname] + randName + "@gmail.com";
-            String name = names[idxName] + " " + lastName[idxLastname] + " " + randName;
-            usuarios[i] = new Usuario(email, name, "2244");
-        }
-    }
-
-    private int MAX_DOCUMENTOS = 6;
-    String[] docsNombres = {"Actividades", "Guía Pedagógica", "Tareas", "Ejercicios"};
-
-    String[] docsDescr = {"Actividades dentro del salon de clases", "Guía Pedagógica para la maestra", "Tareas y ejercicios para hacer en casa", "Ejercicios dentro del salón de clase"};
-
-    String[] mimeType = {"pdf", "audio", "video", "imagen"};
-
-    String[] pdfLinks = {
-            "http://localhost:8080/pdf/PREE-1-MIALBUM-BAJA.pdf",
-            "http://localhost:8080/pdf/PREE-2-MIALBUM-BAJA.pdf",
-            "http://localhost:8080/pdf/PREE-3-MIALBUM-BAJA.pdf"
-    };
-
-    String[] audioLinks = {
-            "http://localhost:8080/audios/audio00.mp3",
-            "http://localhost:8080/audios/audio01.mp3",
-            "http://localhost:8080/audios/audio02.mp3"
-    };
-
-   String[] videoLinks = { "https://www.youtube.com/embed/9WNCpGxZ0Gg",
-            "https://www.youtube.com/embed/AgoJOI0A3e8",
-           "https://www.youtube.com/embed/iaaZKuHXOVU",
-           "https://www.youtube.com/embed/VODa1HYGHn4",
-           "https://www.youtube.com/embed/2vF3H6mx3eM"
-   };
-
-    String[] imagenLinks = {
-            "https://www.youtube.com/embed/9WNCpGxZ0Gg",
-            "https://www.youtube.com/embed/9WNCpGxZ0Gg",
-            "https://www.youtube.com/embed/9WNCpGxZ0Gg",
-            "https://www.youtube.com/embed/9WNCpGxZ0Gg"
-    };
-    Map<String, String[]> media = Map.of(
-            "pdf", pdfLinks,
-            "audio", audioLinks,
-            "video", videoLinks,
-            "imagen", imagenLinks
-    );
-
     /*
-    private void addDocumentos(Planeacion planeacion){
-        Random rand = new Random();
-        int numDocs = rand.nextInt(MAX_DOCUMENTOS) + 1;
-        for(int i = 0; i < numDocs; i++) {
-            int idxNombre = rand.nextInt(docsNombres.length);
-            // public Documento(String nombre, String descripcion, String uri, String mimeType, String fechaStr){
-            String mime = getMimetype();
-            String link = getLink(mime);
-            String nombre = docsNombres[idxNombre];
-            String descr = docsDescr[idxNombre];
-            String[] archivos = new String[]{ "http://localhost:8080/images/back01_640x480.jpg",
-                    "http://localhost:8080/images/back02_640x480.jpg",
-                    "http://localhost:8080/images/back03_640x480.jpg"
-                };
-           Documento doc = new Documento(nombre, descr,  link,  mime, "20-09-2020", archivos);
-
-           // documentoRepository.save(doc);
-           planeacion.addDocumento(doc);
-           // planeacionRepository.save(planeacion);
-        }
-    }
-     */
-
     private String getMimetype() {
         Random rand = new Random();
 
@@ -740,5 +563,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         int selected = rand.nextInt(len);
         return arr[selected];
     }
+
+     */
 
 }
