@@ -440,8 +440,8 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
             { "CURSIVA", "All", "All", "IMPRIMIBLE", "TRAZO DE ABECEDARIO", "TRAZO DE ABECEDARIO", "CURSIVA/ALFABETO/abecedario_cursiva.pdf", "PDF", "CURSIVA/ALFABETO/PNG/Alfabeto_320.png" },
             { "CURSIVA", "All", "All", "IMPRIMIBLE", "ABECEDARIO", "ABECEDARIO", "CURSIVA/POSTERS/AbecedariO.pdf", "PDF", "CURSIVA/POSTERS/PNG/Abecedario_320.png" },
             { "CURSIVA", "All", "All", "IMPRIMIBLE", "CARRETILLAS M Y L", "CARRETILLAS M Y L", "CURSIVA/CARRETILLA/Fichas_M_L.pdf", "PDF", "CURSIVA/CARRETILLA/PNG/Fichas_M_L_320.png" },
-            { "CURSIVA", "All", "All", "IMPRIMIBLE", "CARRETILLAS P Y S", "CARRETILLAS P Y S", "CURSIVA/CARRETILLA/FICHAS_P_Y_S", "PDF", "CURSIVA/CARRETILLA/PNG/Fichas_P_S_320.png" },
-            { "CURSIVA", "All", "All", "IMPRIMIBLE", "PERSONAJES CURSIVA", "PERSONAJES CURSIVA", "CURSIVA/NINOS/Niños_cursiva.pdf", "PDF", "CURSIVA/NINOS/PNG/Ninos_320.png" },
+            { "CURSIVA", "All", "All", "IMPRIMIBLE", "CARRETILLAS P Y S", "CARRETILLAS P Y S", "CURSIVA/CARRETILLA/Fichas_P_S.pdf", "PDF", "CURSIVA/CARRETILLA/PNG/Fichas_P_S_320.png" },
+            { "CURSIVA", "All", "All", "IMPRIMIBLE", "PERSONAJES CURSIVA", "PERSONAJES CURSIVA", "CURSIVA/NINOS/Ninos_cursiva.pdf", "PDF", "CURSIVA/NINOS/PNG/Ninos_320.png" },
             { "CURSIVA", "All", "All", "IMPRIMIBLE", "VOCALES", "VOCALES", "CURSIVA/VOCALES/Vocales.pdf", "PDF", "CURSIVA/VOCALES/PNG/Vocales_320.png" },
             { "CURSIVA", "Nivel 1", "2019", "PLANEACIONES", "PLANEACIONES CURSIVA NIVEL 1", "PLANEACIONES CURSIVA NIVEL 1", "CURSIVA/PLANEACIONES/Cursiva_N1.pdf", "PDF", "CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N1.png" },
             { "CURSIVA", "Nivel 2", "2019", "PLANEACIONES", "PLANEACIONES CURSIVA NIVEL 2", "PLANEACIONES CURSIVA NIVEL 2", "CURSIVA/PLANEACIONES/Cursiva_N2.pdf", "PDF", "CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N2.png" },
@@ -480,8 +480,6 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
     }
 
-    @Profile("dev")
-    @Bean
     @Transactional
     void initDB() {
         log.warn("<<<<<<<<<<<<<<<<<<<<<<<<    Init database     >>>>>>>>>>>>>>>>>>>>>>>>>>");

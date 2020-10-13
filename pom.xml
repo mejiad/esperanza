@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.evoltech</groupId>
-	<artifactId>esperanza</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
-	<name>esperanza</name>
+	<artifactId>asuncion</artifactId>
+	<version>1.0.2-SNAPSHOT</version>
+	<name>asuncion</name>
 	<description>Libreria de alumnos</description>
 
 	<properties>

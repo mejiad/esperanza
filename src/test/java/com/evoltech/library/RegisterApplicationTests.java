@@ -43,6 +43,7 @@ public class RegisterApplicationTests {
 	void contextLoads() {
 	}
 
+	/*
 	@Test
     @Order(2)
     @Transactional
@@ -75,7 +76,6 @@ public class RegisterApplicationTests {
 
 		assertEquals("Uno", escuela.getNombre());
 	}
-
 
 	@Test
 	@Order(6)
@@ -110,4 +110,5 @@ public class RegisterApplicationTests {
 			assertEquals(true, false);
 		}
 	}
+	 */
 }
