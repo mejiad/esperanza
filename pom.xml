@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.evoltech</groupId>
 	<artifactId>asuncion</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.4-asuncion</version>
 	<name>asuncion</name>
 	<description>Libreria de alumnos</description>
 

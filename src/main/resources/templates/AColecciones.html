@@ -27,6 +27,14 @@
         -ms-user-select: none;
         user-select: none;
       }
+      .pie-pagina {
+         position: absolute;
+         bottom: 0;
+         width: 100%;
+         /*background-color:rgb(110, 207, 202) !important;*/
+         background-color:rgb(42, 171, 163) !important;
+         color: white !important;
+      }
 
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
@@ -49,6 +57,7 @@
 </head>
 <body>
 <header>
+    <!--
     <div class="collapse bg-dark" id="navbarHeader">
         <div class="container">
             <div class="row">
@@ -67,14 +76,17 @@
             </div>
         </div>
     </div>
+    -->
     <div class="navbar navbar-dark bg-warning shadow-sm">
         <div class="container d-flex justify-content-between">
             <a href="/home" class="navbar-brand d-flex align-items-center">
                 <strong>Home</strong>
             </a>
+            <!--
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            -->
             <a href="/logout" class="navbar-brand d-flex align-items-center">
                 <strong>Salir</strong>
             </a>
@@ -115,12 +127,14 @@
                         <p class="card-text">Libros, multimedia y recursos de la colección de El ABC.</p>
                     </div>
                 </div>
-                <div th:case="'false'" class="mb-4 card-transparent text-center">
-                    <a href="http://www.applica2.com.mx" target="_blank">
-                        <img th:attr="src=${col.caratula}" height="225" >
-                    </a>
-                    <div class="card-body rounded">
-                        <p class="card-text">Libros, multimedia y recursos de la colección de El ABC.</p>
+                <div th:switch="${col.nombre}">
+                    <div th:case="'ABC'" class="mb-4 card-transparent text-center">
+                        <a href="http://applica2.com.mx/v-2.016/content/sistema" target="_blank">
+                            <img src="images/asuncion/masRecursos.png"  height="225" >
+                        </a>
+                        <div class="card-body rounded">
+                            <p class="card-text">Libros, multimedia y recursos de la colección de El ABC.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -196,12 +210,9 @@
 
 </main>
 
-<footer class="text-muted bg-warning">
+<footer class="text-muted bg-warning pie-pagina">
     <div class="container">
-        <p class="float-right">
-            <a href="#">Back to top</a>
-        </p>
-        <p>Powered by Evolution Technologies <a href="https://www.evol-tech.com/">Visit the homepage</a> .</p>
+        <a href="https://www.evol-tech.com/" target="_blank" style="color:white;" >Desarrollado por Evolution Technologies</a>
     </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
