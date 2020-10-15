@@ -14,6 +14,10 @@
     <link href="/appcss/bootstrap.min.css" rel="stylesheet">
 
     <style>
+        body {
+       background-image: url("/images/asuncion/FondoBotones.png");
+    }
+
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -62,14 +66,19 @@
     <div class="container marketing">
 
         <div th:each="entry, stats : ${categorias}" th:with="docs=${entry.value}" class="col-md-12 ">
-            <h1 class="featurette-heading text-white bg-primary" >
-            <p th:text="${entry.key}">Nombre del archivo</p>
+            <h1 class="featurette-heading text-white " >
+                <div th:switch="${entry.key}">
+                    <img src="/images/asuncion/libros.png" th:case="'LIBRO'">
+                    <img src="/images/asuncion/planeaciones.png" th:case="'PLANEACIONES'">
+                    <img src="/images/asuncion/imprimibles.png" th:case="'IMPRIMIBLE'">
+                </div>
             </h1>
             <div th:each="doc, stats : ${docs}" class="col-md-12 ">
                 <div class="row featurette ">
                     <div class="col-md-7 ">
                         <h1  class="featurette-heading display-6" >
                             <p th:text="${doc.nombre}">Nombre del archivo</p>
+
                         </h1>
                     </div>
                     <div class="col-md-5">

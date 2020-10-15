@@ -15,7 +15,7 @@
 
     <style>
    body {
-       background-image: url("/images/parallax1.jpeg");
+       background-image: url("/images/asuncion/FondoBotones.png");
       height: 100%;
     }
 
@@ -84,11 +84,11 @@
 
 <main role="main">
 
-    <div class="album py-5 bg-info">
+    <div class="album py-5 ">
         <div class="container">
-            <div class="container text-white rounded">
-                <h1>Colegio Asunción</h1>
-                <p class="lead text-white">Colecciones de Apprendiendo+</p>
+            <div class="container text-white rounded text-success">
+                <h1> Colecciones de Apprendiendo+
+                </h1>
             </div>
 
             <!--
@@ -100,19 +100,6 @@
                 <li th:each="col : ${colecciones}" th:text="${col.nombre}">nombre</li>
             </ul>
 
-            <table>
-                <tr>
-                    <th>NAME</th>
-                    <th>PRICE</th>
-                    <th>IN STOCK</th>
-                </tr>
-                <tr th:each="col : ${colecciones}">
-                    <td th:text="${col.nombre}">Onions</td>
-                    <td th:text="${col.guid}">2.41</td>
-                    <td th:text="${col.caratula}">yes</td>
-                </tr>
-            </table>
-            </ul>
             -->
 
         <div class="row">

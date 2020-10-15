@@ -41,14 +41,14 @@ public class EscuelaController {
     public String homepage(Model model){
         List<Escuela> escuelas = escuelaRepository.findAll();
         model.addAttribute("escuelas", escuelas);
-        return "HomePage";
+        return "HomeAsuncion";
     }
 
     @RequestMapping(value = "/home", method= RequestMethod.GET)
     public String home(Model model){
         List<Escuela> escuelas = escuelaRepository.findAll();
         model.addAttribute("escuelas", escuelas);
-        return "HomePage";
+        return "HomeAsuncion";
     }
 
     @RequestMapping(value = "/colecciones/{coleccion}", method= RequestMethod.GET)

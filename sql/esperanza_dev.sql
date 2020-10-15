@@ -1,0 +1,1490 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.19
+-- Dumped by pg_dump version 9.6.19
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: archivo; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.archivo (
+    id bigint NOT NULL,
+    created timestamp without time zone,
+    guid character varying(255),
+    modified timestamp without time zone,
+    descripcion character varying(255),
+    nombre character varying(255),
+    uri character varying(255)
+);
+
+
+ALTER TABLE public.archivo OWNER TO user01;
+
+--
+-- Name: archivo_id_seq; Type: SEQUENCE; Schema: public; Owner: user01
+--
+
+CREATE SEQUENCE public.archivo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.archivo_id_seq OWNER TO user01;
+
+--
+-- Name: archivo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user01
+--
+
+ALTER SEQUENCE public.archivo_id_seq OWNED BY public.archivo.id;
+
+
+--
+-- Name: coleccion; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.coleccion (
+    id bigint NOT NULL,
+    created timestamp without time zone,
+    guid character varying(255),
+    modified timestamp without time zone,
+    edicion character varying(255),
+    nivel character varying(255),
+    nombre character varying(255)
+);
+
+
+ALTER TABLE public.coleccion OWNER TO user01;
+
+--
+-- Name: coleccion_documentos; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.coleccion_documentos (
+    coleccion_id bigint NOT NULL,
+    documentos_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.coleccion_documentos OWNER TO user01;
+
+--
+-- Name: coleccion_id_seq; Type: SEQUENCE; Schema: public; Owner: user01
+--
+
+CREATE SEQUENCE public.coleccion_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.coleccion_id_seq OWNER TO user01;
+
+--
+-- Name: coleccion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user01
+--
+
+ALTER SEQUENCE public.coleccion_id_seq OWNED BY public.coleccion.id;
+
+
+--
+-- Name: documento; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.documento (
+    id bigint NOT NULL,
+    created timestamp without time zone,
+    guid character varying(255),
+    modified timestamp without time zone,
+    archivos text[],
+    categoria character varying(255),
+    descripcion character varying(255),
+    fecha date,
+    icono character varying(255),
+    mime_type character varying(255),
+    nombre character varying(255),
+    uri character varying(255)
+);
+
+
+ALTER TABLE public.documento OWNER TO user01;
+
+--
+-- Name: documento_id_seq; Type: SEQUENCE; Schema: public; Owner: user01
+--
+
+CREATE SEQUENCE public.documento_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.documento_id_seq OWNER TO user01;
+
+--
+-- Name: documento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user01
+--
+
+ALTER SEQUENCE public.documento_id_seq OWNED BY public.documento.id;
+
+
+--
+-- Name: escuela; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.escuela (
+    id bigint NOT NULL,
+    created timestamp without time zone,
+    guid character varying(255),
+    modified timestamp without time zone,
+    nombre character varying(255)
+);
+
+
+ALTER TABLE public.escuela OWNER TO user01;
+
+--
+-- Name: escuela_grupos; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.escuela_grupos (
+    escuela_id bigint NOT NULL,
+    grupos_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.escuela_grupos OWNER TO user01;
+
+--
+-- Name: escuela_id_seq; Type: SEQUENCE; Schema: public; Owner: user01
+--
+
+CREATE SEQUENCE public.escuela_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.escuela_id_seq OWNER TO user01;
+
+--
+-- Name: escuela_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user01
+--
+
+ALTER SEQUENCE public.escuela_id_seq OWNED BY public.escuela.id;
+
+
+--
+-- Name: escuela_licencias; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.escuela_licencias (
+    escuela_id bigint NOT NULL,
+    licencias_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.escuela_licencias OWNER TO user01;
+
+--
+-- Name: escuela_usuarios; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.escuela_usuarios (
+    escuela_id bigint NOT NULL,
+    usuarios_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.escuela_usuarios OWNER TO user01;
+
+--
+-- Name: grupo; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.grupo (
+    id bigint NOT NULL,
+    created timestamp without time zone,
+    guid character varying(255),
+    modified timestamp without time zone,
+    nombre character varying(255),
+    escuela_id bigint
+);
+
+
+ALTER TABLE public.grupo OWNER TO user01;
+
+--
+-- Name: grupo_id_seq; Type: SEQUENCE; Schema: public; Owner: user01
+--
+
+CREATE SEQUENCE public.grupo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.grupo_id_seq OWNER TO user01;
+
+--
+-- Name: grupo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user01
+--
+
+ALTER SEQUENCE public.grupo_id_seq OWNED BY public.grupo.id;
+
+
+--
+-- Name: licencia; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.licencia (
+    id bigint NOT NULL,
+    created timestamp without time zone,
+    guid character varying(255),
+    modified timestamp without time zone,
+    asientos integer NOT NULL,
+    begin_date timestamp without time zone,
+    coleccion_nombre character varying(255),
+    edicion character varying(255),
+    end_date timestamp without time zone,
+    escuela_nombre character varying(255),
+    is_enable boolean NOT NULL,
+    nivel character varying(255),
+    nombre character varying(255),
+    coleccion_id bigint,
+    escuela_id bigint
+);
+
+
+ALTER TABLE public.licencia OWNER TO user01;
+
+--
+-- Name: licencia_id_seq; Type: SEQUENCE; Schema: public; Owner: user01
+--
+
+CREATE SEQUENCE public.licencia_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.licencia_id_seq OWNER TO user01;
+
+--
+-- Name: licencia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user01
+--
+
+ALTER SEQUENCE public.licencia_id_seq OWNED BY public.licencia.id;
+
+
+--
+-- Name: spring_session; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.spring_session (
+    primary_id character(36) NOT NULL,
+    session_id character(36) NOT NULL,
+    creation_time bigint NOT NULL,
+    last_access_time bigint NOT NULL,
+    max_inactive_interval integer NOT NULL,
+    expiry_time bigint NOT NULL,
+    principal_name character varying(100)
+);
+
+
+ALTER TABLE public.spring_session OWNER TO user01;
+
+--
+-- Name: spring_session_attributes; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.spring_session_attributes (
+    session_primary_id character(36) NOT NULL,
+    attribute_name character varying(200) NOT NULL,
+    attribute_bytes bytea NOT NULL
+);
+
+
+ALTER TABLE public.spring_session_attributes OWNER TO user01;
+
+--
+-- Name: usuario; Type: TABLE; Schema: public; Owner: user01
+--
+
+CREATE TABLE public.usuario (
+    id bigint NOT NULL,
+    created timestamp without time zone,
+    guid character varying(255),
+    modified timestamp without time zone,
+    email character varying(255),
+    enabled boolean NOT NULL,
+    grupo character varying(255),
+    nivel character varying(255),
+    nombre character varying(255),
+    password character varying(255),
+    role character varying(255),
+    tipo character varying(255),
+    escuela_id bigint
+);
+
+
+ALTER TABLE public.usuario OWNER TO user01;
+
+--
+-- Name: usuario_id_seq; Type: SEQUENCE; Schema: public; Owner: user01
+--
+
+CREATE SEQUENCE public.usuario_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.usuario_id_seq OWNER TO user01;
+
+--
+-- Name: usuario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user01
+--
+
+ALTER SEQUENCE public.usuario_id_seq OWNED BY public.usuario.id;
+
+
+--
+-- Name: archivo id; Type: DEFAULT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.archivo ALTER COLUMN id SET DEFAULT nextval('public.archivo_id_seq'::regclass);
+
+
+--
+-- Name: coleccion id; Type: DEFAULT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.coleccion ALTER COLUMN id SET DEFAULT nextval('public.coleccion_id_seq'::regclass);
+
+
+--
+-- Name: documento id; Type: DEFAULT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.documento ALTER COLUMN id SET DEFAULT nextval('public.documento_id_seq'::regclass);
+
+
+--
+-- Name: escuela id; Type: DEFAULT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela ALTER COLUMN id SET DEFAULT nextval('public.escuela_id_seq'::regclass);
+
+
+--
+-- Name: grupo id; Type: DEFAULT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.grupo ALTER COLUMN id SET DEFAULT nextval('public.grupo_id_seq'::regclass);
+
+
+--
+-- Name: licencia id; Type: DEFAULT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.licencia ALTER COLUMN id SET DEFAULT nextval('public.licencia_id_seq'::regclass);
+
+
+--
+-- Name: usuario id; Type: DEFAULT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.usuario ALTER COLUMN id SET DEFAULT nextval('public.usuario_id_seq'::regclass);
+
+
+--
+-- Data for Name: archivo; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.archivo (id, created, guid, modified, descripcion, nombre, uri) FROM stdin;
+\.
+
+
+--
+-- Name: archivo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user01
+--
+
+SELECT pg_catalog.setval('public.archivo_id_seq', 1, false);
+
+
+--
+-- Data for Name: coleccion; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.coleccion (id, created, guid, modified, edicion, nivel, nombre) FROM stdin;
+1	2020-10-13 14:12:18.749897	f660f774-2b0a-4a0b-9321-3fc619099f02	2020-10-13 14:12:18.749906	2018	Nivel 2	CARPETA CLAVE
+2	2020-10-13 14:12:18.766758	98da876f-acde-43a5-8942-012822f9db15	2020-10-13 14:12:18.766768	2015	Nivel 3	I DO SPEAK
+3	2020-10-13 14:12:18.78202	88053159-c3f1-4a20-b3c0-297445f04fec	2020-10-13 14:12:18.782032	All	Nivel 2	ABC
+4	2020-10-13 14:12:18.788886	9027746f-ae7e-4ad4-9785-12221a010bce	2020-10-13 14:12:18.7889	2019	Nivel 3	ABC
+5	2020-10-13 14:12:18.805943	bbf4e425-9315-4861-acee-de1c38802c0a	2020-10-13 14:12:18.805955	All	All	CARPETA CLAVE
+6	2020-10-13 14:12:18.812855	a72de19f-0718-4236-99a2-3b018ec7abab	2020-10-13 14:12:18.812868	2015	Nivel 3	CURSIVA
+7	2020-10-13 14:12:18.834475	ed3bea8e-34ce-49e0-bee7-e4fa7ba3a4f8	2020-10-13 14:12:18.834487	2017	Nivel 3	1,2,3
+8	2020-10-13 14:12:18.853411	470c5427-886b-473b-ab25-75fe2be62968	2020-10-13 14:12:18.853422	2018	Nivel 1	CARPETA CLAVE
+9	2020-10-13 14:12:18.872093	adf1d53c-87bb-4e68-82be-aeecf16bbe6c	2020-10-13 14:12:18.872104	2019	Nivel 3	CURSIVA
+10	2020-10-13 14:12:18.883626	503e61e1-4f17-42b8-80dc-128a4cbdb911	2020-10-13 14:12:18.883677	2017	Nivel 2	1,2,3
+11	2020-10-13 14:12:18.903649	a528264b-b69c-435e-87e0-b295dbe85670	2020-10-13 14:12:18.903659	2015	Nivel 3	ABC
+12	2020-10-13 14:12:18.933116	eb4fd167-967a-4197-a2a3-7f9d31d808f9	2020-10-13 14:12:18.933128	All	All	1,2,3
+13	2020-10-13 14:12:18.950586	3ddfb29a-df57-4164-8a5e-b4c87c97a80d	2020-10-13 14:12:18.950595	2017	Nivel 3	ABC
+14	2020-10-13 14:12:19.01403	c35b305b-a29e-4446-a541-6384441701fd	2020-10-13 14:12:19.014041	All	All	CURSIVA
+15	2020-10-13 14:12:19.022353	46b1b722-6c24-4c92-9756-d3012f3d1b9d	2020-10-13 14:12:19.022366	2015	Nivel 2	CURSIVA
+16	2020-10-13 14:12:19.033145	b1953165-4f56-4dd2-aa5f-f37753596b37	2020-10-13 14:12:19.033156	All	All	PARA LA EDUCADORA
+17	2020-10-13 14:12:19.041251	467ac291-7f9b-4a1f-a679-ce4dec78b0de	2020-10-13 14:12:19.041263	All	Nivel 3	ABC
+18	2020-10-13 14:12:19.050296	d224a468-b873-43c4-aa1a-b669af22877d	2020-10-13 14:12:19.050309	2019	Nivel 2	CURSIVA
+19	2020-10-13 14:12:19.059359	0d83275d-0021-4039-b050-5d4386f7090a	2020-10-13 14:12:19.059373	2019	Nivel 1	1,2,3
+20	2020-10-13 14:12:19.06811	83536f50-1d75-4a0f-8021-7319467ebf68	2020-10-13 14:12:19.06812	All	Nivel 1	ABC
+21	2020-10-13 14:12:19.076644	d0be2bd7-7d0b-4c36-9ed5-99a1c8892162	2020-10-13 14:12:19.076656	2020	Nivel 3	CURSIVA
+22	2020-10-13 14:12:19.081937	05e618f8-a09a-47a9-88b7-ffb2312c6f13	2020-10-13 14:12:19.081946	All	Nivel 3	I DO SPEAK
+23	2020-10-13 14:12:19.089903	f43fad16-24b3-421a-8abe-8043a63582ee	2020-10-13 14:12:19.089913	2017	Nivel 2	ABC
+24	2020-10-13 14:12:19.097432	8b1af205-3faf-4b6e-8fbb-886a9039aaf5	2020-10-13 14:12:19.097442	2020	Nivel 2	1,2,3
+25	2020-10-13 14:12:19.123164	ee4b706f-361c-40a4-aaa0-d73a806cbe03	2020-10-13 14:12:19.123177	2019	Nivel 1	CURSIVA
+26	2020-10-13 14:12:19.140243	6753f51c-8f8d-43af-b0b3-319dd42c0821	2020-10-13 14:12:19.140253	2018	Nivel 3	CARPETA CLAVE
+27	2020-10-13 14:12:19.146576	a3dd7971-763d-4317-b76f-6f6fb8d131ad	2020-10-13 14:12:19.146586	2015	Nivel 1	CURSIVA
+28	2020-10-13 14:12:19.155156	081e29bb-4352-4b0b-a052-c2542962fd23	2020-10-13 14:12:19.155165	2020	Nivel 3	1,2,3
+29	2020-10-13 14:12:19.1762	43e71df3-2734-4335-9c90-7a9106a6b646	2020-10-13 14:12:19.176208	All	All	ABC
+30	2020-10-13 14:12:19.1809	a067573b-03d3-4f20-ad99-7fad997cc37c	2020-10-13 14:12:19.180912	2017	Nivel 1	ABC
+\.
+
+
+--
+-- Data for Name: coleccion_documentos; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.coleccion_documentos (coleccion_id, documentos_id) FROM stdin;
+1	1
+1	2
+2	3
+3	4
+3	5
+4	6
+5	7
+5	8
+6	9
+7	10
+7	11
+8	12
+8	13
+9	14
+9	15
+10	16
+10	17
+11	18
+11	19
+11	20
+11	21
+12	22
+12	23
+12	24
+12	25
+12	26
+12	27
+12	28
+13	29
+13	30
+13	31
+13	32
+13	33
+14	34
+14	35
+14	36
+14	37
+14	38
+14	39
+14	40
+14	41
+14	42
+14	43
+14	44
+14	45
+14	46
+14	47
+14	48
+14	49
+14	50
+14	51
+15	52
+16	53
+16	54
+16	55
+17	56
+17	57
+18	58
+18	59
+19	60
+19	61
+20	62
+20	63
+21	64
+21	65
+22	66
+23	67
+23	68
+24	69
+24	70
+25	71
+25	72
+26	73
+26	74
+27	75
+28	76
+28	77
+29	78
+29	79
+29	80
+29	81
+29	82
+30	83
+\.
+
+
+--
+-- Name: coleccion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user01
+--
+
+SELECT pg_catalog.setval('public.coleccion_id_seq', 30, true);
+
+
+--
+-- Data for Name: documento; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.documento (id, created, guid, modified, archivos, categoria, descripcion, fecha, icono, mime_type, nombre, uri) FROM stdin;
+1	2020-10-13 14:12:18.682229	ab951b23-61c8-4213-bf95-a57de1027afe	2020-10-13 14:12:18.682275	\N	LIBRO	CARPETA CLAVE NIVEL 2	\N	CARPETA_CLAVE/LIBROS/Portadas_PNG/CARPETA_N2	PDF	CARPETA CLAVE NIVEL 2	CARPETA_CLAVE/LIBROS/CARPETA_N2
+2	2020-10-13 14:12:18.746408	33eb72c0-0977-42f3-8db1-755cc9d3e585	2020-10-13 14:12:18.746421	\N	GUIA CLAVE	GUIA CLAVE NIVEL 2	\N	CARPETA_CLAVE/GUIAS/GUIAS_PNG/GUIA_N2	PDF	GUIA CLAVE NIVEL 2	CARPETA_CLAVE/GUIAS/GUIA_CLAVE_N2
+3	2020-10-13 14:12:18.764247	0d8b8c5b-29a9-4eee-b7ed-bee77793145b	2020-10-13 14:12:18.764259	\N	LIBRO	Está diseñado para que los pequeños logren escribir y leer de una froma divertida  en inglés; del mismo modo el material promueve que el niño amplíe su vocabulario y desarrolle su conciencia lingüísti	\N	IDOSPEAK/LIBRO/Portada_PNG/IDO	PDF	I DO SPEAK	IDOSPEAK/LIBRO/IDOSPEAK
+4	2020-10-13 14:12:18.769833	47a761bf-b82e-430d-9e04-b86c39ec4447	2020-10-13 14:12:18.769846	\N	IMPRIMIBLE	VOCABULARIO NIVEL 2	\N	ABC/PALABRAS/Vocabulario_PNG/VOCABULARIO_N2	PDF	VOCABULARIO NIVEL 2	ABC/PALABRAS/VOCBULARIO_N2
+5	2020-10-13 14:12:18.777977	855c9741-881d-47ea-8353-9d504bf0f785	2020-10-13 14:12:18.77799	\N	IMPRIMIBLE	FICHERO SILÁBICO NIVEL 2	\N	ABC/FICHEROS/Ficheros_PNG/FICHEROS_N2	PDF	FICHERO SILÁBICO NIVEL 2	ABC/FICHEROS/FICHERO_N2
+6	2020-10-13 14:12:18.784973	1410df94-3c01-492a-850e-369c75fffe8c	2020-10-13 14:12:18.784985	\N	LIBRO	TAREAS Y LECTURAS	\N	ABC/LIBROS/Libros_PNG/TAREAS_Y_LECTURAS	PDF	TAREAS Y LECTURAS	ABC/LIBROS/TAREAS_Y_LECTURAS
+7	2020-10-13 14:12:18.794742	a4d8064d-1f8e-4ee0-bc50-106a5851dd93	2020-10-13 14:12:18.794758	\N	VIDEOS	CUIDADO DEL AGUA	\N	CARPETA/VIDEOS_ECOSISTEMAS/VIDEOS_PNG/CUIDADO_DEL_AGUA	VIDEO	CUIDADO DEL AGUA	https://www.youtube.com/watch?v=b8X1Gnr0b68
+8	2020-10-13 14:12:18.799823	1265e0c1-9b53-46b7-aaf1-b76dd01cca48	2020-10-13 14:12:18.799837	\N	VIDEOS	¡CUIDEMOS EL AGUA!	\N	CARPETA/VIDEOS_ECOSISTEMAS/VIDEOS_PNG/CUIDEMOS_EL_AGUA	VIDEO	¡CUIDEMOS EL AGUA!	https://www.youtube.com/watch?v=2q4I_oDWTHU
+9	2020-10-13 14:12:18.809449	e43ee2b8-1b59-4c29-aad1-1ed5d37d4423	2020-10-13 14:12:18.809462	\N	LIBRO	CURSIVA NIVEL 3	\N	CURSIVA/LIBROS/Portadas_PNG/Cursiva_2015_N3_320.png	PDF	CURSIVA NIVEL 3	CURSIVA/LIBROS/Cur_n3_2015.pdf
+10	2020-10-13 14:12:18.819542	a61c03b3-80ba-4718-9f3e-eb069f8c3ca9	2020-10-13 14:12:18.819556	\N	LIBRO	1,2,3 NIVEL 3	\N	123/LIBROS/Portadas_PNG/123_2017_N3	PDF	1,2,3 NIVEL 3	123/LIBROS/123_N3_2017
+11	2020-10-13 14:12:18.828667	d68bb98c-2bc0-47f3-99b1-0fc0fe5f3e90	2020-10-13 14:12:18.828682	\N	PLANEACIONES	PLANEACIONES 1,2,3 NIVEL 3	\N	123/PLANEACIONES/2017/2017/PLANEACION_123_N3	PDF	PLANEACIONES 1,2,3 NIVEL 3	123/PLANEACIONES/2017/PLANEACIONES_123_NIVEL_3
+12	2020-10-13 14:12:18.84279	a415fcce-7231-45b7-9273-b1db6912105d	2020-10-13 14:12:18.842802	\N	LIBRO	Esta colección integra los contenidos de los componentes curriculares o aprendizajes clave de la educación preescolar. Parte de las necesidades de los niños y apoya el desarrollo de las competencias, 	\N	CARPETA_CLAVE/LIBROS/Portdas_PNG/CARPETA_N1	PDF	CARPETA CLAVE NIVEL 1	CARPETA_CLAVE/LIBROS/CARPETA_N1
+13	2020-10-13 14:12:18.85087	bb47aa76-1358-41bd-a3fb-551e52f0bb70	2020-10-13 14:12:18.85088	\N	GUIA CLAVE	GUIA CLAVE NIVEL 1	\N	CARPETA_CLAVE/GUIAS/GUIAS_PNG/GUIA_N1	PDF	GUIA CLAVE NIVEL 1	CARPETA_CLAVE/GUIAS/GUIA_CLAVE_N1
+14	2020-10-13 14:12:18.856242	6320feb8-cb80-41e3-972b-771fe611366c	2020-10-13 14:12:18.856253	\N	LIBRO	CURSIVA NIVEL 3	\N	CURSIVA/LIBROS/Portadas_PNG/Cursiva_2019_N3_320.png	PDF	CURSIVA NIVEL 3	CURSIVA/LIBROS/CURSIVA_N3_2019.pdf
+15	2020-10-13 14:12:18.859054	4cb03fa5-86ee-4a8c-811f-6d00cf717973	2020-10-13 14:12:18.859064	\N	PLANEACIONES	PLANEACIONES CURSIVA NIVEL 3	\N	CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N3.png	PDF	PLANEACIONES CURSIVA NIVEL 3	CURSIVA/PLANEACIONES/Cursiva_N3.pdf
+16	2020-10-13 14:12:18.874967	9a6750fa-78ea-4a04-b5cd-b48ad8f63a18	2020-10-13 14:12:18.874979	\N	LIBRO	1,2,3 NIVEL 2	\N	123/LIBROS/Portadas_PNG/123_2017_N2	PDF	1,2,3 NIVEL 2	123/LIBROS/123_N2_2017
+17	2020-10-13 14:12:18.87911	b9e58c8e-5cfe-48fa-a608-2244cf34c336	2020-10-13 14:12:18.879122	\N	PLANEACIONES	PLANEACIONES 1,2,3 NIVEL 2	\N	123/PLANEACIONES/2017/2017/PLANEACION_123_N2	PDF	PLANEACIONES 1,2,3 NIVEL 2	123/PLANEACIONES/2017/PLANEACIONES_123_NIVEL_2
+18	2020-10-13 14:12:18.889487	92a45c0c-312f-451b-a67a-02b5a04ba579	2020-10-13 14:12:18.889512	\N	LIBRO	TAREAS Y LECTURAS LIBRO 2	\N	ABC/LIBROS/Libros_PNG/TAREAS_Y_LECTURAS_L2	PDF	TAREAS Y LECTURAS LIBRO 2	ABC/LIBROS/TAREAS_Y_LECTURAS_L2
+19	2020-10-13 14:12:18.89375	471cffe8-6b15-424f-8f6b-5aebff567f2c	2020-10-13 14:12:18.893764	\N	LIBRO	TAREAS Y LECTURAS LIBRO 3	\N	ABC/LIBROS/Libros_PNG/TAREAS_Y_LECTURAS_L3	PDF	TAREAS Y LECTURAS LIBRO 3	ABC/LIBROS/TAREAS_Y_LECTURAS_L3
+20	2020-10-13 14:12:18.898678	47c978a6-56f6-49bc-a393-cd546f7a6892	2020-10-13 14:12:18.898691	\N	LIBRO	TAREAS Y LECTURAS LIBRO 4	\N	ABC/LIBROS/Libros_PNG/TAREAS_Y_LECTURAS_L4	PDF	TAREAS Y LECTURAS LIBRO 4	ABC/LIBROS/TAREAS_Y_LECTURAS_L4
+21	2020-10-13 14:12:18.901247	6dfb373a-477c-40d6-a2e0-b8c447143318	2020-10-13 14:12:18.901256	\N	LIBRO	TAREAS Y LECTURAS LIBRO 5	\N	ABC/LIBROS/Libros_PNG/TAREAS_Y_LECTURAS_L5	PDF	TAREAS Y LECTURAS LIBRO 5	ABC/LIBROS/TAREAS_Y_LECTURAS_L5
+22	2020-10-13 14:12:18.906783	3cbfc7c5-ec60-4665-b501-b3bfef4fd0fc	2020-10-13 14:12:18.906793	\N	IMPRIMIBLE	RECTA NUMERICA	\N	123/RECTA_NUMERICA/PNG/RECTAS_NUMERICAS	PDF	RECTA NUMERICA	123/RECTA_NUMERICA/RECTAS_DOBLE_CARTA
+23	2020-10-13 14:12:18.909123	e317e999-c121-46bd-9587-7ff961975622	2020-10-13 14:12:18.909132	\N	IMPRIMIBLE	REGLETAS	\N	123/REGLETAS/PNG/REGLETAS	PDF	REGLETAS	123/REGLETAS/REGLETAS_RECORTABLES
+24	2020-10-13 14:12:18.91138	e5693091-8e7a-4b37-8b66-30a9cf69585b	2020-10-13 14:12:18.91139	\N	IMPRIMIBLE	SERIE NUMERICA	\N	123/SERIE_NUMERICA/PNG/SERIE_NUMERICA	PDF	SERIE NUMERICA	123/SERIE_NUMERICA/SERIE_NUMERICA_COPIA
+25	2020-10-13 14:12:18.913701	e7e604ba-7c8f-430d-ad03-5bdbef229fb3	2020-10-13 14:12:18.913713	\N	IMPRIMIBLE	TABLA DE EQUIVALENCIA	\N	123/TABLA_DE_EQUIVALENCIA/PNG/EQUIVALENCIAS	PDF	TABLA DE EQUIVALENCIA	123/TABLA_DE_EQUIVALENCIA/TABLA_DE_EQUIVALENCIA_DE_REGLETAS
+26	2020-10-13 14:12:18.926501	a4e641e2-9991-41ab-af8d-59656d5789cb	2020-10-13 14:12:18.926512	\N	IMPRIMIBLE	TANGRAM	\N	123/TANGRAM/PNG/TANGRAM	PDF	TANGRAM	123/TANGRAM/TANGRAM
+27	2020-10-13 14:12:18.928567	e7a99f2d-1921-4ad8-beb7-b6ed14294024	2020-10-13 14:12:18.928575	\N	PROYECTO	CAJA MAGICA	\N	123/PROYECTO_MATE/Portada_PNG/PORTADA_PRESENTACION_123	PDF	CAJA MAGICA	123/PROYECTO_MATE/PRESENTACION_1
+28	2020-10-13 14:12:18.930883	9b21d2b7-55e0-4a61-be26-adc3df3056a1	2020-10-13 14:12:18.930895	\N	VIDEOS	TRAZOS NUMEROS	\N	123/VIDEOS_DE_CAMPOS_FORMATIVOS/Capturas_PNG	VIDEO	TRAZOS NUMEROS	https://www.youtube.com/playlist?list=PL_QRaPtZsvK9RNRO_kVcP3p9P9ThpHjed
+29	2020-10-13 14:12:18.93599	f6031fc4-3a63-4f2d-958e-5d3fc825c5b2	2020-10-13 14:12:18.936004	\N	LIBRO	ABC NIVEL 3 LIBRO 1	\N	ABC/LIBROS/Libros_PNG/ABC_N3_L1	PDF	ABC NIVEL 3 LIBRO 1	ABC/LIBROS/ABC_N3_L1
+30	2020-10-13 14:12:18.938795	eb860323-c439-4a43-8bad-ec4bb06516a2	2020-10-13 14:12:18.938808	\N	LIBRO	ABC NIVEL 3 LIBRO 2	\N	ABC/LIBROS/Libros_PNG/ABC_N3_L2	PDF	ABC NIVEL 3 LIBRO 2	ABC/LIBROS/ABC_N3_L2
+31	2020-10-13 14:12:18.941765	322fe393-1820-463f-8e5f-ba22180bcf1b	2020-10-13 14:12:18.941778	\N	LIBRO	ABC NIVEL 3 LIBRO 3	\N	ABC/LIBROS/Libros_PNG/ABC_N3_L3	PDF	ABC NIVEL 3 LIBRO 3	ABC/LIBROS/ABC_N3_L3
+32	2020-10-13 14:12:18.944671	e74e4968-e725-4b4a-905a-969a64e22b52	2020-10-13 14:12:18.944684	\N	LIBRO	ABC NIVEL 3 LIBRO 4	\N	ABC/LIBROS/Libros_PNG/ABC_N3_L4	PDF	ABC NIVEL 3 LIBRO 4	ABC/LIBROS/ABC_N3_L4
+33	2020-10-13 14:12:18.947295	6d221001-3dc8-4cff-95e3-c30182083055	2020-10-13 14:12:18.947305	\N	LIBRO	ABC NIVEL 3 LIBRO 5	\N	ABC/LIBROS/Libros_PNG/ABC_N3_L5	PDF	ABC NIVEL 3 LIBRO 5	ABC/LIBROS/ABC_N3_L5
+34	2020-10-13 14:12:18.952724	48ef943f-3587-44f8-8bd3-68b879ce31c8	2020-10-13 14:12:18.952733	\N	IMPRIMIBLE	TRAZO DE ABECEDARIO	\N	CURSIVA/ALFABETO/PNG/Alfabeto_320.png	PDF	TRAZO DE ABECEDARIO	CURSIVA/ALFABETO/abecedario_cursiva.pdf
+35	2020-10-13 14:12:18.956791	60d48bd8-459b-47da-905e-041615312115	2020-10-13 14:12:18.956804	\N	IMPRIMIBLE	ABECEDARIO	\N	CURSIVA/POSTERS/PNG/Abecedario_320.png	PDF	ABECEDARIO	CURSIVA/POSTERS/AbecedariO.pdf
+36	2020-10-13 14:12:18.959954	1389c377-3d63-4dfd-b6e4-606a45abe9a4	2020-10-13 14:12:18.959968	\N	IMPRIMIBLE	CARRETILLAS M Y L	\N	CURSIVA/CARRETILLA/PNG/Fichas_M_L_320.png	PDF	CARRETILLAS M Y L	CURSIVA/CARRETILLA/Fichas_M_L.pdf
+37	2020-10-13 14:12:18.962761	ce17fade-83ae-4eb3-91f6-49099d125e43	2020-10-13 14:12:18.962773	\N	IMPRIMIBLE	CARRETILLAS P Y S	\N	CURSIVA/CARRETILLA/PNG/Fichas_P_S_320.png	PDF	CARRETILLAS P Y S	CURSIVA/CARRETILLA/Fichas_P_S.pdf
+38	2020-10-13 14:12:18.965789	b973c7f2-bd6a-46f8-b654-83a1bab7fc81	2020-10-13 14:12:18.965801	\N	IMPRIMIBLE	PERSONAJES CURSIVA	\N	CURSIVA/NINOS/PNG/Ninos_320.png	PDF	PERSONAJES CURSIVA	CURSIVA/NINOS/Ninos_cursiva.pdf
+39	2020-10-13 14:12:18.968408	3ee054f5-6bbf-4673-9b61-d2764e1b1b71	2020-10-13 14:12:18.96842	\N	IMPRIMIBLE	VOCALES	\N	CURSIVA/VOCALES/PNG/Vocales_320.png	PDF	VOCALES	CURSIVA/VOCALES/Vocales.pdf
+40	2020-10-13 14:12:18.971838	934b927f-bd8b-4dc5-99cf-4062fc849c62	2020-10-13 14:12:18.971851	\N	VIDEOS	TRAZOS CURSIVA VOCALES A	\N	PNG/CURSIVA/VOCALES/A.png	VIDEO	TRAZOS CURSIVA VOCALES	VIDEOS/CURSIVA/VOCALES/A.mp4
+41	2020-10-13 14:12:18.975008	a8b5436a-8c0f-4ca3-b2b4-33e6f8785d42	2020-10-13 14:12:18.975021	\N	VIDEOS	TRAZOS CURSIVA VOCALES E	\N	PNG/CURSIVA/VOCALES/E.png	VIDEO	TRAZOS CURSIVA VOCALES	VIDEOS/CURSIVA/VOCALES/E.mp4
+42	2020-10-13 14:12:18.977856	4c28b80f-e940-4e38-b841-4c8d90c5d745	2020-10-13 14:12:18.97787	\N	VIDEOS	TRAZOS CURSIVA VOCALES I	\N	PNG/CURSIVA/VOCALES/I.png	VIDEO	TRAZOS CURSIVA VOCALES	VIDEOS/CURSIVA/VOCALES/I.mp4
+43	2020-10-13 14:12:18.981146	6fbd0118-706a-4af3-b072-c640f96edd07	2020-10-13 14:12:18.981159	\N	VIDEOS	TRAZOS CURSIVA VOCALES O	\N	PNG/CURSIVA/VOCALES/O.png	VIDEO	TRAZOS CURSIVA VOCALES	VIDEOS/CURSIVA/VOCALES/O.mp4
+44	2020-10-13 14:12:18.983827	5710b2d2-d67a-4a16-b491-b60a3b1da844	2020-10-13 14:12:18.983835	\N	VIDEOS	TRAZOS CURSIVA VOCALES U	\N	PNG/CURSIVA/VOCALES/U.png	VIDEO	TRAZOS CURSIVA VOCALES	VIDEOS/CURSIVA/VOCALES/U.mp4
+45	2020-10-13 14:12:18.986509	2b691f7e-bce6-4892-a301-b13b27bcddff	2020-10-13 14:12:18.98652	\N	VIDEOS	TRAZO DE LAS CONSONANTES D	\N	PNG/CURSIVA/CONSONANTES/D.png	VIDEO	TRAZO DE LAS CONSONANTES	VIDEOS/CURSIVA/CONSONANTES/D.mp4
+46	2020-10-13 14:12:18.989522	5a0aa2ce-b967-4669-a890-012cfdaa8551	2020-10-13 14:12:18.989532	\N	VIDEOS	TRAZO DE LAS CONSONANTES L	\N	PNG/CURSIVA/CONSONANTES/L.png	VIDEO	TRAZO DE LAS CONSONANTES	VIDEOS/CURSIVA/CONSONANTES/L.mp4
+47	2020-10-13 14:12:18.992877	5dc898fc-b90e-439a-96ba-3da5e376a79a	2020-10-13 14:12:18.992889	\N	VIDEOS	TRAZO DE LAS CONSONANTES M	\N	PNG/CURSIVA/CONSONANTES/M.png	VIDEO	TRAZO DE LAS CONSONANTES	VIDEOS/CURSIVA/CONSONANTES/M.mp4
+48	2020-10-13 14:12:18.996606	683db0b6-ee9f-4a0e-8cf1-41d7cd452538	2020-10-13 14:12:18.996628	\N	VIDEOS	TRAZO DE LAS CONSONANTES N	\N	PNG/CURSIVA/CONSONANTES/N.png	VIDEO	TRAZO DE LAS CONSONANTES	VIDEOS/CURSIVA/CONSONANTES/N.mp4
+49	2020-10-13 14:12:19.003859	ec791a18-dcd0-4664-a4b0-e063a8202573	2020-10-13 14:12:19.003871	\N	VIDEOS	TRAZO DE LAS CONSONANTES P	\N	PNG/CURSIVA/CONSONANTES/P.png	VIDEO	TRAZO DE LAS CONSONANTES	VIDEOS/CURSIVA/CONSONANTES/P.mp4
+50	2020-10-13 14:12:19.007943	3807bba5-bb87-4352-928f-6a7e98718a58	2020-10-13 14:12:19.007968	\N	VIDEOS	TRAZO DE LAS CONSONANTES S	\N	PNG/CURSIVA/CONSONANTES/S.png	VIDEO	TRAZO DE LAS CONSONANTES	VIDEOS/CURSIVA/CONSONANTES/S.mp4
+51	2020-10-13 14:12:19.011087	84b154a6-ad3e-4896-a6c2-2509245a62a2	2020-10-13 14:12:19.011101	\N	VIDEOS	TRAZO DE LAS CONSONANTES T	\N	PNG/CURSIVA/CONSONANTES/T.png	VIDEO	TRAZO DE LAS CONSONANTES	VIDEOS/CURSIVA/CONSONANTES/T.mp4
+52	2020-10-13 14:12:19.01945	f6b5d31b-cb60-43b9-a568-83ce0255b612	2020-10-13 14:12:19.019462	\N	LIBRO	CURSIVA NIVEL 2	\N	CURSIVA/LIBROS/Portadas_PNG/Cursiva_2015_N2_320.png	PDF	CURSIVA NIVEL 2	CURSIVA/LIBROS/cur-n2-2015.pdf
+53	2020-10-13 14:12:19.02566	843a9d35-474c-48a5-8d92-74507be061d7	2020-10-13 14:12:19.025672	\N	IMPRIMIBLE	PROTOCOLO ESCUCHA ACTIVA	\N	PARA_LA_EDUCADORA/ESCUCHA_ACTIVA/Escucha_Activa_PNG/ESCUCHA_ACTIVA	PDF	PROTOCOLO ESCUCHA ACTIVA	PARA_LA_EDUCADORA/ESCUCHA_ACTIVA/ESCUCHA_ACTIVA
+54	2020-10-13 14:12:19.028647	7c14373f-106e-4b5f-8016-be0716995f24	2020-10-13 14:12:19.02869	\N	IMPRIMIBLE	ROBIS	\N	PARA_LA_EDUCADORA/ROBIS/Robbis_PNG/ROBBI	PDF	ROBIS	PARA_LA_EDUCADORA/ROBIS/ROBBIS
+55	2020-10-13 14:12:19.031068	a613dd12-1dd4-49af-ba08-82e1c004bb6c	2020-10-13 14:12:19.031077	\N	IMPRIMIBLE	RUBRICAS	\N	PARA_LA_EDUCADORA/RUBRICAS/Rubricas_PNG/RUBRICAS	PDF	RUBRICAS	PARA_LA_EDUCADORA/RUBRICAS/RUBRICAS
+56	2020-10-13 14:12:19.035721	ede9b9d6-c5df-4853-be9e-229b12b48dc9	2020-10-13 14:12:19.035753	\N	IMPRIMIBLE	VOCABULARIO NIVEL 3	\N	ABC/PALABRAS/Vocabulario_PNG/VOCABULARIO_N3	PDF	VOCABULARIO NIVEL 3	ABC/PALABRAS/VOCBULARIO_N3
+57	2020-10-13 14:12:19.038527	716d1e46-4fbf-44af-8c3d-95eeae52fe26	2020-10-13 14:12:19.03855	\N	IMPRIMIBLE	FICHERO SILÁBICO NIVEL 3	\N	ABC/FICHEROS/Ficheros_PNG/FICHEROS_N3	PDF	FICHERO SILÁBICO NIVEL 3	ABC/FICHEROS/FICHERO_N3
+58	2020-10-13 14:12:19.044282	851f5011-65ef-4c6c-bb1f-90548d82b003	2020-10-13 14:12:19.044292	\N	LIBRO	CURSIVA NIVEL 2	\N	CURSIVA/LIBROS/Portadas_PNG/Cursiva_2019_N2_320.png	PDF	CURSIVA NIVEL 2	CURSIVA/LIBROS/CURSIVA_N2_2019.pdf
+59	2020-10-13 14:12:19.046953	c16e8599-0e56-444c-9a4a-d2149bdbaf71	2020-10-13 14:12:19.046963	\N	PLANEACIONES	PLANEACIONES CURSIVA NIVEL 2	\N	CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N2.png	PDF	PLANEACIONES CURSIVA NIVEL 2	CURSIVA/PLANEACIONES/Cursiva_N2.pdf
+60	2020-10-13 14:12:19.053428	7790c4e9-decb-4406-9b64-a1723e0beb3b	2020-10-13 14:12:19.053439	\N	LIBRO	Esta colección promueve la construcción de las matemáticas mediante el planteamiento de situaciones didácticas y problemas matemáticos cercanos a los pequeños. Con ayuda de las regletas Cuisenaire y o	\N	123/LIBROS/Portadas_PNG/123_2019_N1	PDF	1,2,3 NIVEL 1	123/LIBROS/123_N1_2019
+61	2020-10-13 14:12:19.056458	7c392a7d-0f74-4cfa-aff0-c5d93f46c901	2020-10-13 14:12:19.056469	\N	PLANEACIONES	PLANEACIONES 1,2,3 NIVEL 1	\N	123/PLANEACIONES/2019/2019/PLANEACION_123_N1	PDF	PLANEACIONES 1,2,3 NIVEL 1	123/PLANEACIONES/2019/PLANEACION_N1_2019
+62	2020-10-13 14:12:19.062298	eea669f6-f8d3-4236-a20b-2015b48db059	2020-10-13 14:12:19.062311	\N	IMPRIMIBLE	VOCABULARIO NIVEL 1	\N	ABC/PALABRAS/VOCBULARIO_PNG/VOCABULARIO_N1	PDF	VOCABULARIO NIVEL 1	ABC/PALABRAS/VOCBULARIO_N1
+63	2020-10-13 14:12:19.065189	5b2eb4a9-d639-418a-b02a-95694ddf9056	2020-10-13 14:12:19.0652	\N	IMPRIMIBLE	FICHERO SILÁBICO NIVEL 1	\N	ABC/FICHEROS/Ficheros_PNG/FICHEROS_N1	PDF	FICHERO SILÁBICO NIVEL 1	ABC/FICHEROS/FICHERO_N1
+64	2020-10-13 14:12:19.070856	6b4fb00a-2923-4a6e-b46e-56f46aa74eb5	2020-10-13 14:12:19.070866	\N	LIBRO	CURSIVA NIVEL 3	\N	CURSIVA/LIBROS/Portadas_PNG/Cur_N3_2020_320.png	PDF	CURSIVA NIVEL 3	CURSIVA/LIBROS/Cur_n3_2020.pdf
+65	2020-10-13 14:12:19.073539	b73e71e6-5349-45f6-b269-3dd833eb6ee8	2020-10-13 14:12:19.07355	\N	PLANEACIONES	PLANEACIONES CURSIVA NIVEL 3	\N	CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N3_2020.png	PDF	PLANEACIONES CURSIVA NIVEL 3	CURSIVA/PLANEACIONES/Cursiva_n3_2020.pdf
+66	2020-10-13 14:12:19.079893	77604075-a9f9-406a-97e4-abf912f8da09	2020-10-13 14:12:19.079903	\N	IMPRIMIBLE	FLASH CARDS	\N	IDOSPEAK/FLASHCARDS/FLASH_CARDS/FLASH_CARDS	PDF	FLASH CARDS	IDOSPEAK/FLASHCARDS/FLASH_CARDS
+67	2020-10-13 14:12:19.084821	96167fba-8694-4b0f-afb8-2b2ebb4f2418	2020-10-13 14:12:19.084857	\N	LIBRO	ABC NIVEL 2 LIBRO 1	\N	ABC/LIBROS/Libros_PNG/ABC_N2_L1	PDF	ABC NIVEL 2 LIBRO 1	ABC/LIBROS/ABC_N2_L1
+68	2020-10-13 14:12:19.087582	6c60c0a7-d245-4d36-961e-59c20043bde3	2020-10-13 14:12:19.087593	\N	LIBRO	ABC NIVEL 2 LIBRO 2	\N	ABC/LIBROS/Libros_png/ABC_N2_L2	PDF	ABC NIVEL 2 LIBRO 2	ABC/LIBROS/ABC_N2_L2
+69	2020-10-13 14:12:19.092688	9436d20e-3f7b-41d5-ace4-7c79696bd78f	2020-10-13 14:12:19.092696	\N	LIBRO	1,2,3 NIVEL 2	\N	123/LIBROS/Portadas_PNG/123_2020_N2	PDF	1,2,3 NIVEL 2	123/LIBROS/123_N2_2020
+70	2020-10-13 14:12:19.095406	eb51eaf0-b360-4c97-9775-609530768060	2020-10-13 14:12:19.095417	\N	PLANEACIONES	PLANEACIONES 1,2,3 NIVEL 2 UNIDAD 1	\N	123/PLANEACIONES/2020/2020/PLANEACION_123_N2	PDF	PLANEACIONES 1,2,3 NIVEL 2 UNIDAD 1	123/PLANEACIONES/2020/PLANEACION_1_NIVEL_2_20
+71	2020-10-13 14:12:19.108062	c3bd459e-cb42-477e-ac6a-3a28b7fde047	2020-10-13 14:12:19.108073	\N	LIBRO	CURSIVA NIVEL 1	\N	CURSIVA/LIBROS/Portadas_PNG/Cursiva_2019_N1_320.png	PDF	CURSIVA NIVEL 1	CURSIVA/LIBROS/CURSIVA_N1_2019.pdf
+72	2020-10-13 14:12:19.113244	77a0f41b-778e-4669-8973-8a6361f02b04	2020-10-13 14:12:19.113256	\N	PLANEACIONES	PLANEACIONES CURSIVA NIVEL 1	\N	CURSIVA/PLANEACIONES/Planeaciones_png/Planeacion_cursiva_N1.png	PDF	PLANEACIONES CURSIVA NIVEL 1	CURSIVA/PLANEACIONES/Cursiva_N1.pdf
+73	2020-10-13 14:12:19.128796	bc63eb85-36f4-4314-9af6-b29f69639a79	2020-10-13 14:12:19.128807	\N	LIBRO	CARPETA CLAVE NIVEL 3	\N	CARPETA_CLAVE/LIBROS/Portadas_PNG/CARPETA_N3	PDF	CARPETA CLAVE NIVEL 3	CARPETA_CLAVE/LIBROS/CARPETA_N3
+74	2020-10-13 14:12:19.132398	aa1e3b1e-362f-4b35-8648-558351938d4e	2020-10-13 14:12:19.132408	\N	GUIA CLAVE	GUIA CLAVE NIVEL 3	\N	CARPETA_CLAVE/GUIAS/GUIAS_PNG/GUIA_N3	PDF	GUIA CLAVE NIVEL 3	CARPETA_CLAVE/GUIAS/GUIA_CLAVE_N3
+75	2020-10-13 14:12:19.14332	0311d52f-5dad-4e40-9e4d-b411f6bbd70a	2020-10-13 14:12:19.14333	\N	LIBRO	Esta colección favorece la motricidad fina, la caligrafía y el desarrollo de conexiones neuronales mediante el trazo de letra cursiva. Los libros y la aplicación educativa son el complemento ideal en 	\N	CURSIVA/LIBROS/Portadas_PNG/Cursiva_2015_N1.png	PDF 	CURSIVA NIVEL 1	CURSIVA/LIBROS/CUR_N1_2015
+76	2020-10-13 14:12:19.149214	9666a5dd-d6f5-4057-a26b-6d79825a3626	2020-10-13 14:12:19.149224	\N	LIBRO	1,2,3 NIVEL 3	\N	123/LIBROS/Portadas_PNG/123_2020_N3	PDF	1,2,3 NIVEL 3	123/LIBROS/123_N3_2020
+77	2020-10-13 14:12:19.152486	fc1c977f-5b77-491e-b6f8-c36d2f7ef896	2020-10-13 14:12:19.152495	\N	PLANEACIONES	PLANEACIONES 1,2,3 NIVEL 3 UNIDAD 1	\N	123/PLANEACIONES/2020/2020/PLANEACION_123_N3	PDF	PLANEACIONES 1,2,3 NIVEL 3 UNIDAD 1	123/PLANEACIONES/2020/PLANEACION_1_NIVEL_3_20
+78	2020-10-13 14:12:19.157879	8624a7c4-fe85-442f-92f0-7ec0d1b210bc	2020-10-13 14:12:19.161617	\N	IMPRIMIBLE	PERSONAJES ABC	\N	ABC/PERSONAJES/Personajes_PNG/PERSONAJES	PDF	PERSONAJES ABC	ABC/PERSONAJES/PERSONAJES_ABC
+79	2020-10-13 14:12:19.163914	c260b01d-a6fa-4a6b-abd9-49ff73fbca59	2020-10-13 14:12:19.163922	\N	GUIA	Guía metodológica para la enseñanza de la lecto-escritura.	\N	ABC/METODOLOGIA/Metodologia_PNG/METODOLOGIA	PDF	Guía metodológica para la enseñanza de la lecto-escritura.	ABC/METODOLOGIA/Guía_metodológica_para_la_enseñanza_de_la_lecto-escritura
+80	2020-10-13 14:12:19.16618	61cb30a7-ddfb-49f4-90ef-9d5dc564b9a6	2020-10-13 14:12:19.16619	\N	IMPRIMIBLE	Vocales y abecedario Script	\N	ABC/METODOLOGIA/Metodologia_PNG/Vocales_y_abecedario_Script	PDF	Vocales y abecedario Script	ABC/METODOLOGIA/Vocales_y_abecedario_Script
+81	2020-10-13 14:12:19.168461	9d8bd712-c9e5-4f47-a77d-a80d2da158f6	2020-10-13 14:12:19.168469	\N	VIDEOS	TRAZO DE LETRAS EN SCRIPT	\N	ABC/VIDEOS/Videos_PNG/Trazo_de_letra_script	VIDEO	TRAZO DE LETRAS EN SCRIPT	https://www.youtube.com/playlist?list=PL_QRaPtZsvK9ldK-dIijDqczIGTFWvUZT
+82	2020-10-13 14:12:19.174328	c797a533-eaa5-4e36-ba65-100d10b1480a	2020-10-13 14:12:19.174336	\N	VIDEOS	TRAZO Y SONIDO DE LAS SILABAS	\N	ABC/VIDEOS/Videos_PNG/Trazo_y_sonido	VIDEO	TRAZO Y SONIDO DE LAS SILABAS	https://www.youtube.com/playlist?list=PL_QRaPtZsvK9EdQ6kuaVxsRbsaKaQohUX
+83	2020-10-13 14:12:19.178198	f496dc72-0bfc-4902-95bd-3faad7e9dd6d	2020-10-13 14:12:19.178207	\N	LIBRO	Esta colección se conforma de libros, aplicaciones e innovadores recursos didácticos para el aprendizaje de la lectura y la escritura que se adapta a las diferentes metodologías alfabetizadoras. Los a	\N	ABC/LIBROS/Libros_PNG/ABC_N1	PDF	ABC NIVEL 1	ABC/LIBROS/ABC_N1
+\.
+
+
+--
+-- Name: documento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user01
+--
+
+SELECT pg_catalog.setval('public.documento_id_seq', 83, true);
+
+
+--
+-- Data for Name: escuela; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.escuela (id, created, guid, modified, nombre) FROM stdin;
+1	2020-10-13 14:12:19.186014	aa239d06-c36c-4f73-9bfb-df999e59770b	2020-10-13 14:12:19.186025	Instituto Asunción Aguilas
+\.
+
+
+--
+-- Data for Name: escuela_grupos; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.escuela_grupos (escuela_id, grupos_id) FROM stdin;
+\.
+
+
+--
+-- Name: escuela_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user01
+--
+
+SELECT pg_catalog.setval('public.escuela_id_seq', 1, true);
+
+
+--
+-- Data for Name: escuela_licencias; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.escuela_licencias (escuela_id, licencias_id) FROM stdin;
+1	1
+1	2
+1	3
+\.
+
+
+--
+-- Data for Name: escuela_usuarios; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.escuela_usuarios (escuela_id, usuarios_id) FROM stdin;
+1	1
+1	2
+1	3
+1	4
+1	5
+1	6
+1	7
+1	8
+1	9
+1	10
+1	11
+1	12
+1	13
+1	14
+1	15
+1	16
+1	17
+1	18
+1	19
+1	20
+1	21
+1	22
+1	23
+1	24
+1	25
+1	26
+1	27
+1	28
+1	29
+1	30
+1	31
+1	32
+1	33
+1	34
+1	35
+1	36
+1	37
+1	38
+1	39
+1	40
+1	41
+1	42
+1	43
+1	44
+1	45
+1	46
+1	47
+1	48
+1	49
+1	50
+1	51
+1	52
+1	53
+1	54
+1	55
+1	56
+1	57
+1	58
+1	59
+1	60
+1	61
+1	62
+1	63
+1	64
+1	65
+1	66
+1	67
+1	68
+1	69
+1	70
+1	71
+1	72
+1	73
+1	74
+1	75
+1	76
+1	77
+1	78
+1	79
+1	80
+1	81
+1	82
+1	83
+1	84
+1	85
+1	86
+1	87
+1	88
+1	89
+1	90
+1	91
+1	92
+1	93
+1	94
+1	95
+1	96
+1	97
+1	98
+1	99
+1	100
+1	101
+1	102
+1	103
+1	104
+1	105
+1	106
+1	107
+1	108
+1	109
+1	110
+1	111
+1	112
+1	113
+1	114
+1	115
+1	116
+1	117
+1	118
+1	119
+1	120
+1	121
+1	122
+1	123
+1	124
+1	125
+1	126
+1	127
+1	128
+1	129
+1	130
+1	131
+1	132
+1	133
+1	134
+1	135
+1	136
+1	137
+1	138
+1	139
+1	140
+1	141
+1	142
+1	143
+1	144
+1	145
+1	146
+1	147
+1	148
+1	149
+1	150
+1	151
+1	152
+1	153
+1	154
+1	155
+1	156
+1	157
+1	158
+1	159
+1	160
+1	161
+1	162
+1	163
+1	164
+1	165
+1	166
+1	167
+1	168
+1	169
+1	170
+1	171
+1	172
+1	173
+1	174
+1	175
+1	176
+1	177
+1	178
+1	179
+1	180
+1	181
+1	182
+1	183
+1	184
+1	185
+1	186
+1	187
+1	188
+1	189
+1	190
+1	191
+1	192
+1	193
+1	194
+1	195
+1	196
+1	197
+1	198
+1	199
+1	200
+1	201
+1	202
+1	203
+1	204
+1	205
+1	206
+1	207
+1	208
+1	209
+1	210
+1	211
+1	212
+1	213
+1	214
+1	215
+1	216
+1	217
+1	218
+1	219
+\.
+
+
+--
+-- Data for Name: grupo; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.grupo (id, created, guid, modified, nombre, escuela_id) FROM stdin;
+\.
+
+
+--
+-- Name: grupo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user01
+--
+
+SELECT pg_catalog.setval('public.grupo_id_seq', 1, false);
+
+
+--
+-- Data for Name: licencia; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.licencia (id, created, guid, modified, asientos, begin_date, coleccion_nombre, edicion, end_date, escuela_nombre, is_enable, nivel, nombre, coleccion_id, escuela_id) FROM stdin;
+1	2020-10-13 14:12:38.634983	048e2c21-14c2-45f7-99a1-216e17bd7a91	2020-10-13 14:12:38.972174	0	\N	CURSIVA	2019	\N	Instituto Asunción Aguilas	t	Nivel 1	asuncion-001	25	1
+2	2020-10-13 14:12:38.875157	0f3a32d7-3e65-4db6-be1d-c053e34608b0	2020-10-13 14:12:38.972298	0	\N	CURSIVA	2019	\N	Instituto Asunción Aguilas	t	Nivel 2	asuncion-002	18	1
+3	2020-10-13 14:12:38.921981	a9004e49-4dd9-491c-8f8f-fc34bd1c2103	2020-10-13 14:12:38.97237	0	\N	CURSIVA	2019	\N	Instituto Asunción Aguilas	t	Nivel 3	asuncion-003	9	1
+\.
+
+
+--
+-- Name: licencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user01
+--
+
+SELECT pg_catalog.setval('public.licencia_id_seq', 3, true);
+
+
+--
+-- Data for Name: spring_session; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.spring_session (primary_id, session_id, creation_time, last_access_time, max_inactive_interval, expiry_time, principal_name) FROM stdin;
+d6ab99a8-a8f8-4ed5-bb53-f66dc7193fb0	366f1f30-79d3-433c-ad41-4a47af458e94	1602616251809	1602616370537	1800	1602618170537	valero.tejeda.sofia
+\.
+
+
+--
+-- Data for Name: spring_session_attributes; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.spring_session_attributes (session_primary_id, attribute_name, attribute_bytes) FROM stdin;
+d6ab99a8-a8f8-4ed5-bb53-f66dc7193fb0	SPRING_SECURITY_CONTEXT	\\xaced00057372003d6f72672e737072696e676672616d65776f726b2e73656375726974792e636f72652e636f6e746578742e5365637572697479436f6e74657874496d706c00000000000002120200014c000e61757468656e7469636174696f6e7400324c6f72672f737072696e676672616d65776f726b2f73656375726974792f636f72652f41757468656e7469636174696f6e3b78707372004f6f72672e737072696e676672616d65776f726b2e73656375726974792e61757468656e7469636174696f6e2e557365726e616d6550617373776f726441757468656e7469636174696f6e546f6b656e00000000000002120200024c000b63726564656e7469616c737400124c6a6176612f6c616e672f4f626a6563743b4c00097072696e636970616c71007e0004787200476f72672e737072696e676672616d65776f726b2e73656375726974792e61757468656e7469636174696f6e2e416273747261637441757468656e7469636174696f6e546f6b656ed3aa287e6e47640e0200035a000d61757468656e746963617465644c000b617574686f7269746965737400164c6a6176612f7574696c2f436f6c6c656374696f6e3b4c000764657461696c7371007e0004787001737200266a6176612e7574696c2e436f6c6c656374696f6e7324556e6d6f6469666961626c654c697374fc0f2531b5ec8e100200014c00046c6973747400104c6a6176612f7574696c2f4c6973743b7872002c6a6176612e7574696c2e436f6c6c656374696f6e7324556e6d6f6469666961626c65436f6c6c656374696f6e19420080cb5ef71e0200014c00016371007e00067870737200136a6176612e7574696c2e41727261794c6973747881d21d99c7619d03000149000473697a65787000000001770400000001737200426f72672e737072696e676672616d65776f726b2e73656375726974792e636f72652e617574686f726974792e53696d706c654772616e746564417574686f7269747900000000000002120200014c0004726f6c657400124c6a6176612f6c616e672f537472696e673b7870740009524f4c455f555345527871007e000d737200486f72672e737072696e676672616d65776f726b2e73656375726974792e7765622e61757468656e7469636174696f6e2e57656241757468656e7469636174696f6e44657461696c7300000000000002120200024c000d72656d6f74654164647265737371007e000f4c000973657373696f6e496471007e000f78707400093132372e302e302e3174002439396536343434332d373336342d343531662d393863662d35366436366539343863346270737200326f72672e737072696e676672616d65776f726b2e73656375726974792e636f72652e7573657264657461696c732e5573657200000000000002120200075a00116163636f756e744e6f6e457870697265645a00106163636f756e744e6f6e4c6f636b65645a001563726564656e7469616c734e6f6e457870697265645a0007656e61626c65644c000b617574686f72697469657374000f4c6a6176612f7574696c2f5365743b4c000870617373776f726471007e000f4c0008757365726e616d6571007e000f787001010101737200256a6176612e7574696c2e436f6c6c656374696f6e7324556e6d6f6469666961626c65536574801d92d18f9b80550200007871007e000a737200116a6176612e7574696c2e54726565536574dd98509395ed875b0300007870737200466f72672e737072696e676672616d65776f726b2e73656375726974792e636f72652e7573657264657461696c732e5573657224417574686f72697479436f6d70617261746f720000000000000212020000787077040000000171007e0010787074001376616c65726f2e74656a6564612e736f666961
+\.
+
+
+--
+-- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: user01
+--
+
+COPY public.usuario (id, created, guid, modified, email, enabled, grupo, nivel, nombre, password, role, tipo, escuela_id) FROM stdin;
+1	2020-10-13 14:12:19.344439	cea1c3c3-f284-4bc3-8ad9-50cb73f78f1f	2020-10-13 14:12:38.2637	abreu.paez.sofia	t	1o A Pre	Nivel 1	ABREU PAEZ SOFÍA	{bcrypt}$2a$10$ZpIgbn/7ByspvkDUALF0Pe4uba7IWljhvj1klp8cwFfUd0pu8iszy	USER	ALUMNO	1
+2	2020-10-13 14:12:19.463148	32fb4384-ce9a-4a0a-bf15-c942bc584eaf	2020-10-13 14:12:38.265512	barragan.villamil.ines	t	1o A Pre	Nivel 1	BARRAGÁN VILLAMIL INÉS	{bcrypt}$2a$10$EEZb7/uMwvvESfjq6vuKtOxspF9BozASbbEkwKxx2fmqCkc2/gbiy	USER	ALUMNO	1
+3	2020-10-13 14:12:19.567865	0be7343c-5d54-4086-b96f-4be9a6da8311	2020-10-13 14:12:38.265627	bauer.gallo.alexa	t	1o A Pre	Nivel 1	BAUER GALLO ALEXA	{bcrypt}$2a$10$nhGe9BGz8GNDxw3bEZFmk.xfw.iKSwhdi2c2a.aNYCd/S6ODT15ei	USER	ALUMNO	1
+4	2020-10-13 14:12:19.668796	55a548bf-e077-47b6-9b5e-8d9de91d8b7e	2020-10-13 14:12:38.265723	benavides.gomez-coronel.emilia	t	1o A Pre	Nivel 1	BENAVIDES GÓMEZ-CORONEL EMILIA	{bcrypt}$2a$10$zSMq3Bn.alP7m12aakMjo.tZipwH2.HsYv/O/n9II9w88X0POJdT.	USER	ALUMNO	1
+5	2020-10-13 14:12:19.769772	7673e147-2f42-4255-b11b-02d3855246af	2020-10-13 14:12:38.265823	bravo.lozoya.mariale	t	1o A Pre	Nivel 1	BRAVO LOZOYA MARIALE	{bcrypt}$2a$10$S9M61VWb/.Rir0dtV4eg6uz/w48A0wgTQ.v0msSD0nLrJ0IjTvsba	USER	ALUMNO	1
+6	2020-10-13 14:12:19.868439	bdec00ed-6b17-4dbc-9657-5f0fedd2c4f3	2020-10-13 14:12:38.26592	curiel.gorozpe.emilio	t	1o A Pre	Nivel 1	CURIEL GOROZPE EMILIO	{bcrypt}$2a$10$JLuKVi.k/1S3a2hq/fQ/rOVGhqAM1cOve.4tOSXfuRsMjl9muNTXu	USER	ALUMNO	1
+7	2020-10-13 14:12:19.963578	efd02701-903b-4f21-ac51-05d5d18d4840	2020-10-13 14:12:38.266011	de.la.rosa.bonner.paula	t	1o A Pre	Nivel 1	DE LA ROSA BONNER PAULA	{bcrypt}$2a$10$aQDBhb9ZR7gxQGEhCIYYUe1BEM94JAp.tjeRq4bNoPR7gG.QBWFiu	USER	ALUMNO	1
+8	2020-10-13 14:12:20.052859	82a664ac-0551-4b2a-983e-78ee25d63d1c	2020-10-13 14:12:38.266145	de.leon.garcia.fernanda	t	1o A Pre	Nivel 1	DE LEÓN GARCÍA FERNANDA	{bcrypt}$2a$10$/t6D4OH/EAQQmaWnOb6rxuPPss3QAG957hvEo78ESY06y5q9rGJ4.	USER	ALUMNO	1
+9	2020-10-13 14:12:20.139187	1b9653d9-04b5-4ac4-a533-92d26316ba2f	2020-10-13 14:12:38.266234	flores.mendez.gonzalo	t	1o A Pre	Nivel 1	FLORES MÉNDEZ GONZALO	{bcrypt}$2a$10$3IWQuqtucVA2N96u0PK7XO.6.N0MsA9VRP.39IbouZO0WjgLrSd7.	USER	ALUMNO	1
+10	2020-10-13 14:12:20.225664	3aa372f4-004b-4e3b-82fc-b79be42014fa	2020-10-13 14:12:38.266321	ibanez.villavicencio.santiago	t	1o A Pre	Nivel 1	IBÁÑEZ VILLAVICENCIO SANTIAGO	{bcrypt}$2a$10$2mVti3SYgGS92hbUOoIuiOk.ryZAtjSFSsGdAa3ggBRwhXT/K1/r2	USER	ALUMNO	1
+11	2020-10-13 14:12:20.311798	1cefc101-e755-4f2a-a521-af8f1800337d	2020-10-13 14:12:38.266416	lozano.perez.diego	t	1o A Pre	Nivel 1	LOZANO PÉREZ DIEGO	{bcrypt}$2a$10$03aXJfEP2wKnIQCng8SPZeWLr2ymZnQxsDdwRQGWLeemZNB1nUWPi	USER	ALUMNO	1
+12	2020-10-13 14:12:20.397279	140e055c-574d-4a3d-bfcd-9829fc9093e2	2020-10-13 14:12:38.266506	morett.domenech.maria.jose	t	1o A Pre	Nivel 1	MORETT DOMENECH MARÍA JOSÉ	{bcrypt}$2a$10$YYl4FCIdcqRxopuY4SF/FeQ2OVuWemBeqchOMSvPwyO7LDEcbhsJi	USER	ALUMNO	1
+13	2020-10-13 14:12:20.485975	32869b98-438c-486b-ba90-f680a787937f	2020-10-13 14:12:38.266593	olayo.sierra.pablo	t	1o A Pre	Nivel 1	OLAYO SIERRA PABLO	{bcrypt}$2a$10$2igYgm33dzAuVCO6EE/kEu760GnJqzf7OpcgYjxcXd9l8c/7BdUPC	USER	ALUMNO	1
+14	2020-10-13 14:12:20.573555	367a1d2d-005c-4fa1-b268-ee5fbb8fd6b7	2020-10-13 14:12:38.266707	pietra.santa.abud.leonardo	t	1o A Pre	Nivel 1	PIETRA SANTA ABUD LEONARDO	{bcrypt}$2a$10$BXJoXaPsCvePDPij9e4dS.S8FSsWbMh7nvqvCEkzv4B8aiLuqny6.	USER	ALUMNO	1
+15	2020-10-13 14:12:20.661195	ec053431-0383-4d6f-a8f7-fe0d1d59d365	2020-10-13 14:12:38.2668	sanchez.orlanzzini.maria.ines	t	1o A Pre	Nivel 1	SÁNCHEZ ORLANZZINI MARÍA INÉS	{bcrypt}$2a$10$vk83cWA6UNSv/LI9VU3WyeOZe513NLSURBxGNr/IehYtxeObw0JIy	USER	ALUMNO	1
+16	2020-10-13 14:12:20.746561	ec0c80ba-adef-463d-81ff-8d6619903fb4	2020-10-13 14:12:38.267506	sandoval.martinez.emilio	t	1o A Pre	Nivel 1	SANDOVAL MARTÍNEZ EMILIO	{bcrypt}$2a$10$EokWQesMUjqN683PGF7qcOTgqKOg6mROkMA3kvLo/0IxokPPyJrDW	USER	ALUMNO	1
+17	2020-10-13 14:12:20.831659	fdc5b642-5d18-41cb-9123-490a8e07d2df	2020-10-13 14:12:38.267633	torres.trigueros.martina	t	1o A Pre	Nivel 1	TORRES TRIGUEROS MARTINA	{bcrypt}$2a$10$rZqOVtAkKgJ2nfFnb/akUeEWRZ60utmbhXag4M2sHLbe7226fJGhm	USER	ALUMNO	1
+18	2020-10-13 14:12:20.916761	e9025a50-f3d6-4d7b-8dc4-de9bdb8b7752	2020-10-13 14:12:38.26772	valenzuela.zorrilla.julia	t	1o A Pre	Nivel 1	VALENZUELA ZORRILLA JULIA	{bcrypt}$2a$10$b0VPBWmKRG0eJ0RQRIsysuv/0HLVlU62IH2JRuLKbBxarFxyYsa9q	USER	ALUMNO	1
+19	2020-10-13 14:12:21.002671	9b1c7635-fa2f-4975-bbed-faff491df8b7	2020-10-13 14:12:38.267807	valle.diego.-fernandez.jose.miguel	t	1o A Pre	Nivel 1	VALLE DIEGO -FERNÁNDEZ JOSÉ MIGUEL	{bcrypt}$2a$10$Z9V4D1cDk1Y7O0gC6oWqLejqf2N4y6GCkh8/IaYy4PLrbrBRFCXHC	USER	ALUMNO	1
+20	2020-10-13 14:12:21.087208	b753a054-2e2e-426b-848d-3f29a78cc759	2020-10-13 14:12:38.267892	vallin.de.vecchi.andres	t	1o A Pre	Nivel 1	VALLIN DE VECCHI ANDRÉS	{bcrypt}$2a$10$p5nDPdrFHDpfsXk7/xTcFOHlJyJj4AAwGfIwfMBvBaSZD4vGDsqkS	USER	ALUMNO	1
+21	2020-10-13 14:12:21.172611	f691327d-0553-4630-aadf-207be190d25c	2020-10-13 14:12:38.267974	castaneda.amutio.ines	t	1o B Pre	Nivel 1	CASTAÑEDA AMUTIO INÉS	{bcrypt}$2a$10$wQTz.YlPV/oRZf1XwCEH5.srAa.DlAGYXzC92O50hwe6WgE8vpUhK	USER	ALUMNO	1
+22	2020-10-13 14:12:21.257028	9f691040-9a6a-4746-9872-4ffe48ca4f04	2020-10-13 14:12:38.268055	crestani.ordonez.alvaro	t	1o B Pre	Nivel 1	CRESTANI ORDOÑEZ ÁLVARO	{bcrypt}$2a$10$ij1iiXKttIb7OCj0GvEkmOhQEk64mrvHImLs3sq/XEoGvInym4T.q	USER	ALUMNO	1
+23	2020-10-13 14:12:21.341496	cf6a1df3-4a08-4598-80df-b29a49f23495	2020-10-13 14:12:38.268135	estudillo.salazar.mila	t	1o B Pre	Nivel 1	ESTUDILLO SALAZAR MILA	{bcrypt}$2a$10$sc1AGspmBFobAfnpeyLO9OY9F/NzThc3Js4Cic87wiIPy4CwhkMnC	USER	ALUMNO	1
+24	2020-10-13 14:12:21.426616	b661bcdf-0306-4918-a84d-0881195a9842	2020-10-13 14:12:38.268215	figueroa.arroyo.sara.maria	t	1o B Pre	Nivel 1	FIGUEROA ARROYO SARA MARÍA	{bcrypt}$2a$10$StcJ2ty35M7chwfvctZKWuMUuomYXgEFnxLpJMB4cDU40dxh53AwO	USER	ALUMNO	1
+25	2020-10-13 14:12:21.513106	ca40d53a-20fb-49d1-bd75-81d56a8ce541	2020-10-13 14:12:38.268295	garcia.novelo.almudena	t	1o B Pre	Nivel 1	GARCÍA NOVELO ALMUDENA	{bcrypt}$2a$10$2hH.d9XpJnuQk66ya.JKp.jEwzOAwin4tvblLmGAncdIRszbZuYrC	USER	ALUMNO	1
+26	2020-10-13 14:12:21.596986	580a89f7-e00e-45d7-986e-9d1a9dc5f859	2020-10-13 14:12:38.268374	guevara.aguilar.jeronimo	t	1o B Pre	Nivel 1	GUEVARA AGUILAR JERÓNIMO	{bcrypt}$2a$10$HRPpROl.V67q.5DhM3RRMeKNfIpclLC1aP2prBYpmM6LU1S8cH8NW	USER	ALUMNO	1
+27	2020-10-13 14:12:21.685685	bcc814d1-537a-4dc4-be5a-289272ac0a2e	2020-10-13 14:12:38.268455	habib.cervantes.regina	t	1o B Pre	Nivel 1	HABIB CERVANTES REGINA	{bcrypt}$2a$10$HmVw3C8LQscW.GWoBLIrdexOL1sjx8XUt7Vt4Er1O5uzWdF4L84dO	USER	ALUMNO	1
+28	2020-10-13 14:12:21.769955	6cabbd38-0f72-4ed0-bba0-305e58ae4e89	2020-10-13 14:12:38.268543	herrera.mina.fadia	t	1o B Pre	Nivel 1	HERRERA MINA FADIA	{bcrypt}$2a$10$Q4m8CzH5rUH1gZB5Eg6JR.QniR.WrtP2DwE3nCBKHPtyaI339GKTm	USER	ALUMNO	1
+29	2020-10-13 14:12:21.856354	608e406f-280b-479f-bae2-b343e3480d22	2020-10-13 14:12:38.268624	islas.rodriguez.dominica	t	1o B Pre	Nivel 1	ISLAS RODRIGUEZ DOMINICA	{bcrypt}$2a$10$O5pIfjMIF6sBRdXhveBFcOp1a/Ej827J5BwoeUB0GLnYUWvWNmm/.	USER	ALUMNO	1
+30	2020-10-13 14:12:21.947744	ba164298-4903-4d78-930c-a7bfe0568959	2020-10-13 14:12:38.268728	long.ramirez.alfonso	t	1o B Pre	Nivel 1	LONG RAMÍREZ ALFONSO	{bcrypt}$2a$10$Qs0VagyrtsLxLD2CeuaR6u2rNBcP1ctm1Gt.bHw/BW.Hsgic.6ho6	USER	ALUMNO	1
+31	2020-10-13 14:12:22.033407	47ecd485-195f-4c62-9a1b-294cf8b22bd3	2020-10-13 14:12:38.268813	monroy.aguerrebere.santiago	t	1o B Pre	Nivel 1	MONROY AGUERREBERE SANTIAGO	{bcrypt}$2a$10$Sxdverhk5tvLDSZIZJtwkO5lu8qybTJEwjmsyqCBhdsh29GCY/kJS	USER	ALUMNO	1
+32	2020-10-13 14:12:22.118307	5179fe19-7a99-4b7e-b767-b728e96a559a	2020-10-13 14:12:38.268899	moran.zurutuza.bruno	t	1o B Pre	Nivel 1	MORÁN ZURUTUZA BRUNO	{bcrypt}$2a$10$2AszuyE0exb7R3dVwtPiIOrDCzaT6zbv43J73q6h2KCX/FLIf8uVC	USER	ALUMNO	1
+33	2020-10-13 14:12:22.203567	fe6de24e-3b67-4f3e-9b52-cf33d377ec60	2020-10-13 14:12:38.26903	najera.villasenor.ines	t	1o B Pre	Nivel 1	NÁJERA VILLASEÑOR INÉS	{bcrypt}$2a$10$XQXh5wL93erNVJXvp9xA4u4dAfUuhXzgWUO2piQYnohoBRkWNB2/2	USER	ALUMNO	1
+34	2020-10-13 14:12:22.288518	93f1fe80-1ce2-441a-b604-73bbca8bba8d	2020-10-13 14:12:38.26912	ojeda.paz.luciana	t	1o B Pre	Nivel 1	OJEDA PAZ LUCIANA	{bcrypt}$2a$10$owuLcZNkW9W8DxbMvEG.E.JQmCGkhxSILMDWAXyBhaSdJxCmon/jO	USER	ALUMNO	1
+35	2020-10-13 14:12:22.373594	3edf9874-9a21-454c-893d-bf780b61fb04	2020-10-13 14:12:38.269202	oria.y.kiehnle.joaquin	t	1o B Pre	Nivel 1	ORIA Y KIEHNLE JOAQUÍN	{bcrypt}$2a$10$WEpZ/voVRwNKLW8brscDC.Gqz5ndqh5jPwGlpm2m7iC1H7D6HIaz6	USER	ALUMNO	1
+36	2020-10-13 14:12:22.464121	0b3bd095-76bc-4489-b97c-9a3290d97c1a	2020-10-13 14:12:38.269289	pohls.colores.jeronimo	t	1o B Pre	Nivel 1	POHLS COLORES JERÓNIMO	{bcrypt}$2a$10$CoFNyfw2RAMqe2qPqmTLi.51OC1ULDDsA1IFBCeL1yaKZzZTqZJiy	USER	ALUMNO	1
+37	2020-10-13 14:12:22.551075	c9d14551-ba56-480f-80ab-1e30a7cf5125	2020-10-13 14:12:38.269372	romero.mejia.mariana	t	1o B Pre	Nivel 1	ROMERO MEJÍA MARIANA	{bcrypt}$2a$10$Zu1KxlFkoE8r1WQ4EiggguHri6Gmp.XE6t99Zi3riTFTznWw6q.PS	USER	ALUMNO	1
+38	2020-10-13 14:12:22.635972	cae3fc86-c038-401f-a0d0-58c4b8beefdd	2020-10-13 14:12:38.269457	ruiz.diaz.regina	t	1o B Pre	Nivel 1	RUÍZ DÍAZ REGINA	{bcrypt}$2a$10$5TRl6BAe0Du3rje5KgpE4.vgABKIPx8phuMQsNHPvEi7MIQeOkrPC	USER	ALUMNO	1
+39	2020-10-13 14:12:22.720623	c81ab4c5-12a6-4608-8f91-cae14f5bb57c	2020-10-13 14:12:38.269557	senosiain.lomelin.pablo	t	1o B Pre	Nivel 1	SENOSIAIN LOMELÍN PABLO	{bcrypt}$2a$10$H1PRnHrY5fsFeXJ9bm98EuJLuaUEc9Sm56RlXas6J6YmIzu3rEfKu	USER	ALUMNO	1
+40	2020-10-13 14:12:22.808788	e2c8f11b-5564-4e30-aa76-0328b0cb9eb0	2020-10-13 14:12:38.26964	boneta.reyes.julia	t	1o C Pre	Nivel 1	BONETA REYES JULIA	{bcrypt}$2a$10$3iHfe56Sa94qf8PDoXob5.lo.liovjpswErPpu5tj5Gs11O9swaFi	USER	ALUMNO	1
+41	2020-10-13 14:12:22.896192	31b20881-1844-4e56-b6b7-a39078f02ebb	2020-10-13 14:12:38.269722	brassel.sosa.victoria	t	1o C Pre	Nivel 1	BRASSEL SOSA VICTORIA	{bcrypt}$2a$10$mLDWAtqttgOwiFl/fJqq4ubp0xLgv0xpTatQ4Nwy6oyYLy7XqkO5m	USER	ALUMNO	1
+42	2020-10-13 14:12:22.982953	229e6b42-4de9-4ee8-a229-f33ac7fb9038	2020-10-13 14:12:38.269815	calderon.guerra.natalia	t	1o C Pre	Nivel 1	CALDERÓN GUERRA NATALIA	{bcrypt}$2a$10$HweAwRB5wgSTIxw32GQNKem.vphUJhhdfKGJ0L6I7lXGtKsMgFOPC	USER	ALUMNO	1
+43	2020-10-13 14:12:23.069699	7dceb1ca-f32e-4202-b5a9-198019759cb3	2020-10-13 14:12:38.2699	de.velasco.pheres.pia	t	1o C Pre	Nivel 1	DE VELASCO PHERES PÍA	{bcrypt}$2a$10$BObSUceKVyghYAw2eHfqteGPiA.TBu2vBstAh2SbOx/IFBDGNXA1W	USER	ALUMNO	1
+44	2020-10-13 14:12:23.154566	85886037-7da5-4442-802b-eb8dccffd940	2020-10-13 14:12:38.269985	etchegaray.castro.julia	t	1o C Pre	Nivel 1	ETCHEGARAY CASTRO JULIA	{bcrypt}$2a$10$6TcPulpd2QYZiKnQbRAPyuad/FBYAimKcTE2I1PP8kHX2LIMr1JMG	USER	ALUMNO	1
+45	2020-10-13 14:12:23.239631	224616b7-780a-449d-a491-28a21bc086c5	2020-10-13 14:12:38.270066	franco.delgado.damiana	t	1o C Pre	Nivel 1	FRANCO DELGADO DAMIANA	{bcrypt}$2a$10$j2iMNeZvKbHCseBMWBRkkuwqH2Z3wJBx84VpHUn5CTZx2WuSrbR5m	USER	ALUMNO	1
+46	2020-10-13 14:12:23.324235	82c1ccd1-8653-43a1-a9ae-ecd9f4708670	2020-10-13 14:12:38.270149	galeana.camacho.emilio	t	1o C Pre	Nivel 1	GALEANA CAMACHO EMILIO	{bcrypt}$2a$10$/RvU6becnjVjSIoGPSGaBOq5p4B0e5Js.srftdPD0/HTMr6OajneW	USER	ALUMNO	1
+47	2020-10-13 14:12:23.408345	32596404-dbf8-432c-bcdd-f654f3a4be60	2020-10-13 14:12:38.270232	garcia.ramos.miranda	t	1o C Pre	Nivel 1	GARCÍA RAMOS MIRANDA	{bcrypt}$2a$10$zBWkX7.9bYg5dcuyWm6sOOCNEZOh5wwgDupq1FdkH2nizMGV54v2m	USER	ALUMNO	1
+48	2020-10-13 14:12:23.495365	6e33a339-a564-49fb-a14f-98c10b006ee0	2020-10-13 14:12:38.270315	groenewold.tolsa.juan.pablo	t	1o C Pre	Nivel 1	GROENEWOLD TOLSÁ JUAN PABLO	{bcrypt}$2a$10$CbWFjpeYtMEfquJw9zXZE.qxRaCoDRjqrDv8MwSO4plmtrwcgS0uu	USER	ALUMNO	1
+49	2020-10-13 14:12:23.581146	f2182364-0f86-4745-9d6a-9984e7bdc956	2020-10-13 14:12:38.270425	guzman.desdier.elena	t	1o C Pre	Nivel 1	GUZMÁN DESDIER ELENA	{bcrypt}$2a$10$8eGhh8K8IbuENyoik4CbD.f0UWF/9FqB6leEye.bDnoIGqw1Yvcvm	USER	ALUMNO	1
+50	2020-10-13 14:12:23.666644	431308c4-e953-4e85-b1f4-830b09708133	2020-10-13 14:12:38.270507	martel.maldonado.sebastian	t	1o C Pre	Nivel 1	MARTEL MALDONADO SEBASTIÁN	{bcrypt}$2a$10$ubrbLnQ8ANgOlnlcJNgwI.8zmJO3RlS3DWRdwjre5YQcLiICGiEyC	USER	ALUMNO	1
+51	2020-10-13 14:12:23.752053	518e415d-c563-4c33-8148-2af29a46273a	2020-10-13 14:12:38.27059	martinez.huerta.mikel	t	1o C Pre	Nivel 1	MARTÍNEZ HUERTA MIKEL	{bcrypt}$2a$10$aKqyOlKqNIVsYDr.bmih6ud.v99uW0igluiCXY/bwvrfrpZXtH2U.	USER	ALUMNO	1
+52	2020-10-13 14:12:23.838441	87eb716c-a579-4416-9c27-67b14117146d	2020-10-13 14:12:38.270677	nicolau.herrera.julia	t	1o C Pre	Nivel 1	NICOLAU HERRERA JULIA	{bcrypt}$2a$10$inE/ApgS7v3vexHbuyCuFeEo//B52.QvX/mkF9vPaAAHfqIx/xdZq	USER	ALUMNO	1
+53	2020-10-13 14:12:23.92942	937ed18d-759c-443d-9a80-184b19e11bad	2020-10-13 14:12:38.270756	ortega.osoyo.fernando	t	1o C Pre	Nivel 1	ORTEGA OSOYO FERNANDO	{bcrypt}$2a$10$lrl8YGAUXRTyIO/vflYCL.InbK1SMK98vF4COXidipZsNxGJW4gPq	USER	ALUMNO	1
+54	2020-10-13 14:12:24.015813	26d950a5-e912-4e2a-89d4-e584a6a77315	2020-10-13 14:12:38.270833	puente.ceron.pablo	t	1o C Pre	Nivel 1	PUENTE CERÓN PABLO	{bcrypt}$2a$10$jxO57lguPZHbh.N9T1AMWuG0QTJvlvbJrBXvE/59TerFFMKW2CSla	USER	ALUMNO	1
+55	2020-10-13 14:12:24.099978	fd4142cf-c79a-44d2-b84b-ae92cc845ff5	2020-10-13 14:12:38.270923	reygadas.diaz.maximiliano	t	1o C Pre	Nivel 1	REYGADAS DÍAZ MAXIMILIANO	{bcrypt}$2a$10$5cIrO2aiYwjKTIpPgUtjIum8b.AWMTr/LQwjC6U7vtUbWAq09KFj.	USER	ALUMNO	1
+56	2020-10-13 14:12:24.189638	46f0bc36-741e-4997-8ca2-7375e9dddd5a	2020-10-13 14:12:38.271004	rios.morales.valentina	t	1o C Pre	Nivel 1	RÍOS MORALES VALENTINA	{bcrypt}$2a$10$hgVvRNi15EzLTpW5qmmjM.9p5Agicad6NAh2XnaFOuJ.r41GgGXiS	USER	ALUMNO	1
+57	2020-10-13 14:12:24.273853	569851c4-aaf7-4eb1-ab7c-05b38c3f6fd4	2020-10-13 14:12:38.271081	romero.gilbert.macarena	t	1o C Pre	Nivel 1	ROMERO GILBERT MACARENA	{bcrypt}$2a$10$CzY2iai84AEg0b8Bx8XbKeOOkNKWCG3rv.VSw75dl4ua1a6nHyJqO	USER	ALUMNO	1
+58	2020-10-13 14:12:24.358877	47507fe1-7f6c-4053-9349-9daa8e38207e	2020-10-13 14:12:38.271161	zuniga.galvan.bruno	t	1o C Pre	Nivel 1	ZUÑIGA GALVÁN BRUNO	{bcrypt}$2a$10$dZtQHVGADYsLya9MX/2BZuBkcR2vyMt..d/Wc6np6ZaLgXQDIwz/i	USER	ALUMNO	1
+59	2020-10-13 14:12:24.445913	9e22094d-9d7d-4fe2-b903-34f189791001	2020-10-13 14:12:38.271238	arroyo.fernandez.mateo	t	2o A Pre	Nivel 2	ARROYO FERNÁNDEZ MATEO	{bcrypt}$2a$10$EIHGUbuKPjFq8QaKLpfjceeeSqBmhoci67R5ZHq9s4Y2SfRcNnTTe	USER	ALUMNO	1
+60	2020-10-13 14:12:24.533576	75081a9e-1e42-43cd-972f-7cbd81e97379	2020-10-13 14:12:38.271313	bejar.munoz.andrea	t	2o A Pre	Nivel 2	BEJAR MUÑOZ ANDREA	{bcrypt}$2a$10$uDXgWkf7okfbQPm/ybNmVeUmy6WT1ENykUKb2g3COtJ3A56I9uMdm	USER	ALUMNO	1
+61	2020-10-13 14:12:24.617398	09e92bde-6a70-47b4-98bc-c607116f89d7	2020-10-13 14:12:38.271386	boleaga.luna.mariana	t	2o A Pre	Nivel 2	BOLEAGA LUNA MARIANA	{bcrypt}$2a$10$xZhE37BTNgcMMgc1spXaDukH4yu7hbwAt3vr7f669W0uGhqHjdXR2	USER	ALUMNO	1
+62	2020-10-13 14:12:24.70136	9db75bc1-894b-4c3b-b7bb-f314679748e0	2020-10-13 14:12:38.271461	campos.lemus.rodrigo.de.borja	t	2o A Pre	Nivel 2	CAMPOS LEMUS RODRIGO DE BORJA	{bcrypt}$2a$10$jJGDrmOdxNIBgJhxf6NkG.8SD.2q1VFAMYNPYYHlSLZH0S3TitL66	USER	ALUMNO	1
+63	2020-10-13 14:12:24.785878	8ee4f3e8-8146-45e3-b065-e8af54bfc16a	2020-10-13 14:12:38.271543	ceron.oviedo.jordi	t	2o A Pre	Nivel 2	CERÓN OVIEDO JORDI	{bcrypt}$2a$10$CtmVmer23D4Vc/MDaku.t.l70A.qXNC5QWA8sAxo1/aEw7rFq.rh.	USER	ALUMNO	1
+64	2020-10-13 14:12:24.870456	09df2970-0d8e-475e-a558-d3f7aceef205	2020-10-13 14:12:38.271625	diaz.sanchez.maria.emilia	t	2o A Pre	Nivel 2	DÍAZ SANCHEZ MARÍA EMILIA	{bcrypt}$2a$10$Rw0aosr2l8K5S7Gbu2WmsudVfVFgRWNHPIFbaTphlKiLBMowz47g.	USER	ALUMNO	1
+65	2020-10-13 14:12:24.955011	1c59b7dc-3a98-46f9-b685-f816abd7705b	2020-10-13 14:12:38.271769	dosal.nava.javier	t	2o A Pre	Nivel 2	DOSAL NAVA JAVIER	{bcrypt}$2a$10$XT9kLRQer5p.nCLfhCn0Ae/ISvRNrsg5ZiNfkOLO.QXA7L5D4/A9K	USER	ALUMNO	1
+66	2020-10-13 14:12:25.041695	d69399b1-933d-4450-b420-1f5d28c86492	2020-10-13 14:12:38.271853	fabris.cano.valentina	t	2o A Pre	Nivel 2	FABRIS CANO VALENTINA	{bcrypt}$2a$10$P7.FPlC3ZkkILgjgabToG.wfy3IsaQsooTlh2ST6f11yoNBg2nr6y	USER	ALUMNO	1
+67	2020-10-13 14:12:25.125481	e5e1a367-81a5-4413-b0f4-f74e869b4804	2020-10-13 14:12:38.271931	flores.fernandez.rodrigo	t	2o A Pre	Nivel 2	FLORES FERNÁNDEZ RODRIGO	{bcrypt}$2a$10$j7G2MwF/Jc0upCeM5ZrQh.pBHJR0LryHhSDAmAgjyEhvvWDZrfzIy	USER	ALUMNO	1
+68	2020-10-13 14:12:25.209477	92540ab9-977e-46a9-a21e-135ccf422dcf	2020-10-13 14:12:38.272006	gomez.chico.montano.fernando	t	2o A Pre	Nivel 2	GÓMEZ CHICO MONTAÑO FERNANDO	{bcrypt}$2a$10$815ytBo/BOciTQNwagVVXugWaVx2exS6taIkwZG/XllJdkvjuTQtu	USER	ALUMNO	1
+69	2020-10-13 14:12:25.293111	d2b41a67-ebd3-4051-91e2-7019de4f7e6b	2020-10-13 14:12:38.272087	habib.cervantes.romina	t	2o A Pre	Nivel 2	HABIB CERVANTES ROMINA	{bcrypt}$2a$10$uah7vAzRDmAmeipKQmD8h.nm3TAbtUiwrPv/UJIXTIKtD.yep1oni	USER	ALUMNO	1
+70	2020-10-13 14:12:25.379457	08d48316-fb59-4e22-9414-c903bfd2bf42	2020-10-13 14:12:38.27219	hernandez.vargas.romina	t	2o A Pre	Nivel 2	HERNÁNDEZ VARGAS ROMINA	{bcrypt}$2a$10$hy/Fo80Eqp/N3eqIDJyLlOQSmZGH/vfKU0.cK4Q.rihw5qHbCPJTG	USER	ALUMNO	1
+71	2020-10-13 14:12:25.464082	20710244-7d6d-4bbf-aeaa-dda2539349c6	2020-10-13 14:12:38.27227	larre.del.paso.sebastian	t	2o A Pre	Nivel 2	LARRE DEL PASO SEBASTIÁN	{bcrypt}$2a$10$4caYW2vIoWp1K64jgyAsWeowBXvaRDMi62SF/s0M/4A0dfpeX5kES	USER	ALUMNO	1
+72	2020-10-13 14:12:25.550617	49f7b249-bf8c-4058-9512-e17b832c3504	2020-10-13 14:12:38.272354	llano.guzman.mila	t	2o A Pre	Nivel 2	LLANO GUZMÁN MILA	{bcrypt}$2a$10$IigmZREwSNiuqngmHrxtAeFJRLL75x.8e/.EvJs7hBfKiZSNee6Rm	USER	ALUMNO	1
+73	2020-10-13 14:12:25.639217	75094223-9428-415c-afba-c156b5a4bef0	2020-10-13 14:12:38.272436	marrufo.gonzalez.emilio	t	2o A Pre	Nivel 2	MARRUFO GONZÁLEZ EMILIO	{bcrypt}$2a$10$SjtSnZOOPpVYb9Auovd.EO1m89eMEw.aJH1DC7waZDX5gQlMSTYlC	USER	ALUMNO	1
+74	2020-10-13 14:12:25.723161	bbe113f9-4b37-4536-9b1b-750b7e56073d	2020-10-13 14:12:38.272512	martinez.del.rio.borbolla.lorenzo	t	2o A Pre	Nivel 2	MARTÍNEZ DEL RÍO BORBOLLA LORENZO	{bcrypt}$2a$10$/Trosup3p9pNGI/h0Tfrme7wx28nhHRUSIn.NgG8/sBlnMyxHsz5W	USER	ALUMNO	1
+75	2020-10-13 14:12:25.809957	f5005e16-173d-4255-8c08-02f394a07ecf	2020-10-13 14:12:38.272589	martinez.gonzalez.paula.renata	t	2o A Pre	Nivel 2	MARTÍNEZ GONZÁLEZ PAULA RENATA	{bcrypt}$2a$10$pFS5gc4DK7UEGZzwNrE4XOAGKTIWMrb1jPYWdwlQOfQnRerEliKUm	USER	ALUMNO	1
+76	2020-10-13 14:12:25.894062	12f0f8b8-56b7-4468-80ca-5bbfc68735fe	2020-10-13 14:12:38.272675	moreno.guizar.constanza	t	2o A Pre	Nivel 2	MORENO GUIZAR CONSTANZA	{bcrypt}$2a$10$dURLktdhzzC.WtubuFfBQ.NNmHZzxi2Au46ZopJV0n25tcLv4CfUm	USER	ALUMNO	1
+77	2020-10-13 14:12:25.983981	f426130f-01a4-47e2-a7d9-a5e4f6d67fdb	2020-10-13 14:12:38.272749	nicolau.herrera.inaki	t	2o A Pre	Nivel 2	NICOLAU HERRERA IÑAKI	{bcrypt}$2a$10$XVEzP715i/xKiD.ZwnKQYeK3UmVGRNP.JcQVlcrm3UaOlrJa.cW6O	USER	ALUMNO	1
+78	2020-10-13 14:12:26.075991	10f0c4b0-6b9c-430c-be9f-90cb48e5d17c	2020-10-13 14:12:38.272824	omana.tattersfield.elena	t	2o A Pre	Nivel 2	OMAÑA TATTERSFIELD ELENA	{bcrypt}$2a$10$vfkILXChbz2URa.g/Bs7a.JRoWEOqAHxMJzD.jIsLdmaGXGx/Q6Yy	USER	ALUMNO	1
+79	2020-10-13 14:12:26.162831	280c5418-75fb-4cd4-9a2e-2acc1f7c9d80	2020-10-13 14:12:38.272898	romano.diaz.alexa	t	2o A Pre	Nivel 2	ROMANO DÍAZ ALEXA	{bcrypt}$2a$10$fPli8iG4xYcw8MUYR/x8E.jxMMOArIA.UfUKAp6BcwCh0cZHXHZ92	USER	ALUMNO	1
+80	2020-10-13 14:12:26.248516	fcc609d2-abb2-46dd-8f19-796e6b0e4465	2020-10-13 14:12:38.273003	rovelo.cornejo.hector.miguel	t	2o A Pre	Nivel 2	ROVELO CORNEJO HÉCTOR MIGUEL	{bcrypt}$2a$10$nLh/pvulg95jNTvThTA7/uCdVMcCXx8OWVk0N/eNa89Xkf/LTem6K	USER	ALUMNO	1
+81	2020-10-13 14:12:26.333388	334d9743-7a31-40d0-8724-d05d180aae49	2020-10-13 14:12:38.27308	saenz.amado.pablo	t	2o A Pre	Nivel 2	SÁENZ AMADO PABLO	{bcrypt}$2a$10$WvuOv7ZL7kC18IOAoz5uA.oonejs89X1wSEos2Z21Ks0ltY8dcdHq	USER	ALUMNO	1
+82	2020-10-13 14:12:26.418363	84e85493-f99c-4117-a2c6-5b87995babec	2020-10-13 14:12:38.273164	tostado.aleman.maria	t	2o A Pre	Nivel 2	TOSTADO ALEMÁN MARÍA	{bcrypt}$2a$10$PtYh/WRj8lmS9rQFLnLHHuZxYxc6tP8nlmN6j0NcLbquzg42T2jje	USER	ALUMNO	1
+83	2020-10-13 14:12:26.508867	eaafe238-d6c7-4208-9be9-946da091ba00	2020-10-13 14:12:38.273239	urruchua.barri.arturo	t	2o A Pre	Nivel 2	URRUCHUA BARRI ARTURO	{bcrypt}$2a$10$1197NsRw3hV2UITOTcdtneyE8QdbX1/XFnOJCAbCESWv9YNoYupym	USER	ALUMNO	1
+84	2020-10-13 14:12:26.596256	d54fc071-94ac-4acd-8a99-9dc499ee922b	2020-10-13 14:12:38.273333	yunes.alonso.tomas	t	2o A Pre	Nivel 2	YUNES ALONSO TOMÁS	{bcrypt}$2a$10$AUaDJbS5VPyMaQ2ZqGEd3.pzm1BL/WgAnV0LmfNSz4ZNdAjFW9nT6	USER	ALUMNO	1
+85	2020-10-13 14:12:26.682457	70c7488e-8b3b-4eb7-b236-f682f74f189a	2020-10-13 14:12:38.273411	fabris.cano.jorge	t	2o A Pre	Nivel 2	FABRIS CANO JORGE	{bcrypt}$2a$10$TywFOF95NTp1/WymB/zwDu.g6GnXVvnXYpRg1K1BrCB30EG7h0tcS	USER	ALUMNO	1
+86	2020-10-13 14:12:26.772721	868675d0-b7ce-48b5-9cc2-a8dc0c3193e5	2020-10-13 14:12:38.273485	adame.almazan.rodrigo	t	2o B Pre	Nivel 2	ADAME ALMAZÁN RODRIGO	{bcrypt}$2a$10$TLC/8wF8PyKWJ/NY9ZELteZYG06LtUHpgQIvOSQRyYhq22F0JOJQy	USER	ALUMNO	1
+87	2020-10-13 14:12:26.861909	414d7986-1d43-4efb-8090-a0e021e1fea2	2020-10-13 14:12:38.273564	ambris.cantu.lucas	t	2o B Pre	Nivel 2	AMBRÍS CANTÚ LUCAS	{bcrypt}$2a$10$aVdIaAg83EpIS6BC39tV0Otb/Rlc7nEXC1QrWbVEbuUZOsIEahX2y	USER	ALUMNO	1
+88	2020-10-13 14:12:26.94856	c48f0606-55dd-4111-b355-abb7bff1f999	2020-10-13 14:12:38.27364	armas.cortes.diana.lucia	t	2o B Pre	Nivel 2	ARMAS CÓRTES DIANA LUCÍA	{bcrypt}$2a$10$SZMyxys.sqlw2wfAI3jjEu4hmfKjN2rbeGC3/jXstRComVChsxKQq	USER	ALUMNO	1
+89	2020-10-13 14:12:27.040841	8c98ddc2-abd6-43be-b448-d879758044ad	2020-10-13 14:12:38.273719	canseco.torres.camila	t	2o B Pre	Nivel 2	CANSECO TORRES CAMILA	{bcrypt}$2a$10$f1z7kpOe6zqddGjvvt/g6.GnsK3RhLgMaE1IqeVfZoaGNTNPyLB.K	USER	ALUMNO	1
+90	2020-10-13 14:12:27.129329	1e13d1c5-0036-48e5-ac41-d840b08463bb	2020-10-13 14:12:38.273794	cobian.martinez.bernardo	t	2o B Pre	Nivel 2	COBIAN MARTÍNEZ BERNARDO	{bcrypt}$2a$10$Ln2tj1F6DvH/DVqc9y3X8ubSaWNwsvCksKNdNRAEWpm4tJvsIbcCi	USER	ALUMNO	1
+91	2020-10-13 14:12:27.226437	09b08ffe-b750-48e4-af12-7416b2e6ad2d	2020-10-13 14:12:38.273874	contreras.aguirre.rosa.victoria	t	2o B Pre	Nivel 2	CONTRERAS AGUIRRE ROSA VICTORIA	{bcrypt}$2a$10$pZ0JKHDVGRYxwWAV7CZr0.JYJa1I8MPlg/1MO4ay/IznocxXrCfme	USER	ALUMNO	1
+92	2020-10-13 14:12:27.320312	7dbca7b4-20a3-46eb-bb87-265a0c2d0323	2020-10-13 14:12:38.273949	czaplewski.zama.katya	t	2o B Pre	Nivel 2	CZAPLEWSKI ZAMA KATYA	{bcrypt}$2a$10$D0xb4jy8fSWP27xYMQYsyuNCYayu6f7.QRoJUYsph0NmPhHVFy38i	USER	ALUMNO	1
+93	2020-10-13 14:12:27.413686	6a840512-151e-4d33-8a9d-8dd3087228f3	2020-10-13 14:12:38.274022	enriquez.vargas.julia	t	2o B Pre	Nivel 2	ENRÍQUEZ VARGAS JULIA	{bcrypt}$2a$10$NRCLPPlA4DUMMJ.4FOiHIePHuPP6tKNtZmj9XMbiFH2H59NWnbnZu	USER	ALUMNO	1
+94	2020-10-13 14:12:27.518796	3908245d-3e91-4815-9433-f93a858d1129	2020-10-13 14:12:38.274094	ferez.vergara.jose	t	2o B Pre	Nivel 2	FÉREZ VERGARA JOSÉ	{bcrypt}$2a$10$SeXe409eI2EJJCyBb8ifru012d0WtfM8l9BwnMYyEsZeEzKsO8sg.	USER	ALUMNO	1
+95	2020-10-13 14:12:27.627903	4f9d1d7c-70ba-4d9c-95ea-a3a5ad36de47	2020-10-13 14:12:38.274166	flores.vera.sebastian	t	2o B Pre	Nivel 2	FLORES VERA SEBASTIÁN	{bcrypt}$2a$10$DtuzTrzgEsQxY5viHo9TeO6h8OUFCE12Vt.7qaix4MtOQ.2c83Nuy	USER	ALUMNO	1
+96	2020-10-13 14:12:27.720226	46169a83-5ebc-4bb9-94ea-af8deb2c4f67	2020-10-13 14:12:38.274238	fuentes.razo.joel.dario	t	2o B Pre	Nivel 2	FUENTES RAZO JOEL DARÍO	{bcrypt}$2a$10$E8JMuZ6/buBE.YuBT4bNJOmGzdoWSETamRqQZpa1pZ31FCZSmcKtW	USER	ALUMNO	1
+97	2020-10-13 14:12:27.807406	7b5cf538-a58a-4e27-b1f8-a5a44dcf8908	2020-10-13 14:12:38.274316	garcia.pelayo.fernandez.del.campo.pedro	t	2o B Pre	Nivel 2	GARCÍA PELAYO FERNANDEZ DEL CAMPO PEDRO	{bcrypt}$2a$10$v2FZZSbcMEg8cOK984iVSeNqyRX5zyciXdcLGLbLQTEkEJ4Jwp8k6	USER	ALUMNO	1
+98	2020-10-13 14:12:27.896242	7bcb7a19-b803-4735-a887-1e68298897a3	2020-10-13 14:12:38.274392	gomez.diaz.diego	t	2o B Pre	Nivel 2	GÓMEZ DÍAZ DIEGO	{bcrypt}$2a$10$nPMX.pGgXDdhxg9JNkwOFeZufy7jCYixTEE7PeHq4wvoCZUSG6H2a	USER	ALUMNO	1
+99	2020-10-13 14:12:27.982585	4fc92e5f-6e3b-4c16-95d8-f478fb93bfb5	2020-10-13 14:12:38.274467	hernandez.murray.emiliano	t	2o B Pre	Nivel 2	HERNÁNDEZ MURRAY EMILIANO	{bcrypt}$2a$10$wbtHAu4e7znv4sPuBK7tKOBqE502o3GT4IXrYTLYob5n7tt/awN7q	USER	ALUMNO	1
+100	2020-10-13 14:12:28.069931	a9f9d7c5-a509-46aa-8076-49a502a98d02	2020-10-13 14:12:38.274543	herrera.nazar.ximena	t	2o B Pre	Nivel 2	HERRERA NAZAR XIMENA	{bcrypt}$2a$10$FIofgmKkEBtmVtU1vAPdDOT96gLrHZvFGO7Ifgp7CLodES0qwOlva	USER	ALUMNO	1
+101	2020-10-13 14:12:28.155634	92548138-f131-489d-b8d5-87d83f8d0436	2020-10-13 14:12:38.274622	ibarra.huerta.valentina	t	2o B Pre	Nivel 2	IBARRA HUERTA VALENTINA	{bcrypt}$2a$10$ixKCzpMTpupwPfwVazPl6OJsw8/7u1U7n4m0XOELQujKIwRyvQOEO	USER	ALUMNO	1
+102	2020-10-13 14:12:28.242011	17b65f5d-6ba6-4dca-926f-cc0c3ccd2ecd	2020-10-13 14:12:38.274725	lopez.kalis.fernanda	t	2o B Pre	Nivel 2	LÓPEZ KALIS FERNANDA	{bcrypt}$2a$10$WEN6ks6RW2g9HU8kMHxjt.1ElOlbqlYezoN4.2SkXm./.8.zzO4Cm	USER	ALUMNO	1
+103	2020-10-13 14:12:28.326682	c8eb9d96-5ee9-4caa-8e76-a7f0d2492723	2020-10-13 14:12:38.274827	monroy.fregoso.elisa	t	2o B Pre	Nivel 2	MONROY FREGOSO ELISA	{bcrypt}$2a$10$CEiUZwdGDGpmUYutpvOMoeuRN8Rmi1ROW4KWiYIK1NTCyPFxFQtji	USER	ALUMNO	1
+104	2020-10-13 14:12:28.410914	a90ab8bf-2d68-4cfa-b954-2ab1ffa6f20e	2020-10-13 14:12:38.274905	mouret.mesta.patricio	t	2o B Pre	Nivel 2	MOURET MESTA PATRICIO	{bcrypt}$2a$10$j/649YzIdQ7G1BWJuTxft.EIdeJ0L65FdjL8o8FpmKrA1Sjs/2/Eq	USER	ALUMNO	1
+105	2020-10-13 14:12:28.495648	bb374e1d-6195-4326-ac1c-f5d5cd58d210	2020-10-13 14:12:38.274981	ochoa.galindo.gabriel	t	2o B Pre	Nivel 2	OCHOA GALINDO GABRIEL	{bcrypt}$2a$10$Pz4yuoP5b/pQA/tKS1ezveZES/wh4asmK0WgsMTzPi4ScpHVaapia	USER	ALUMNO	1
+106	2020-10-13 14:12:28.582204	88e7f146-9bde-4e37-9877-aa53e472a533	2020-10-13 14:12:38.275055	orozco.gallo.juan	t	2o B Pre	Nivel 2	OROZCO GALLO JUAN	{bcrypt}$2a$10$v/FVjfgQnNIA5FQqsjVOy.LHuv3gBGyOOrYlt5pOGoz5..EvbmO1u	USER	ALUMNO	1
+107	2020-10-13 14:12:28.667211	6ff96591-93f3-4e4c-b6f2-7182f028968c	2020-10-13 14:12:38.275142	pares.espinosa.lucia	t	2o B Pre	Nivel 2	PARES ESPINOSA LUCÍA	{bcrypt}$2a$10$dR8fcCBcNfcIXWnJEJIvLu5AU815LQ8dnw.TKWSagApQLBrjdVjoi	USER	ALUMNO	1
+108	2020-10-13 14:12:28.751459	f8666cb3-9ceb-4e7d-b719-2cacbda42946	2020-10-13 14:12:38.275224	perez.gay.vazquez.ainhoa	t	2o B Pre	Nivel 2	PÉREZ GAY VÁZQUEZ AINHOA	{bcrypt}$2a$10$AfA17FSc8UBY1vxLvFpzZu2.W4xhFGEr829932wCsExTd35Lbg4vu	USER	ALUMNO	1
+109	2020-10-13 14:12:28.834787	f84a2b8a-8fa4-4f7a-9ab6-c1574137dad1	2020-10-13 14:12:38.275303	prud.homme.cotera.jose.maria	t	2o B Pre	Nivel 2	PRUD HOMME COTERA JOSÉ MARÍA	{bcrypt}$2a$10$jlyCCEMEBItcnMIyRbZKi.nKl75DkULJ9HgEj.seyhMCfZLmrSw3a	USER	ALUMNO	1
+110	2020-10-13 14:12:28.918695	e9ad28c5-51b6-4408-93d4-ddfc2a2ae31d	2020-10-13 14:12:38.275379	quintana.payro.maria.camila	t	2o B Pre	Nivel 2	QUINTANA PAYRÓ MARÍA CAMILA	{bcrypt}$2a$10$cDhSM6COAiDQlrS8FewRmO0tlz.XNN6dsMnKFueEfT7JHzDmVIEUS	USER	ALUMNO	1
+111	2020-10-13 14:12:29.003195	b96f0a07-1d67-4fd1-a0fa-b7e034b2e56f	2020-10-13 14:12:38.275455	rodriguez.urruchua.sebastian	t	2o B Pre	Nivel 2	RODRÍGUEZ URRUCHUA SEBASTIÁN	{bcrypt}$2a$10$xeyyjDYaG5P7Yn5yBbqNcupCmOOzF.aKJkvbAXir111O1EXFhieB6	USER	ALUMNO	1
+112	2020-10-13 14:12:29.089947	a722a30b-81f9-4701-808d-9782584ba289	2020-10-13 14:12:38.275547	san.roman.escalante.franco	t	2o B Pre	Nivel 2	SAN ROMÁN ESCALANTE FRANCO	{bcrypt}$2a$10$w0J.WHWOsQ17QJ/WYPcLqOH8xeNmmv7vrSTEhILNo/azbgmZq42jC	USER	ALUMNO	1
+113	2020-10-13 14:12:29.174217	28631184-9ad3-4a65-a300-51de0adc4b83	2020-10-13 14:12:38.275625	bello.sosa.andres	t	2o C Pre	Nivel 2	BELLO SOSA ANDRÉS	{bcrypt}$2a$10$HKa6XC2LW0eTrb8ApXZTeuaY0.AD8Twxdi4Wb4XzFwBD2u0j9i./6	USER	ALUMNO	1
+114	2020-10-13 14:12:29.258461	30daad37-847c-49bc-9f8d-c58b64676e2d	2020-10-13 14:12:38.2757	bravo.lozoya.santiago	t	2o C Pre	Nivel 2	BRAVO LOZOYA SANTIAGO	{bcrypt}$2a$10$ddHU0e/7ErZFuZha44gBO.NIJUdfH1pFAKI93stwQMQQiRlMuelZ6	USER	ALUMNO	1
+115	2020-10-13 14:12:29.344662	c645f5bc-d4b1-4dc6-afa7-a2e55643a9bb	2020-10-13 14:12:38.275773	carmona.barajas.juan.manuel	t	2o C Pre	Nivel 2	CARMONA BARAJAS JUAN MANUEL	{bcrypt}$2a$10$X05zZwLb9fD9mTqWsnvvTuWWOXyvjD.6WMgZRVV2Dc48KgtaYnAlK	USER	ALUMNO	1
+116	2020-10-13 14:12:29.428428	8d843845-7399-4087-974f-9477a752c1c6	2020-10-13 14:12:38.27592	chavez.soto.santiago	t	2o C Pre	Nivel 2	CHÁVEZ SOTO SANTIAGO	{bcrypt}$2a$10$i0TGgx3iR57G1ZaajEPV9e0aOxVRP2Zcbs82/lif2pJWyGE9dO2Li	USER	ALUMNO	1
+117	2020-10-13 14:12:29.5123	0ef86720-1b58-49ab-aaca-dce0337e84eb	2020-10-13 14:12:38.275996	collada.tron.alfonso	t	2o C Pre	Nivel 2	COLLADA TRON ALFONSO	{bcrypt}$2a$10$li1ZrBNu6mip2GIL8acf.OefPjq0cCKeD.PtOdJrBc/rVYcyoaTP.	USER	ALUMNO	1
+118	2020-10-13 14:12:29.599768	673eb376-dc39-4066-adee-0896b1949491	2020-10-13 14:12:38.27607	curto.mendieta.barbara	t	2o C Pre	Nivel 2	CURTO MENDIETA BÁRBARA	{bcrypt}$2a$10$9VUhpisYjzn9zniPe.TSRufd2PcWly1Rt9Ovmuny1ONJ.n2BjxFJm	USER	ALUMNO	1
+119	2020-10-13 14:12:29.68402	0c1f4300-fb33-456a-84a3-4bcecd634e49	2020-10-13 14:12:38.276143	davalos.alvarez.isabel	t	2o C Pre	Nivel 2	DÁVALOS ÁLVAREZ ISABEL	{bcrypt}$2a$10$M2QbytycIQK21tDBJaGSfeBXA12SZmzSbAIcRzNa9AKy.J5KMEAPS	USER	ALUMNO	1
+120	2020-10-13 14:12:29.768422	fc8ca4d4-2215-42d2-8399-5d71c3e3fcc9	2020-10-13 14:12:38.276215	echenique.martinez.olivia	t	2o C Pre	Nivel 2	ECHENIQUE MARTÍNEZ OLIVIA	{bcrypt}$2a$10$Oqcta6zdtR4HQp4hvNaPweRtp0BBKncSgnv48HsYNRuMJ9KAtFqt6	USER	ALUMNO	1
+121	2020-10-13 14:12:29.853127	64bb8fd4-389e-42f5-9924-4ccbd240cdf8	2020-10-13 14:12:38.276288	edelberg.villa.lea	t	2o C Pre	Nivel 2	EDELBERG VILLA LEA	{bcrypt}$2a$10$6gBF1lS9pC0.aqJC.s1tiebhVFi6rfJjxGVNasFWluA/zzvHsJpia	USER	ALUMNO	1
+122	2020-10-13 14:12:29.937099	e62ed73e-b688-438e-a1a4-85baaa42d0ee	2020-10-13 14:12:38.27636	galeana.camacho.iker	t	2o C Pre	Nivel 2	GALEANA CAMACHO IKER	{bcrypt}$2a$10$0ZZPJYV0C85XEY5uT/NTMeLVlxGALsgGhTwvOyEBwqa8/zN6gHcXW	USER	ALUMNO	1
+123	2020-10-13 14:12:30.021482	84770ba7-0946-4f65-82ef-8e09742092e7	2020-10-13 14:12:38.276434	garza.estrada.jose.andres	t	2o C Pre	Nivel 2	GARZA ESTRADA JOSÉ ANDRÉS	{bcrypt}$2a$10$A9NcpbUsywOrqkVrgy3L8ezFfGgVC.Jv81KJLJCFbY2VWNONSXdvK	USER	ALUMNO	1
+124	2020-10-13 14:12:30.106956	23ceb26e-14af-48a2-be68-8279af2c62a2	2020-10-13 14:12:38.276509	gorostiza.gorostieta.ainhoa	t	2o C Pre	Nivel 2	GOROSTIZA GOROSTIETA AINHOA	{bcrypt}$2a$10$MX7lgI46DY6CaiN599ib0eSqxBj1gSDHYFU8xRKWNIQe1fTjhJGeS	USER	ALUMNO	1
+125	2020-10-13 14:12:30.19122	da402e46-0d86-48a6-b826-63137ba40262	2020-10-13 14:12:38.276606	herrejon.hernandez.lucia	t	2o C Pre	Nivel 2	HERREJÓN HERNÁNDEZ LUCÍA	{bcrypt}$2a$10$0kzcRhIq1XFVkmdytgAk3eeoy/9CcpvbnJRLIrAg6Z3mohfdLzCEW	USER	ALUMNO	1
+126	2020-10-13 14:12:30.27659	a04b4adb-bbcc-494e-9681-527ed6e01f7a	2020-10-13 14:12:38.276682	ibarra.gomez.jeronimo	t	2o C Pre	Nivel 2	IBARRA GÓMEZ JERÓNIMO	{bcrypt}$2a$10$CSNOzakRVkbELza8caTBoOYLp4y5Nwrt4wQHeZ8G8SY18wtXZCUum	USER	ALUMNO	1
+127	2020-10-13 14:12:30.361715	a6e16965-9a2a-4c05-95d4-a5cebc7c7c09	2020-10-13 14:12:38.276803	martinez.soto.sofia	t	2o C Pre	Nivel 2	MARTÍNEZ SOTO SOFÍA	{bcrypt}$2a$10$NltM8j/dCKvsaJ26BhNieOexx8Ys.UOx6bqBqFhrf02BJLpFDUKgS	USER	ALUMNO	1
+128	2020-10-13 14:12:30.448134	6d365e24-8a50-4846-957c-3a183e61a1bb	2020-10-13 14:12:38.276887	mejia.gil.maria	t	2o C Pre	Nivel 2	MEJÍA GIL MARÍA	{bcrypt}$2a$10$8ZIRSZC4nSOMXSQg/FtQReYAj7oXU.uF91a4uP58Xi3dm5BG9fQJG	USER	ALUMNO	1
+129	2020-10-13 14:12:30.533618	a384d622-a218-4d27-9ba7-b8556e60f473	2020-10-13 14:12:38.277018	morgan.palafox.mateo	t	2o C Pre	Nivel 2	MORGAN PALAFOX MATEO	{bcrypt}$2a$10$M24QCEYK0E6G1lEOTGK2Re65KqZ9IE5T9NLiZpxHBtPsA07a7gUcG	USER	ALUMNO	1
+130	2020-10-13 14:12:30.619103	1bd97f73-dcf9-443b-a577-76403a37b290	2020-10-13 14:12:38.277095	pestana.uribe.inaki	t	2o C Pre	Nivel 2	PESTANA URIBE IÑAKI	{bcrypt}$2a$10$dtyIHgtTDiFP0ka9KzeKDO1fQeNaOoAsKsJ1PHSLKfgWX/E7tST5G	USER	ALUMNO	1
+131	2020-10-13 14:12:30.703467	ea3eae2e-0753-48d3-aeef-443665d06702	2020-10-13 14:12:38.27717	rosales.ledesma.carlos	t	2o C Pre	Nivel 2	ROSALES LEDESMA CARLOS	{bcrypt}$2a$10$xy5w2vjRKmng7LJBaTVqzusvJEVIf98jkb1CFku3pva//ZoQM3gay	USER	ALUMNO	1
+132	2020-10-13 14:12:30.788189	6f22aedb-5310-4f9c-9d2c-06b4fe2c8e9c	2020-10-13 14:12:38.277243	rueda.contreras.santiago	t	2o C Pre	Nivel 2	RUEDA CONTRERAS SANTIAGO	{bcrypt}$2a$10$5d3hNNcPlTS5xxMZqiqN2eRdahDanTlMEpQinn8x38XzYqIEiTq9S	USER	ALUMNO	1
+133	2020-10-13 14:12:30.873151	556edc60-dbde-4909-991c-d434ccbc1dd4	2020-10-13 14:12:38.277322	ruiz.barroso.javier	t	2o C Pre	Nivel 2	RUÍZ BARROSO JAVIER	{bcrypt}$2a$10$O.RK4HegkvLcruVL.Rd8GunDG4QplxNQA4UPjErxlt1J78FExOm7.	USER	ALUMNO	1
+134	2020-10-13 14:12:30.958506	594b1dc6-d632-439c-ab4a-68912178cd79	2020-10-13 14:12:38.277401	sanchez.medina.andrea	t	2o C Pre	Nivel 2	SÁNCHEZ MEDINA ANDREA	{bcrypt}$2a$10$Uv6QfsUO/RI.DWYQf2.NAO1zCSijP5k3hAQGEL1jBW28jrjJwqnDG	USER	ALUMNO	1
+135	2020-10-13 14:12:31.044441	7f4983d2-ed0c-4d2c-8916-5777fc5acd94	2020-10-13 14:12:38.277477	sanchez.santander.sofia	t	2o C Pre	Nivel 2	SÁNCHEZ SANTANDER SOFÍA	{bcrypt}$2a$10$josia/e1.N3A51i981cjOu8yAx5gtkOR9YAXOWpWaZGXN0MUOHqrK	USER	ALUMNO	1
+136	2020-10-13 14:12:31.129316	61f5a8df-cdf1-44f5-94c3-817962bbaa76	2020-10-13 14:12:38.277563	tominey.ruiz.ophelia.eilidh	t	2o C Pre	Nivel 2	TOMINEY RUIZ OPHELIA EILIDH	{bcrypt}$2a$10$4sWjL5b0y4xjytTQSRbIw./N/C7QaH1J0XQ4qPXEeikVbOc85Gi9O	USER	ALUMNO	1
+137	2020-10-13 14:12:31.21699	7d279842-a8ce-4fa9-8103-19d096344a99	2020-10-13 14:12:38.277642	vazquez.menocal.valentina	t	2o C Pre	Nivel 2	VÁZQUEZ MENOCAL VALENTINA	{bcrypt}$2a$10$R6QhEZs4M2KTLuV3W6zhs.l8WVmKjfL3adHkPyeRfWxOJwkDt5q16	USER	ALUMNO	1
+138	2020-10-13 14:12:31.30353	790bb164-309f-4e28-9aec-6fe7556cd4c2	2020-10-13 14:12:38.277722	zamora.sodi.patricio	t	2o C Pre	Nivel 2	ZAMORA SODI PATRICIO	{bcrypt}$2a$10$0I6sQGBCHTAqJVt7hrJzQe5anM8PSnmc0N0ZV3PZ8Q.8janLem6vS	USER	ALUMNO	1
+139	2020-10-13 14:12:31.390775	027ff755-7cec-4870-8c09-b70294678e3a	2020-10-13 14:12:38.277797	andrade.toledo.marianella	t	3o A Pre	Nivel 3	ANDRADE TOLEDO MARIANELLA	{bcrypt}$2a$10$dzSrFNXBaHYdsf6Y.EnJgud0tejA2qbQq4hz89EnFXBfUoe6zdHim	USER	ALUMNO	1
+140	2020-10-13 14:12:31.478149	37803e1a-0ae5-4791-9408-3c4783254e2c	2020-10-13 14:12:38.277871	arroyo.prendes.martina	t	3o A Pre	Nivel 3	ARROYO PRENDES MARTINA	{bcrypt}$2a$10$GeHaWBGrv7mZWQyt.L0YkujOBe7D593TeFUqXKQKkxD9Jq6PHf8Wm	USER	ALUMNO	1
+141	2020-10-13 14:12:31.566594	b6f0a00c-2764-49a5-973e-05a64326c6c5	2020-10-13 14:12:38.277967	bauer.gallo.mila	t	3o A Pre	Nivel 3	BAUER GALLO MILA	{bcrypt}$2a$10$PXilegehI4mwRpeZYkQvy.JXMsJ1QhBOGgO5c5ffsvYelzNYN9K.G	USER	ALUMNO	1
+142	2020-10-13 14:12:31.655465	04b0000c-a2a2-4ecc-843b-d007eec37b2a	2020-10-13 14:12:38.278106	bueron.caruso.mikel	t	3o A Pre	Nivel 3	BUERON CARUSO MIKEL	{bcrypt}$2a$10$M4hJsUtwfp6Qf5RqbindF.9Nv.FOulpJh7e34i4nPDVA/F/Q.JJpW	USER	ALUMNO	1
+143	2020-10-13 14:12:31.742782	1a43fb0a-395e-45b0-bcdf-6fd4463e8e21	2020-10-13 14:12:38.278173	castillo.brassel.andrea	t	3o A Pre	Nivel 3	CASTILLO BRASSEL ANDREA	{bcrypt}$2a$10$dLOr2wiTNXGEZ6/A2i1WaeP0hrQnxR7k.nDWoPECRIXZr10P/tNAa	USER	ALUMNO	1
+144	2020-10-13 14:12:31.828189	e5977152-5a00-4b52-abb1-b4de878f42d1	2020-10-13 14:12:38.278243	cordier.garcia.emilia.fernanda	t	3o A Pre	Nivel 3	CORDIER GARCÍA EMILIA FERNANDA	{bcrypt}$2a$10$i9g.YTY822r5bCNA8mTpD.Jz/ElUXsbmRLAYoTlujMrJEDBSJUJKi	USER	ALUMNO	1
+145	2020-10-13 14:12:31.913174	9aaf7a7f-e390-477a-8add-4b03c671fdaa	2020-10-13 14:12:38.27831	de.la.rosa.bonner.estefania	t	3o A Pre	Nivel 3	DE LA ROSA BONNER ESTEFANIA	{bcrypt}$2a$10$rzrAKQvOf6ARL65dl8oOvutdK/3ngBYdMCmsXwgsGjMwTqqVI1CGu	USER	ALUMNO	1
+146	2020-10-13 14:12:31.997749	eec9c164-fd29-4e83-9b6b-ce8b71139ea3	2020-10-13 14:12:38.278373	dersdepanian.sanjuan.carolina	t	3o A Pre	Nivel 3	DERSDEPANIAN SANJUAN CAROLINA	{bcrypt}$2a$10$wL8nWhrTEJ2liraUwtyJ..zFM.KP0QZVi4z8VQsuWtOoBeWomHaI6	USER	ALUMNO	1
+147	2020-10-13 14:12:32.083554	9ddd89ad-ff97-445b-95eb-2d871d1c133a	2020-10-13 14:12:38.278436	dosal.nava.fatima	t	3o A Pre	Nivel 3	DOSAL NAVA FÁTIMA	{bcrypt}$2a$10$gMNEgQ99sc92nGYr9ayMR.yZAwC2Md3Tb56pC4yslvBunNLMgnHBa	USER	ALUMNO	1
+148	2020-10-13 14:12:32.167886	0cc6a5e4-999c-40a4-99fd-cfdf74858d3d	2020-10-13 14:12:38.278522	favela.galinatti.fernando	t	3o A Pre	Nivel 3	FAVELA GALINATTI FERNANDO	{bcrypt}$2a$10$4GXiTkBet0DQcF1foXOJxuNfYFvRekJAPZcNKvx.ZGELI3sT.IIru	USER	ALUMNO	1
+149	2020-10-13 14:12:32.253035	4492edc8-4823-4416-af8a-625c37cccd58	2020-10-13 14:12:38.278621	figueroa.arroyo.santino.tadeo	t	3o A Pre	Nivel 3	FIGUEROA ARROYO SANTINO TADEO	{bcrypt}$2a$10$kJlVFOhu/6dgDnrjTgwjp.Na5MVjaYuITNxL/sjJyXeFdkavK9Hmi	USER	ALUMNO	1
+150	2020-10-13 14:12:32.337521	363f6f20-8953-43b6-826f-4064e381a62c	2020-10-13 14:12:38.278686	flores.mendez.emiliana	t	3o A Pre	Nivel 3	FLORES MÉNDEZ EMILIANA	{bcrypt}$2a$10$iRzwoEiZbsx3IqcwR.XjvOb/TUPbTB3XE5M0CRWLDT67s9EQW5uWi	USER	ALUMNO	1
+151	2020-10-13 14:12:32.42189	c4496bf0-c511-4b4f-897b-8ed1c6069b72	2020-10-13 14:12:38.27875	gomez.flores.abby	t	3o A Pre	Nivel 3	GOMEZ FLORES ABBY	{bcrypt}$2a$10$d0COuWHUibdcDvRDv7xeUeBFVNIF2VGVvQspKRZ/ZpIITuElAJTUW	USER	ALUMNO	1
+152	2020-10-13 14:12:32.51091	9fc8aeeb-67a0-4d28-bbf8-74ad91fc871a	2020-10-13 14:12:38.278831	gongora.sosa.ana.sofia	t	3o A Pre	Nivel 3	GÓNGORA SOSA ANA SOFÍA	{bcrypt}$2a$10$4DPHo6mQF7ygANl3fl7NseYhztpBO.HlTlxBDfeFTs6SCnNZdsk0G	USER	ALUMNO	1
+153	2020-10-13 14:12:32.596642	65a5139e-6cc5-4928-ac49-6996c42852c9	2020-10-13 14:12:38.278915	gonzalez.arenas.elena	t	3o A Pre	Nivel 3	GONZÁLEZ ARENAS ELENA	{bcrypt}$2a$10$eQ6GqbSB5ZOiQ89BeWHOouXKt1osVBu5x7PpR.phXYKB.E69eVOf.	USER	ALUMNO	1
+154	2020-10-13 14:12:32.684832	0b6cf19e-f8ae-46d1-a736-405f9491d941	2020-10-13 14:12:38.278984	insua.arguelles.diego	t	3o A Pre	Nivel 3	INSUA ARGÜELLES DIEGO	{bcrypt}$2a$10$TBNdxBec5yDMqSEUDdPfQO55cgdz9LPI5B3cv8tGOIZEHyioRjUpi	USER	ALUMNO	1
+155	2020-10-13 14:12:32.768893	bb7ceab4-5488-4097-9505-b9fcc13102a7	2020-10-13 14:12:38.279046	lorenzana.mendoza.andre	t	3o A Pre	Nivel 3	LORENZANA MENDOZA ANDRÉ	{bcrypt}$2a$10$96Jp28kd.sHTuf4Rpuu3HuLc48bDia3q.Pdc03Yo1Ki9.kCqIZtCu	USER	ALUMNO	1
+156	2020-10-13 14:12:32.853381	7f22c7d9-bf8b-4224-8197-9cc1d8126ae7	2020-10-13 14:12:38.279112	picazzo.coutino.rodrigo	t	3o A Pre	Nivel 3	PICAZZO COUTIÑO RODRIGO	{bcrypt}$2a$10$Ymf.j8M.UWAEXMTSbxwIS.TSdL6R23dHk3XNHAxp88fW9PEXizRnC	USER	ALUMNO	1
+157	2020-10-13 14:12:32.93881	93406216-89db-476a-bc2f-e47eaa5bf2d6	2020-10-13 14:12:38.279174	pietra.santa.abud.paolo	t	3o A Pre	Nivel 3	PIETRA SANTA ABUD PAOLO	{bcrypt}$2a$10$jHt1RMl921.vzh87AHz/lOlgaD.yW0LMm0kdltWQDpjHw4eJom0fy	USER	ALUMNO	1
+158	2020-10-13 14:12:33.023468	58203b33-127a-49f3-b092-c561989c9166	2020-10-13 14:12:38.279238	puente.ceron.emma	t	3o A Pre	Nivel 3	PUENTE CERON EMMA	{bcrypt}$2a$10$cAAozBFODPPx0PGiwNpao.ZJmMYgUs3K1xw8b1kymgT1Hsvqdtex6	USER	ALUMNO	1
+159	2020-10-13 14:12:33.109643	325c535e-d1ef-4c1c-a267-a995c9a53a6a	2020-10-13 14:12:38.279301	rafful.jose.marina	t	3o A Pre	Nivel 3	RAFFUL JOSÉ MARINA	{bcrypt}$2a$10$cjL7hCv3EZXKOsjY4meSFOcCWzDM40NCfU8hXjb/q1J/EulKnOQ.W	USER	ALUMNO	1
+160	2020-10-13 14:12:33.194389	4a48fb13-8e7e-407b-8126-f5faee1bff78	2020-10-13 14:12:38.279364	rocha.aguilar.alejandro	t	3o A Pre	Nivel 3	ROCHA AGUILAR ALEJANDRO	{bcrypt}$2a$10$q.nfyZ9r7rY2kLdpvsDJaOPWogn4EJ4WVQbNc2mOz96sGg2gSlmMO	USER	ALUMNO	1
+161	2020-10-13 14:12:33.278856	7205da2f-2bff-4a37-a76d-c244ef675b80	2020-10-13 14:12:38.279427	rojon.haro.gonzalo	t	3o A Pre	Nivel 3	ROJÓN HARO GONZALO	{bcrypt}$2a$10$ZHVm0ca0yMhw2ZcFlZeEdOREBZKil90bNeVNXr9HPz1ArQeRqQcRW	USER	ALUMNO	1
+162	2020-10-13 14:12:33.363232	3d819cf1-1909-4201-9242-ea8913b979a2	2020-10-13 14:12:38.279486	roldan.romo.luca	t	3o A Pre	Nivel 3	ROLDÁN ROMO LUCA	{bcrypt}$2a$10$L4.hL/ECYV2MGIEk//yWFeFt.JdB9iG/F8tYWSNiLJCkqzVtVlx7O	USER	ALUMNO	1
+163	2020-10-13 14:12:33.44853	287c9500-7efe-4bba-967a-cb3805750146	2020-10-13 14:12:38.279547	sadek.bravo.antonio	t	3o A Pre	Nivel 3	SADEK BRAVO ANTONIO	{bcrypt}$2a$10$HEKU3XysP..1.yyEa4lXKuJy6K6hjBzWOD8U5Bzd9dR2xDdRPx..O	USER	ALUMNO	1
+164	2020-10-13 14:12:33.533803	00c87c33-ed38-494a-b601-ae16e85253fe	2020-10-13 14:12:38.279605	salgado.gaitan.humberto	t	3o A Pre	Nivel 3	SALGADO GAITAN HUMBERTO	{bcrypt}$2a$10$Xc02PuaTO6Vplysg78iNHe3yFTPahwaWzSzP0etuWWQT7hABDYDTO	USER	ALUMNO	1
+165	2020-10-13 14:12:33.619866	aef87697-62c1-4588-a544-4157c28e5e74	2020-10-13 14:12:38.279664	senosiain.lomelin.fernando	t	3o A Pre	Nivel 3	SENOSIAIN LOMELÍN FERNANDO	{bcrypt}$2a$10$siHnrwqPvBFfMm7gP7qmBuqdFuPdz/s4XnzBHQ0HO4apujB.YOY7S	USER	ALUMNO	1
+166	2020-10-13 14:12:33.707535	009d89cb-ce77-4100-b9d5-54d249b486f6	2020-10-13 14:12:38.279722	abreu.paez.luisa	t	3o B Pre	Nivel 3	ABREU PAEZ LUISA	{bcrypt}$2a$10$Mbeh2FHhz0cxM2zLpcCXpOFl4ZGd0vIyN/0UuOH4ztHc55Hvz31Dy	USER	ALUMNO	1
+167	2020-10-13 14:12:33.791647	3303c5bd-b935-4082-9c58-14e232988e16	2020-10-13 14:12:38.279781	arbide.perdomo.nora	t	3o B Pre	Nivel 3	ARBIDE PERDOMO NORA	{bcrypt}$2a$10$r/V9/tzsk.eqNKEpoeYocO984fDMbnNAPo0WzPYUz.wsD3WUhzkQm	USER	ALUMNO	1
+168	2020-10-13 14:12:33.875319	eb5caf7e-76e2-470e-aad9-283f62571372	2020-10-13 14:12:38.279842	bada.pellico.maria.ines	t	3o B Pre	Nivel 3	BADA PELLICO MARÍA INÉS	{bcrypt}$2a$10$EbAf2UY2F6f.pGiB89aENe5uA1wIV8fXh4X3sp7H.f.hR3RJQEFz.	USER	ALUMNO	1
+169	2020-10-13 14:12:33.95936	510d70b8-dd88-41aa-8ef9-563f8d288ec4	2020-10-13 14:12:38.279905	bajos.medina.naim	t	3o B Pre	Nivel 3	BAJOS MEDINA NAIM	{bcrypt}$2a$10$BmH80hVO1GopkzPUqTkoNuElkkq4321MWB8vbIhZD2hygwdBlonhy	USER	ALUMNO	1
+170	2020-10-13 14:12:34.044389	f382e0a1-f326-4606-8ae7-20f21842c392	2020-10-13 14:12:38.279965	borbolla.henderson.arantza	t	3o B Pre	Nivel 3	BORBOLLA HENDERSON ARANTZA	{bcrypt}$2a$10$YYoVXKbVmgYbkbletVc99uGAphPoR5Akx/cXDHF/yd.Oe3xG9vp/C	USER	ALUMNO	1
+171	2020-10-13 14:12:34.130124	205952ce-7348-4758-93a2-7c4d1e33202e	2020-10-13 14:12:38.280026	caballero.garcia.juan.pablo	t	3o B Pre	Nivel 3	CABALLERO GARCIA JUAN PABLO	{bcrypt}$2a$10$lZT02ABTwu5Fvkw5J8J5S.O/4pYrieefl5B4pLN1zfVCEJLrcyK2W	USER	ALUMNO	1
+172	2020-10-13 14:12:34.214164	debacf2e-bc2c-4f03-a416-10af0d1e7d5a	2020-10-13 14:12:38.280131	calderon.guerra.santiago	t	3o B Pre	Nivel 3	CALDERÓN GUERRA SANTIAGO	{bcrypt}$2a$10$EqP6R1AtDCX6L31Ch.xYxuGD3YXw0yxLUCvz4qbdX6Y26slXubdV.	USER	ALUMNO	1
+173	2020-10-13 14:12:34.298331	a4ceaeb8-2234-4104-93d8-d2813094f956	2020-10-13 14:12:38.280193	ceron.vazquez.jeronimo	t	3o B Pre	Nivel 3	CERÓN VÁZQUEZ JERÓNIMO	{bcrypt}$2a$10$O/QBx8YXXo8RPekrhsBPkuXHKa0sF2tSB3p8hh5gPQvrcAHyoAKpa	USER	ALUMNO	1
+174	2020-10-13 14:12:34.382291	024c397d-83a9-47fe-926c-3879b96ea610	2020-10-13 14:12:38.280255	crestani.ordonez.nicolas	t	3o B Pre	Nivel 3	CRESTANI ORDÓÑEZ NICOLÁS	{bcrypt}$2a$10$Fc0UHCQNrdDim4565PB2Hut91oNUwmczWxEjadOF7/2S5N8hHGKHa	USER	ALUMNO	1
+175	2020-10-13 14:12:34.466377	336a6ab1-1ea6-42f0-bd84-6a6de9706f77	2020-10-13 14:12:38.280316	de.leon.garcia.maria.jose	t	3o B Pre	Nivel 3	DE LEON GARCIA MARIA JOSE	{bcrypt}$2a$10$2l7C2c6LrDo.KXNG.pqYLuyRYHokQKJgZbchf2edpf2SNLVQjjWW.	USER	ALUMNO	1
+176	2020-10-13 14:12:34.552308	f5ef44eb-c90a-49da-8fea-f53a12cec25c	2020-10-13 14:12:38.280379	garay.de.caso.luisa	t	3o B Pre	Nivel 3	GARAY DE CASO LUISA	{bcrypt}$2a$10$F4A.oNcNNugEpRMQ/HulBupNkOhj7DbvLEd9fZRhKC6srkJ1EVCbq	USER	ALUMNO	1
+177	2020-10-13 14:12:34.637905	f13961bb-6ccc-4c11-8a6f-b663ec499ebe	2020-10-13 14:12:38.280444	garcia.sosa.santiago	t	3o B Pre	Nivel 3	GARCIA SOSA SANTIAGO	{bcrypt}$2a$10$uidCgkY0Py7B4O.URSnhbO02rgXdn.vvFjfed6C.tNRK27TpclrZu	USER	ALUMNO	1
+178	2020-10-13 14:12:34.725094	7cec1004-937e-40ef-84fd-7862b4220c17	2020-10-13 14:12:38.280508	gavinelli.garcia.camila	t	3o B Pre	Nivel 3	GAVINELLI GARCÍA CAMILA	{bcrypt}$2a$10$SennRFdeASjVpIf1H2OYL.PGdUu5y1xDiXfHFL/tbrCmqI6f8KjC6	USER	ALUMNO	1
+179	2020-10-13 14:12:34.809526	20eeeebe-123f-4153-940a-662370fcbdcf	2020-10-13 14:12:38.280576	gomez.chico.simon.almudena	t	3o B Pre	Nivel 3	GÓMEZ CHICO SIMÓN ALMUDENA	{bcrypt}$2a$10$7mOggGW4VlWrKP4.fMFDDeayntuQ21SzDTlgbzTYAAA4Lree5Oxk2	USER	ALUMNO	1
+180	2020-10-13 14:12:34.89333	a7ad04b6-79a8-4819-9f85-abddc1967792	2020-10-13 14:12:38.28064	gomez.gallardo.valcarcel.ema	t	3o B Pre	Nivel 3	GÓMEZ GALLARDO VALCÁRCEL EMA	{bcrypt}$2a$10$H7.w7ecBwMfUhQTv07b1J.OxLaDuNA31QfZTi.fHU7HZbyrJdWI1a	USER	ALUMNO	1
+181	2020-10-13 14:12:34.977684	9c84545e-f6fb-444d-b341-f7b141e544bd	2020-10-13 14:12:38.280705	gonzalez.diaz.carlota	t	3o B Pre	Nivel 3	GONZÁLEZ DIAZ CARLOTA	{bcrypt}$2a$10$LQmg.Ldae2qJSxqH0iGQd.h0AheCEFc28n.ipTzkcPhD6XwRjA.1O	USER	ALUMNO	1
+182	2020-10-13 14:12:35.063049	12146401-b12d-432e-82c1-b8e2cdf3830e	2020-10-13 14:12:38.280812	lopez.alvarez.antia	t	3o B Pre	Nivel 3	LÓPEZ ÁLVAREZ ANTÍA	{bcrypt}$2a$10$LZfrzHpfz.TO5zGsX13s0O4iW32uOiyYRqHabLUniS68JvM9l/kx.	USER	ALUMNO	1
+183	2020-10-13 14:12:35.147066	84768314-af29-41de-a661-83373fd5b637	2020-10-13 14:12:38.280874	miguel.busto.rafael	t	3o B Pre	Nivel 3	MIGUEL BUSTO RAFAEL	{bcrypt}$2a$10$jXMj1ORr8wm1Xr9RgS0OHuQlvWDWoM0U3Pwwbbddy0Jw7cGYGq.d.	USER	ALUMNO	1
+184	2020-10-13 14:12:35.230936	503eda8a-f6a7-4e7e-9bca-fff46c299da1	2020-10-13 14:12:38.280949	murcio.flores.ana.paola	t	3o B Pre	Nivel 3	MURCIO FLORES ANA PAOLA	{bcrypt}$2a$10$Ki8lSqFqskmUS.KogGqOaOWc3jat5kUJqI5dfd/d0IPaVfWuxP/yi	USER	ALUMNO	1
+185	2020-10-13 14:12:35.314757	50fc6bc0-091d-4645-a6e2-4ae2001b16ac	2020-10-13 14:12:38.281028	paredes.perez.santino	t	3o B Pre	Nivel 3	PAREDES PÉREZ SANTINO	{bcrypt}$2a$10$ohUbc39hgPz8QW0Yh4nxOux43qb8Xv5f7bavROCkqfgTIVBI7NvGq	USER	ALUMNO	1
+186	2020-10-13 14:12:35.398726	5c3cf381-3c1c-49c3-85fe-e2ca5d417b95	2020-10-13 14:12:38.28109	perez.ponce.de.leon.maria	t	3o B Pre	Nivel 3	PÉREZ PONCE DE LEÓN MARÍA	{bcrypt}$2a$10$r8Ujd9z1fgZxJVffnafBReJ5pezNuEAC8P7DhLwwI0roHo3eGLwyq	USER	ALUMNO	1
+187	2020-10-13 14:12:35.483155	99d6439f-8fea-422c-a29c-f66e2c51607c	2020-10-13 14:12:38.28115	pin.herrejon.sofia	t	3o B Pre	Nivel 3	PIN HERREJÓN SOFÍA	{bcrypt}$2a$10$UAn7kq9YFr9KJz4AQHeI6.sN/QrEXwcJPGgf4ziI6EQ7U994Isy2K	USER	ALUMNO	1
+188	2020-10-13 14:12:35.570762	34e05695-0338-4878-9cde-b1d5a31d2df0	2020-10-13 14:12:38.28121	rihbany.musi.nicolas	t	3o B Pre	Nivel 3	RIHBANY MUSI NICOLÁS	{bcrypt}$2a$10$uqumgFPAoQTHlGkarWLK.eZFi0vbyttKHPU62AWEeZ/VY4UVrk/fq	USER	ALUMNO	1
+189	2020-10-13 14:12:35.65467	07b66f6b-2669-498c-a16a-4accc04b6ee9	2020-10-13 14:12:38.281271	rubio.-.manzanares.puron.borja	t	3o B Pre	Nivel 3	RUBIO - MANZANARES PURÓN BORJA	{bcrypt}$2a$10$soy2iNaKffHQPAiUKXd2HO38CstFLRCtIyZNL1z4s94JWjpKzBmza	USER	ALUMNO	1
+190	2020-10-13 14:12:35.745689	18a5504e-8307-413e-891a-17a606182257	2020-10-13 14:12:38.281333	sanchez.tena.de.pedro.iker	t	3o B Pre	Nivel 3	SANCHEZ TENA DE PEDRO IKER	{bcrypt}$2a$10$yqeg3Om8XI0SVeJFGTL1zuGi05K77z1lDcjAyYlRSU1DsHHdvmsR2	USER	ALUMNO	1
+191	2020-10-13 14:12:35.830272	84a5ff2b-2986-4dc2-9042-91132b2b3f43	2020-10-13 14:12:38.281394	solorzano.cardoso.jeronimo	t	3o B Pre	Nivel 3	SOLÓRZANO CARDOSO JERÓNIMO	{bcrypt}$2a$10$edx.EvR1dPM70o1/Zf4vk.DZbxNRzTTJl4ERvHNtFRbaCB.YfJV7W	USER	ALUMNO	1
+192	2020-10-13 14:12:35.914355	c1be88a7-faed-4cb8-a617-a83ba8384912	2020-10-13 14:12:38.281455	uribe.jose.jeronimo	t	3o B Pre	Nivel 3	URIBE JOSÉ JERÓNIMO	{bcrypt}$2a$10$oggF6opgfGgVRnP3uhuME./PSf15QcXo2tylx2vMpR2fPD6XW3TbK	USER	ALUMNO	1
+193	2020-10-13 14:12:35.998554	6aa81ecd-2c1d-4f35-a20d-66c2769b1e79	2020-10-13 14:12:38.281575	velderrain.rios.lorenzo	t	3o B Pre	Nivel 3	VELDERRAIN RÍOS LORENZO	{bcrypt}$2a$10$cV6c5jm2JuQr2DZb4LxBw.hUKEcW1um7XJVwIjn6ICLjP9bvD7Z.6	USER	ALUMNO	1
+194	2020-10-13 14:12:36.091174	eec90109-5df3-4afe-b27e-df7ca840951c	2020-10-13 14:12:38.28165	aldana.orraca.lorenza	t	3o C Pre	Nivel 3	ALDANA ORRACA LORENZA	{bcrypt}$2a$10$h47oqaiaN4Noocip2c3nsO7WKsDJSwo6hKiyITv3sgNm42kgFf0Y2	USER	ALUMNO	1
+195	2020-10-13 14:12:36.175446	72d20b93-99e4-4d52-a709-7bd4afd07564	2020-10-13 14:12:38.281719	avilez.espinosa.elena	t	3o C Pre	Nivel 3	AVILEZ ESPINOSA ELENA	{bcrypt}$2a$10$kgxpHurK6VaBhxmNKyM6ce.Lv5c..TFO7FGfoZZ89Ro.qkHdT52QG	USER	ALUMNO	1
+196	2020-10-13 14:12:36.259598	0c69d431-3179-4566-87a4-9e00f61f0151	2020-10-13 14:12:38.281791	brassel.sosa.javier	t	3o C Pre	Nivel 3	BRASSEL SOSA JAVIER	{bcrypt}$2a$10$fPySYLH7xBu5dO4nqd87q.wQGFC0xG7RVgWAWBRfFxUUam8AG4kLq	USER	ALUMNO	1
+197	2020-10-13 14:12:36.343763	c7d78488-3d4f-40d0-bf15-5fdf3cf97043	2020-10-13 14:12:38.28186	campos.lemus.ana.cecilia	t	3o C Pre	Nivel 3	CAMPOS LEMUS ANA CECILIA	{bcrypt}$2a$10$EEjkD.yE13K2No5oCLteDeJB3M8ca5YjkKakjr75TVHjhu1xsb37a	USER	ALUMNO	1
+198	2020-10-13 14:12:36.427164	843c5748-fb94-4626-aabe-dd6b477617b7	2020-10-13 14:12:38.281926	colin.velazquez.maria.jose	t	3o C Pre	Nivel 3	COLIN VELAZQUEZ MARIA JOSE	{bcrypt}$2a$10$1YM9GrqRGfgLp1jH8DxiN.b.JOpu5GLoXoYdWmNwJWhGmHvceY02q	USER	ALUMNO	1
+199	2020-10-13 14:12:36.511354	24d72e3c-2942-401f-8a08-013da9bb589b	2020-10-13 14:12:38.281993	corominas.morales.sofia	t	3o C Pre	Nivel 3	COROMINAS MORALES SOFIA	{bcrypt}$2a$10$V0Uew45EFNRNYGgtJ2p3L.J27HUdKguUQ8s5xyE.ufoH3t2br0tIy	USER	ALUMNO	1
+200	2020-10-13 14:12:36.603456	c8a27487-fc32-48a8-bb76-23825abbf606	2020-10-13 14:12:38.282251	curiel.gorozpe.pablo	t	3o C Pre	Nivel 3	CURIEL GOROZPE PABLO	{bcrypt}$2a$10$GedG/8AmK.QmqbxYWYhnqOnFRi/tvzdjNNfYnPS30KNlUOUVQa8Nu	USER	ALUMNO	1
+201	2020-10-13 14:12:36.689004	dab19925-b18e-468d-a9b8-b1a373ae1bf8	2020-10-13 14:12:38.282321	chavez.soto.patricio	t	3o C Pre	Nivel 3	CHÁVEZ SOTO PATRICIO	{bcrypt}$2a$10$CBOCO6Z0DRgSURtkIkOQy.EoJNQviBqX804Flf2jJmpBdtwKY.de2	USER	ALUMNO	1
+202	2020-10-13 14:12:36.780247	7e53d3b0-08ce-4148-85cd-b34e9266cd56	2020-10-13 14:12:38.282404	dersdepanian.sanjuan.valentina	t	3o C Pre	Nivel 3	DERSDEPANIAN SANJUAN VALENTINA	{bcrypt}$2a$10$f2PNlulwXO1amPU2o6/TJu3H7NqDhQFT5OVOoHD.wJ2WFZlWInFnm	USER	ALUMNO	1
+203	2020-10-13 14:12:36.86462	c6492d2e-5724-4ed5-a4fd-f6db03f108ee	2020-10-13 14:12:38.282487	garcia.abreu.mariano	t	3o C Pre	Nivel 3	GARCÍA ABREU MARIANO	{bcrypt}$2a$10$oMtfFLPDLd5iaEJ.7cisFOkFVvWg5Gysabh1VtLZhaUlh1gkZdO2a	USER	ALUMNO	1
+204	2020-10-13 14:12:36.948489	0850ea99-d055-4fec-b711-ff2b35a944b5	2020-10-13 14:12:38.282558	gudino.bobadilla.maria.jose	t	3o C Pre	Nivel 3	GUDIÑO BOBADILLA MARÍA JOSÉ	{bcrypt}$2a$10$Uszgp4drgMUBei9V5duhKOK/L2ZBCiF3kuNbbSRjX6zXncVTP1nUO	USER	ALUMNO	1
+205	2020-10-13 14:12:37.033357	72aec71e-ae3d-4e7c-8f28-a8afb17b95a2	2020-10-13 14:12:38.282626	hernandez.luelmo.mariela	t	3o C Pre	Nivel 3	HERNÁNDEZ LUELMO MARIELA	{bcrypt}$2a$10$p6QAYsFSCsRASL.ZwtkBpu9xQqHyiuwjvMHaAgDdn6jeufrb6GmVS	USER	ALUMNO	1
+206	2020-10-13 14:12:37.121448	4ac372a8-237b-4f76-a0a9-2216e9f0d9aa	2020-10-13 14:12:38.282697	hernandez.ortiz.ana.paula	t	3o C Pre	Nivel 3	HERNÁNDEZ ORTÍZ ANA PAULA	{bcrypt}$2a$10$LqstZC2916t7vOHMF372YuTA/JaoqMxbGoB4.9EUqpqZOLHHCjGBu	USER	ALUMNO	1
+207	2020-10-13 14:12:37.208609	c780a57b-78d8-45c5-93b2-336305acf0d5	2020-10-13 14:12:38.282766	ibanez.villavicencio.emilia	t	3o C Pre	Nivel 3	IBAÑEZ VILLAVICENCIO EMILIA	{bcrypt}$2a$10$US7WsNs9vqjeWYUpuuwBkuYt/tZyFb0KGhCPMxWAru.op..Zfa22e	USER	ALUMNO	1
+208	2020-10-13 14:12:37.295652	f248786f-a7e6-46a7-9033-7bdc78bf6066	2020-10-13 14:12:38.282838	isselin.sanchez.anna	t	3o C Pre	Nivel 3	ISSELIN SANCHEZ ANNA	{bcrypt}$2a$10$bdfHkyy7zhJY0eubBJJfP.BUha/iCp7B5JBzfPBWkI6b93/n8a1AC	USER	ALUMNO	1
+209	2020-10-13 14:12:37.380216	682af2d5-8aa5-412b-aaa0-da3c1e3df1c7	2020-10-13 14:12:38.282907	lopez.kalis.maria.ines	t	3o C Pre	Nivel 3	LÓPEZ KALIS MARÍA INÉS	{bcrypt}$2a$10$bRJxKj8CsZKvkjNHt3Pc/eo7yGkuww.GiKraOhaREpnlQYgBebQyG	USER	ALUMNO	1
+210	2020-10-13 14:12:37.465045	0f60770c-08a6-41b5-8664-5522c7864038	2020-10-13 14:12:38.282977	malo.juvera.mendez.ian	t	3o C Pre	Nivel 3	MALO JUVERA MENDEZ IAN	{bcrypt}$2a$10$.D32.xZuYthg8NInjULRgOkWOzjXWj3WXeCrtt650nua2gkMKhuh6	USER	ALUMNO	1
+211	2020-10-13 14:12:37.54943	6c90d150-e7f8-4bd7-84a0-c410bd99acd3	2020-10-13 14:12:38.283079	miracle.zubiria.alexander	t	3o C Pre	Nivel 3	MIRACLE ZUBIRÍA ALEXANDER	{bcrypt}$2a$10$hrzaqTl8yYpFVKxfEwKJd.Xc2JwQvtZiKedALjW6uwWC189taQbLK	USER	ALUMNO	1
+212	2020-10-13 14:12:37.636358	92201865-c02c-43a3-87cf-98bfe07d9951	2020-10-13 14:12:38.283142	montes.de.oca.rojas.rafaella	t	3o C Pre	Nivel 3	MONTES DE OCA ROJAS RAFAELLA	{bcrypt}$2a$10$IQ6wnQsroOLOUrcuR1fmFO8eO82YcAX6ENfNSrx2pDgL7rssWzHOG	USER	ALUMNO	1
+213	2020-10-13 14:12:37.721016	840dc749-7cf3-4b4b-b5ff-8715fb1fbac9	2020-10-13 14:12:38.283214	payro.estrada.luis.alejandro	t	3o C Pre	Nivel 3	PAYRO ESTRADA LUIS ALEJANDRO	{bcrypt}$2a$10$Jd1TjSdcfcj0G8vWlw1u4eXHC4ft95CKEDmSRwogWsM26j.5sUoDW	USER	ALUMNO	1
+214	2020-10-13 14:12:37.805308	b3a2f2da-f5c1-4f21-a95f-a98a17d1ef8a	2020-10-13 14:12:38.283281	ramirez.cifuentes.jorge	t	3o C Pre	Nivel 3	RAMÍREZ CIFUENTES JORGE	{bcrypt}$2a$10$a.DXMleotuLfW7RR3tZ.5eZugFtOd2ASQScZPGXDL82jET1UBQLaG	USER	ALUMNO	1
+215	2020-10-13 14:12:37.89407	ebe2c8a0-e82c-4855-a4c1-e2a2da9bee08	2020-10-13 14:12:38.283344	rangel.villegas.elisa	t	3o C Pre	Nivel 3	RANGEL VILLEGAS ELISA	{bcrypt}$2a$10$pFdWBUmPb7wuMmfxdWlCNejMTqCF69YZz8hQq6PJsQl1s50dj0mQ.	USER	ALUMNO	1
+216	2020-10-13 14:12:37.97851	e82ded50-3623-4998-a78a-79f858b240a7	2020-10-13 14:12:38.283436	sanchez.mendoza.fernando	t	3o C Pre	Nivel 3	SÁNCHEZ MENDOZA FERNANDO	{bcrypt}$2a$10$2BTQzg33oM2CCx33Ven7be/r/f1/zdKNzn/3kvLMnPEIqA6rwuaWq	USER	ALUMNO	1
+217	2020-10-13 14:12:38.064998	0e740dcf-f36f-45c0-b042-4fab1fad44ca	2020-10-13 14:12:38.283504	santos.pliego.ignacio	t	3o C Pre	Nivel 3	SANTOS PLIEGO IGNACIO	{bcrypt}$2a$10$iV7oP/9rFG/EpHnxaDDFkOz7rHfbaa2H0giITtylN.l4OmdW5Hk4e	USER	ALUMNO	1
+218	2020-10-13 14:12:38.151503	079258f5-56aa-4f3c-bff1-8887931d206b	2020-10-13 14:12:38.283567	valero.tejeda.sofia	t	3o C Pre	Nivel 3	VALERO TEJEDA SOFIA	{bcrypt}$2a$10$CVc97nAks/zLQoy81UBj.u3Qs44tM6HQ4u4WdVEBUc9.NdAwzUxNO	USER	ALUMNO	1
+219	2020-10-13 14:12:38.235709	c6fd1f60-9f8c-46b1-9b8c-3b78b2caa2d7	2020-10-13 14:12:38.283633	valle.sordo.inigo	t	3o C Pre	Nivel 3	VALLE SORDO IÑIGO	{bcrypt}$2a$10$SVrD2fzJtf58ZwwvGrtL8eHjf8So83rjKv0E0yptQ5mPJ9Rrlfn0G	USER	ALUMNO	1
+\.
+
+
+--
+-- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user01
+--
+
+SELECT pg_catalog.setval('public.usuario_id_seq', 219, true);
+
+
+--
+-- Name: archivo archivo_pkey; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.archivo
+    ADD CONSTRAINT archivo_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: coleccion coleccion_pkey; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.coleccion
+    ADD CONSTRAINT coleccion_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: documento documento_pkey; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.documento
+    ADD CONSTRAINT documento_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: escuela escuela_pkey; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela
+    ADD CONSTRAINT escuela_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: grupo grupo_pkey; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.grupo
+    ADD CONSTRAINT grupo_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: licencia licencia_pkey; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.licencia
+    ADD CONSTRAINT licencia_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: spring_session_attributes spring_session_attributes_pk; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.spring_session_attributes
+    ADD CONSTRAINT spring_session_attributes_pk PRIMARY KEY (session_primary_id, attribute_name);
+
+
+--
+-- Name: spring_session spring_session_pk; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.spring_session
+    ADD CONSTRAINT spring_session_pk PRIMARY KEY (primary_id);
+
+
+--
+-- Name: usuario uk_5171l57faosmj8myawaucatdw; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT uk_5171l57faosmj8myawaucatdw UNIQUE (email);
+
+
+--
+-- Name: escuela_licencias uk_c0c26ct3cedjfjr44ej1rah7n; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela_licencias
+    ADD CONSTRAINT uk_c0c26ct3cedjfjr44ej1rah7n UNIQUE (licencias_id);
+
+
+--
+-- Name: coleccion_documentos uk_hh7jkhquu1yh6r6owol04lp29; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.coleccion_documentos
+    ADD CONSTRAINT uk_hh7jkhquu1yh6r6owol04lp29 UNIQUE (documentos_id);
+
+
+--
+-- Name: escuela_grupos uk_n2483dkfmg96yu8351kwvlghi; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela_grupos
+    ADD CONSTRAINT uk_n2483dkfmg96yu8351kwvlghi UNIQUE (grupos_id);
+
+
+--
+-- Name: escuela_usuarios uk_ow1pn2p0qva0j5cwcvi32cb9j; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela_usuarios
+    ADD CONSTRAINT uk_ow1pn2p0qva0j5cwcvi32cb9j UNIQUE (usuarios_id);
+
+
+--
+-- Name: escuela uk_tecn3hfl3p8mpvp5wdr0lnjs; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela
+    ADD CONSTRAINT uk_tecn3hfl3p8mpvp5wdr0lnjs UNIQUE (nombre);
+
+
+--
+-- Name: usuario usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT usuario_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: spring_session_ix1; Type: INDEX; Schema: public; Owner: user01
+--
+
+CREATE UNIQUE INDEX spring_session_ix1 ON public.spring_session USING btree (session_id);
+
+
+--
+-- Name: spring_session_ix2; Type: INDEX; Schema: public; Owner: user01
+--
+
+CREATE INDEX spring_session_ix2 ON public.spring_session USING btree (expiry_time);
+
+
+--
+-- Name: spring_session_ix3; Type: INDEX; Schema: public; Owner: user01
+--
+
+CREATE INDEX spring_session_ix3 ON public.spring_session USING btree (principal_name);
+
+
+--
+-- Name: licencia fk3h6s6f6rmhjuxk61c4dkge8x9; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.licencia
+    ADD CONSTRAINT fk3h6s6f6rmhjuxk61c4dkge8x9 FOREIGN KEY (coleccion_id) REFERENCES public.coleccion(id);
+
+
+--
+-- Name: escuela_licencias fk4b488e7p62topkbbasmrel8do; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela_licencias
+    ADD CONSTRAINT fk4b488e7p62topkbbasmrel8do FOREIGN KEY (escuela_id) REFERENCES public.escuela(id);
+
+
+--
+-- Name: usuario fkatlwuce9mkhe993kugpd6p7hy; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT fkatlwuce9mkhe993kugpd6p7hy FOREIGN KEY (escuela_id) REFERENCES public.escuela(id);
+
+
+--
+-- Name: licencia fkbk4oy46l87xxtuad3pye5v4mf; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.licencia
+    ADD CONSTRAINT fkbk4oy46l87xxtuad3pye5v4mf FOREIGN KEY (escuela_id) REFERENCES public.escuela(id);
+
+
+--
+-- Name: escuela_grupos fkcqs8fse8ehemrv845mdlgeae4; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela_grupos
+    ADD CONSTRAINT fkcqs8fse8ehemrv845mdlgeae4 FOREIGN KEY (escuela_id) REFERENCES public.escuela(id);
+
+
+--
+-- Name: escuela_usuarios fkeh941dtf3rlvl5mw66a5pyapx; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela_usuarios
+    ADD CONSTRAINT fkeh941dtf3rlvl5mw66a5pyapx FOREIGN KEY (usuarios_id) REFERENCES public.usuario(id);
+
+
+--
+-- Name: escuela_grupos fkggq7g29do2amiahklyuk2r3eu; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela_grupos
+    ADD CONSTRAINT fkggq7g29do2amiahklyuk2r3eu FOREIGN KEY (grupos_id) REFERENCES public.grupo(id);
+
+
+--
+-- Name: coleccion_documentos fkhudm3inkupd4f2fq3pnm4hr0e; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.coleccion_documentos
+    ADD CONSTRAINT fkhudm3inkupd4f2fq3pnm4hr0e FOREIGN KEY (documentos_id) REFERENCES public.documento(id);
+
+
+--
+-- Name: escuela_usuarios fko09qplooxpy4lnyjcog2n6epa; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela_usuarios
+    ADD CONSTRAINT fko09qplooxpy4lnyjcog2n6epa FOREIGN KEY (escuela_id) REFERENCES public.escuela(id);
+
+
+--
+-- Name: escuela_licencias fkoccr8l0kqpj75xmrwi84mk5qv; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.escuela_licencias
+    ADD CONSTRAINT fkoccr8l0kqpj75xmrwi84mk5qv FOREIGN KEY (licencias_id) REFERENCES public.licencia(id);
+
+
+--
+-- Name: grupo fkowphisb2r1bv52bko9xab07y5; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.grupo
+    ADD CONSTRAINT fkowphisb2r1bv52bko9xab07y5 FOREIGN KEY (escuela_id) REFERENCES public.escuela(id);
+
+
+--
+-- Name: coleccion_documentos fktre53co4qj56ocdm872ld07s8; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.coleccion_documentos
+    ADD CONSTRAINT fktre53co4qj56ocdm872ld07s8 FOREIGN KEY (coleccion_id) REFERENCES public.coleccion(id);
+
+
+--
+-- Name: spring_session_attributes spring_session_attributes_fk; Type: FK CONSTRAINT; Schema: public; Owner: user01
+--
+
+ALTER TABLE ONLY public.spring_session_attributes
+    ADD CONSTRAINT spring_session_attributes_fk FOREIGN KEY (session_primary_id) REFERENCES public.spring_session(primary_id) ON DELETE CASCADE;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
